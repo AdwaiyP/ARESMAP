@@ -159,4 +159,5 @@ Full technical specifications live in **[docs/README.md](docs/README.md)**:
 - [07 — 3D Terrain, Street View & 5×5 Chunks](docs/07_3D_TERRAIN_STREETVIEW_AND_CHUNKS.md)
 - [08 — Database Setup & Seeding Guide](docs/08_DATABASE_SETUP_AND_SEEDING.md)
 - [09 — Local Hosting & Cloudflare Tunnel Guide](docs/09_LOCAL_HOSTING_AND_CLOUDFLARE_TUNNEL.md)
+- [10 — Local Server Performance & Device Specs](docs/10_BENCHMARK_AND_DEVICE_SPECS.md)
 - [API Gateway Reference](docs/API_GATEWAY.md)
