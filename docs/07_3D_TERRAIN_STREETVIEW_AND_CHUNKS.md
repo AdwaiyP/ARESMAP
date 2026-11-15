@@ -96,4 +96,9 @@ To address NASA's hyperlocal individual-spacewalk requirement:
   - **Satellite Orbital Relay:** Users can configure **Orbit (min)** (default `112` min) and **Offset (min)**, or click **`Sat Nearby (Reset Pass)`** to mark the relay overhead and reset the pass countdown.
 - **Surface Radiation & Space Weather (`backend/app/services/radiation.py`, `GET /api/v1/map/radiation`):**
   - Computes elevation-adjusted MSL RAD GCR dose rate (`µSv/hr`, `mSv/day`), atmospheric CO₂ column shielding (`g/cm²`), 4-hour EVA dose, and live/cached NASA DONKI Solar Energetic Particle (`SEP`) storm alerts in both the sidebar HUD and the 3D Globe inspector.
+- **Street View Photo-Clinometry Micro-Relief & Route Re-Draping (`frontend/chunks3d.js` + `frontend/streetview.js`):**
+  - `_applyPhotoRelief()` derives high-frequency terrain micro-relief from NASA orbital imagery (tapered to `0.0 m` at chunk borders) with orbital bump mapping (`bumpScale = 3.2`) and raking afternoon sunlight, while `ares-chunk-relief` automatically re-drapes 3D EVA route tubes onto the updated surface.
+- **Interactive `? Guide` & Custom Quick Jump Bookmarks (`frontend/index.html` + `frontend/app.js`):**
+  - Header **`? Guide`** launches a 7-step spotlight-blurred walkthrough (`#tour-backdrop` + `#tour-card`).
+  - **Quick Jump** syncs across 2D Map, 3D Globe, and Street View (`window.jumpStreetViewTo`), and users can save/remove custom Quick Jump bookmarks (`localStorage.ares_custom_jumps`).
 
