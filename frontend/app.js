@@ -1002,6 +1002,14 @@ async function handleEvaPlanClick(lat, lng) {
   evaPlanMode = false;
   evaStart = null;
   document.getElementById("btn-plan-eva").classList.remove("active");
+  await window.planEvaBetween(start, goal);
+}
+
+window.planEvaBetween = async (start, goal) => {
+  evaPlanGroup.clearLayers();
+  L.circleMarker([start.lat, start.lng], { radius: 7, color: "#22c55e", fillColor: "#22c55e", fillOpacity: 0.9 })
+    .bindTooltip("EVA Start")
+    .addTo(evaPlanGroup);
 
   const midLat = 0.5 * (start.lat + goal.lat);
   const midLon = 0.5 * (start.lng + goal.lng);
@@ -1076,7 +1084,7 @@ async function handleEvaPlanClick(lat, lng) {
   if (route.status !== "success" || !Array.isArray(route.route)) {
     inspectorBadge.textContent = "NO ROUTE";
     inspectorBody.innerHTML = `<p class="muted">No safe EVA path found (&lt; 25° slope): ${route.message || "blocked"}.</p>`;
-    return;
+    return { status: "no_route", message: route.message || "blocked" };
   }
 
   const latLngs = route.route.map((pt) => {
@@ -1212,7 +1220,18 @@ async function handleEvaPlanClick(lat, lng) {
       window.openStreetView(start.lng, start.lat, "Hyperlocal EVA", stops);
     }
   });
-}
+
+  return {
+    status: "success",
+    latLngs,
+    distM,
+    walkMin,
+    routeStatus,
+    o2Used,
+    safety,
+    stops,
+  };
+};
 
 document.getElementById("btn-plan-eva").addEventListener("click", (e) => {
   evaPlanMode = !evaPlanMode;

@@ -6,6 +6,9 @@ let renderer, scene, camera, controls, activeGroup, mroSat, globeSphere;
 let chunkMgr = null;
 let horizonSkirt = null;
 let pickables = [];
+let globePlanMode = false;
+let globeRouteStart = null;
+let globeRouteGroup = null;
 let lastBbox = [137.25, -4.9, 137.65, -4.5];
 let animId = null;
 let mroAngle = 0;
@@ -21,6 +24,7 @@ const canvas = document.getElementById("terrain-3d-canvas");
 const statsEl = document.getElementById("terrain-3d-stats");
 const modeSelect = document.getElementById("terrain-3d-mode");
 const globeTexSelect = document.getElementById("terrain-3d-globe-tex");
+const globePlanBtn = document.getElementById("btn-globe-plan-eva");
 const exagInput = document.getElementById("terrain-3d-exag");
 const exagWrap = document.getElementById("exag-wrap");
 const colorSelect = document.getElementById("terrain-3d-color");
@@ -91,6 +95,10 @@ function clearGroup() {
   globeSphere = null;
   horizonSkirt = null;
   pickables = [];
+  globeRouteGroup = null;
+  globeRouteStart = null;
+  globePlanMode = false;
+  if (globePlanBtn) globePlanBtn.classList.remove("active");
 }
 
 function resizeCanvas() {
@@ -121,15 +129,93 @@ function vec3ToLatLon(pt) {
   return { lat, lon };
 }
 
+async function handleGlobeRoutePoint(lat, lon) {
+  if (!globeRouteGroup) {
+    globeRouteGroup = new THREE.Group();
+    activeGroup.add(globeRouteGroup);
+  }
+  if (!globeRouteStart) {
+    globeRouteStart = { lat, lng: lon };
+    while (globeRouteGroup.children.length) globeRouteGroup.remove(globeRouteGroup.children[0]);
+    const startPin = new THREE.Mesh(
+      new THREE.SphereGeometry(0.32, 14, 14),
+      new THREE.MeshBasicMaterial({ color: 0x22c55e })
+    );
+    startPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.3));
+    globeRouteGroup.add(startPin);
+    statsEl.textContent = `EVA Start: ${lat.toFixed(3)}°, ${lon.toFixed(3)}° — Click Goal on Mars Globe`;
+    infoCard.classList.remove("hidden");
+    infoTitle.textContent = "Globe EVA Planner";
+    infoBody.innerHTML = `<div>Start set at <strong>${lat.toFixed(4)}°, ${lon.toFixed(4)}°</strong>. Click a Goal point on the Mars Globe.</div>`;
+    return;
+  }
+
+  const start = globeRouteStart;
+  const goal = { lat, lng: lon };
+  globeRouteStart = null;
+  globePlanMode = false;
+  if (globePlanBtn) globePlanBtn.classList.remove("active");
+
+  const goalPin = new THREE.Mesh(
+    new THREE.SphereGeometry(0.32, 14, 14),
+    new THREE.MeshBasicMaterial({ color: 0xef4444 })
+  );
+  goalPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.3));
+  globeRouteGroup.add(goalPin);
+
+  infoCard.classList.remove("hidden");
+  infoTitle.textContent = "Computing Globe EVA Route...";
+  infoBody.innerHTML = `<div>Running terrain-aware A* / Theta* planner...</div>`;
+
+  if (!window.planEvaBetween) {
+    infoBody.innerHTML = `<div>Route planner unavailable.</div>`;
+    return;
+  }
+
+  const res = await window.planEvaBetween(start, goal);
+  if (!res || res.status !== "success" || !res.latLngs?.length) {
+    infoTitle.textContent = "No Safe EVA Route";
+    infoBody.innerHTML = `<div>${res?.message || "Blocked by steep terrain."}</div>`;
+    statsEl.textContent = "Globe EVA Route: No safe path";
+    return;
+  }
+
+  const pts = res.latLngs.map(([la, lo]) => latLonToVec3(la, lo, GLOBE_R + 0.24));
+  const routeLine = new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({ color: 0x38bdf8 })
+  );
+  globeRouteGroup.add(routeLine);
+
+  infoTitle.textContent = "Globe EVA Route Ready";
+  infoBody.innerHTML =
+    `<div><strong>Status:</strong> ${res.routeStatus}</div>` +
+    `<div><strong>Distance:</strong> ${Math.round(res.distM)} m (${res.walkMin} min)</div>` +
+    `<div><strong>PLSS O₂ Est.:</strong> ~${res.o2Used}%</div>` +
+    `<button id="btn-globe-walk-sv" style="margin-top:6px;width:100%;border-color:#22c55e;color:#bbf7d0;">Walk EVA in Street View</button>`;
+  document.getElementById("btn-globe-walk-sv")?.addEventListener("click", () => {
+    if (window.openStreetView) {
+      window.openStreetView(start.lng, start.lat, "Globe EVA Route", res.stops || []);
+    }
+  });
+  statsEl.textContent = `Globe EVA Route: ${Math.round(res.distM)} m · ${res.routeStatus}`;
+}
+
 async function inspectGlobeLocation(lat, lon, featureData = null) {
   infoCard.classList.remove("hidden");
   infoTitle.textContent = featureData?.name || "Mars Surface Point";
+  const routeBtnLabel = globeRouteStart ? "Plan EVA Route to Here" : "Set as EVA Route Start";
   infoBody.innerHTML =
     `<div><strong>Lat / Lon:</strong> ${lat.toFixed(4)}°, ${lon.toFixed(4)}°</div>` +
     (featureData?.elevation_m != null ? `<div><strong>Elevation:</strong> ${featureData.elevation_m} m</div>` : "") +
     (featureData?.description ? `<div style="margin-top:3px;">${featureData.description}</div>` : "") +
     `<div id="globe-env-extra" style="margin-top:5px;">Querying elevation, thermal &amp; radiation...</div>` +
-    `<button id="btn-globe-zoom-local" style="margin-top:6px;width:100%;border-color:#38bdf8;color:#bae6fd;">Open 3D Local Terrain Here</button>`;
+    `<button id="btn-globe-route-pt" style="margin-top:6px;width:100%;border-color:#22c55e;color:#bbf7d0;">${routeBtnLabel}</button>` +
+    `<button id="btn-globe-zoom-local" style="margin-top:4px;width:100%;border-color:#38bdf8;color:#bae6fd;">Open 3D Local Terrain Here</button>`;
+
+  document.getElementById("btn-globe-route-pt").addEventListener("click", () => {
+    handleGlobeRoutePoint(lat, lon);
+  });
 
   document.getElementById("btn-globe-zoom-local").addEventListener("click", () => {
     const pad = 0.2;
@@ -141,14 +227,16 @@ async function inspectGlobeLocation(lat, lon, featureData = null) {
   try {
     const pad = 0.25;
     const bbox = `${(lon - pad).toFixed(3)},${(lat - pad).toFixed(3)},${(lon + pad).toFixed(3)},${(lat + pad).toFixed(3)}`;
-    const [gridRes, telRes, climRes] = await Promise.all([
+    const elevVal = featureData?.elevation_m ?? -3000;
+    const [gridRes, telRes, climRes, radRes] = await Promise.all([
       fetch(`/api/v1/map/terrain-grid?bbox=${bbox}&rows=8&cols=8`),
       fetch("/api/v1/map/telemetry?station_id=jezero_meda_sol100"),
       fetch("/api/v1/climate/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ latitude: lat, longitude: lon, ltst_time: "13:30", elevation_m: featureData?.elevation_m ?? -3000 }),
+        body: JSON.stringify({ latitude: lat, longitude: lon, ltst_time: "13:30", elevation_m: elevVal }),
       }).catch(() => null),
+      fetch(`/api/v1/map/radiation?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&elevation_m=${encodeURIComponent(elevVal)}`).catch(() => null),
     ]);
 
     const lines = [];
@@ -161,12 +249,15 @@ async function inspectGlobeLocation(lat, lon, featureData = null) {
       const p = cl.predictions || {};
       if (p.air_temp_c != null) lines.push(`<div><strong>Pred. Temp:</strong> ${Number(p.air_temp_c).toFixed(1)} °C</div>`);
     }
+    if (radRes && radRes.ok) {
+      const rd = (await radRes.json()).radiation || {};
+      lines.push(`<div><strong>Ionizing Rad (RAD):</strong> ${rd.total_dose_rate_usv_hr ?? "--"} µSv/hr (${rd.safety_state ?? "NOMINAL"})</div>`);
+    }
     if (telRes.ok) {
       const tel = await telRes.json();
       const rec = (tel.records || [])[Math.floor((tel.records || []).length / 2)];
       if (rec) {
         lines.push(`<div><strong>MEDA Thermal (Sol 100):</strong> Air ${rec.air_temp_c_mean?.toFixed(1)}°C / Ground ${rec.ground_ir_temp_c_mean?.toFixed(1)}°C</div>`);
-        lines.push(`<div><strong>Optical RDS / Ionizing Rad:</strong> ${rec.optical_rds_top7_mean?.toFixed(4)} / UNKNOWN</div>`);
       }
     }
     extraEl.innerHTML = lines.join("") || "No environmental telemetry at this point.";
@@ -185,7 +276,8 @@ function handleGlobeClick(e) {
   const pinHits = raycaster.intersectObjects(pickables, false);
   if (pinHits.length > 0) {
     const ud = pinHits[0].object.userData;
-    inspectGlobeLocation(ud.lat, ud.lon, ud);
+    if (globePlanMode) handleGlobeRoutePoint(ud.lat, ud.lon);
+    else inspectGlobeLocation(ud.lat, ud.lon, ud);
     return;
   }
 
@@ -194,7 +286,8 @@ function handleGlobeClick(e) {
     const sphereHits = raycaster.intersectObject(globeSphere, false);
     if (sphereHits.length > 0) {
       const { lat, lon } = vec3ToLatLon(sphereHits[0].point);
-      inspectGlobeLocation(lat, lon, null);
+      if (globePlanMode) handleGlobeRoutePoint(lat, lon);
+      else inspectGlobeLocation(lat, lon, null);
     }
   }
 }
@@ -202,6 +295,7 @@ function handleGlobeClick(e) {
 function syncControlsVisibility() {
   const isGlobe = modeSelect.value === "globe";
   globeTexSelect.style.display = isGlobe ? "" : "none";
+  if (globePlanBtn) globePlanBtn.style.display = isGlobe ? "" : "none";
   exagWrap.style.display = isGlobe ? "none" : "";
   colorSelect.style.display = isGlobe ? "none" : "";
   t3dScaleBar?.classList.toggle("hidden", isGlobe);
@@ -452,6 +546,14 @@ modeSelect.addEventListener("change", () => {
 });
 globeTexSelect.addEventListener("change", () => {
   if (modeSelect.value === "globe") buildGlobe();
+});
+globePlanBtn?.addEventListener("click", () => {
+  globePlanMode = !globePlanMode;
+  globeRouteStart = null;
+  globePlanBtn.classList.toggle("active", globePlanMode);
+  statsEl.textContent = globePlanMode
+    ? "Globe EVA Planner: Click Start point on Mars Globe"
+    : "Mars 3D Globe";
 });
 exagInput.addEventListener("input", () => {
   if (modeSelect.value === "terrain") chunkMgr?.rebuildAll(colorSelect.value, Number(exagInput.value || 3));
