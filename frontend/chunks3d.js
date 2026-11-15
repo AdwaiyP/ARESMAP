@@ -195,15 +195,48 @@ export class MarsChunkManager {
             return;
           }
           ch.texture = t;
+          this._applyPhotoRelief(ch);
           if (this.colorMode === "orbital") {
-            mesh.material.map = t;
-            mesh.material.vertexColors = false;
-            mesh.material.needsUpdate = true;
+            mesh.material.dispose();
+            mesh.material = this._applyGeometryAndMaterial(mesh.geometry, ch);
           }
         }
       );
     } finally {
       this.loading.delete(key);
+    }
+  }
+
+  _applyPhotoRelief(ch) {
+    const img = ch.texture?.image;
+    if (!img || !img.width || !img.height || ch.reliefApplied) return;
+    ch.reliefApplied = true;
+
+    const N = this.gridN;
+    const c = document.createElement("canvas");
+    c.width = N;
+    c.height = N;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(img, 0, 0, N, N);
+    const data = ctx.getImageData(0, 0, N, N).data;
+
+    const lum = new Float32Array(N * N);
+    let mean = 0;
+    for (let i = 0; i < N * N; i++) {
+      const v = (0.299 * data[i * 4] + 0.587 * data[i * 4 + 1] + 0.114 * data[i * 4 + 2]) / 255;
+      lum[i] = v;
+      mean += v;
+    }
+    mean /= N * N;
+
+    // Shape-from-shading micro-relief (tapered to 0 at chunk borders to preserve 0.0m seam alignment)
+    const reliefAmp = this.chunkWorld > 200 ? 14.0 : 4.0;
+    for (let r = 1; r < N - 1; r++) {
+      for (let col = 1; col < N - 1; col++) {
+        const borderFade = Math.min(1, Math.min(r, N - 1 - r, col, N - 1 - col) / 3);
+        const delta = lum[r * N + col] - mean;
+        ch.grid.elevation_m[r][col] += delta * reliefAmp * borderFade;
+      }
     }
   }
 
@@ -247,15 +280,18 @@ export class MarsChunkManager {
     geom.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     geom.computeVertexNormals();
 
-    const bumpTex = getRegolithBumpTexture();
-    const bumpScale = this.chunkWorld > 200 ? 0.35 : 0.08;
+    const bumpTex = this.colorMode === "orbital" && ch.texture ? ch.texture : getRegolithBumpTexture();
+    const bumpScale =
+      this.colorMode === "orbital" && ch.texture
+        ? (this.chunkWorld > 200 ? 3.2 : 0.85)
+        : (this.chunkWorld > 200 ? 0.35 : 0.08);
     if (this.colorMode === "orbital" && ch.texture) {
       return new THREE.MeshStandardMaterial({
         map: ch.texture,
         bumpMap: bumpTex,
         bumpScale,
-        roughness: 0.92,
-        metalness: 0.03,
+        roughness: 0.94,
+        metalness: 0.02,
       });
     }
     return new THREE.MeshStandardMaterial({

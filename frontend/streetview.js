@@ -64,10 +64,10 @@ function ensureRenderer() {
   camera = new THREE.PerspectiveCamera(68, 16 / 9, 0.05, 8000);
   camera.rotation.order = "YXZ";
 
-  scene.add(new THREE.AmbientLight(0xffd7c2, 0.45));
-  scene.add(new THREE.HemisphereLight(0xffcfb8, 0x3f2117, 0.75));
-  const sun = new THREE.DirectionalLight(0xfff1e0, 1.35);
-  sun.position.set(500, 700, 400);
+  scene.add(new THREE.AmbientLight(0xffd7c2, 0.22));
+  scene.add(new THREE.HemisphereLight(0xffcfb8, 0x2b140c, 0.48));
+  const sun = new THREE.DirectionalLight(0xfff1e0, 1.85);
+  sun.position.set(900, 360, 620);
   scene.add(sun);
 
   terrainGroup = new THREE.Group();
