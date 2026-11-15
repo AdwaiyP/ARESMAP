@@ -555,7 +555,12 @@ async function loadStop(idx) {
   if (!activeStops.length) return;
   activeStopIdx = Math.max(0, Math.min(activeStops.length - 1, idx));
   const stop = activeStops[activeStopIdx];
-  await loadPatchAt(stop.lon, stop.lat, stop.label || "EVA Stop", `${activeStopIdx + 1}/${activeStops.length}`);
+  window.aresLoader?.show(`Streaming 5×5 Mars terrain chunks & imagery for ${stop.label || "EVA Stop"}...`, 40);
+  try {
+    await loadPatchAt(stop.lon, stop.lat, stop.label || "EVA Stop", `${activeStopIdx + 1}/${activeStops.length}`);
+  } finally {
+    window.aresLoader?.hide();
+  }
   if (activeStopIdx + 1 < activeStops.length) {
     const nxt = activeStops[activeStopIdx + 1];
     const brg = (Math.atan2(nxt.lon - stop.lon, nxt.lat - stop.lat) * 180) / Math.PI;

@@ -318,6 +318,8 @@ async function buildGlobe() {
   infoCard.classList.add("hidden");
   const style = globeTexSelect.value || "viking_red";
   statsEl.textContent = "Loading High-Res 3D Mars Globe (z=2)...";
+  window.aresLoader?.show("Draping 2048×1024 Mars Globe & rover tracks...", 45);
+  try {
 
   camera.position.set(0, 16, 62);
   controls.target.set(0, 0, 0);
@@ -456,6 +458,9 @@ async function buildGlobe() {
 
   window.syncGlobeLayers();
   statsEl.textContent = `3D Mars Globe (2048×1024) | Click any dot or point on Mars to inspect`;
+  } finally {
+    window.aresLoader?.hide();
+  }
 }
 
 async function loadLocalTerrain(bbox, label = "3D Local Terrain") {
@@ -500,7 +505,12 @@ async function loadLocalTerrain(bbox, label = "3D Local Terrain") {
   controls.update();
 
   statsEl.textContent = `Streaming 3×3 Mars chunks around ${centerLat.toFixed(3)}°, ${centerLon.toFixed(3)}°...`;
-  await chunkMgr.updateAround(start.x, start.z);
+  window.aresLoader?.show(`Streaming 3D terrain chunks for ${label}...`, 50);
+  try {
+    await chunkMgr.updateAround(start.x, start.z);
+  } finally {
+    window.aresLoader?.hide();
+  }
   if (Array.isArray(window.aresRouteStops) && window.aresRouteStops.length) {
     drawRoutePath3D(activeGroup, window.aresRouteStops, chunkMgr);
   }

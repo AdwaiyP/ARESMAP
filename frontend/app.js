@@ -1109,62 +1109,68 @@ window.planEvaBetween = async (start, goal) => {
   inspectorBody.innerHTML = `<p class="muted">Computing hyperlocal slope-aware A* EVA path...</p>`;
 
   const N = 50;
-  const gridRes = await fetch(`/api/v1/map/terrain-grid?bbox=${bboxStr}&rows=${N}&cols=${N}`);
-  const grid = await gridRes.json();
+  let grid, route;
+  window.aresLoader?.show("Fetching 50×50 terrain grid & computing A*/Theta* EVA route...", 40);
+  try {
+    const gridRes = await fetch(`/api/v1/map/terrain-grid?bbox=${bboxStr}&rows=${N}&cols=${N}`);
+    grid = await gridRes.json();
 
-  const toCol = (lo) => Math.min(N - 1, Math.max(0, Math.round(((lo - minLon) / (maxLon - minLon)) * (N - 1))));
-  const toRow = (la) => Math.min(N - 1, Math.max(0, Math.round(((maxLat - la) / (maxLat - minLat)) * (N - 1))));
+    const toCol = (lo) => Math.min(N - 1, Math.max(0, Math.round(((lo - minLon) / (maxLon - minLon)) * (N - 1))));
+    const toRow = (la) => Math.min(N - 1, Math.max(0, Math.round(((maxLat - la) / (maxLat - minLat)) * (N - 1))));
 
-  const sx = toCol(start.lng);
-  const sy = toRow(start.lat);
-  const gx = toCol(goal.lng);
-  const gy = toRow(goal.lat);
+    const sx = toCol(start.lng);
+    const sy = toRow(start.lat);
+    const gx = toCol(goal.lng);
+    const gy = toRow(goal.lat);
 
-  const cellLat = (maxLat - minLat) / (N - 1);
-  const cellLon = (maxLon - minLon) / (N - 1);
-  let hazardCount = 0;
-  const riskGrid = (grid.slope_deg || []).map((row, r) =>
-    row.map((s, c) => {
-      if (s >= 15) {
-        hazardCount++;
-        const cLat = maxLat - r * cellLat;
-        const cLon = minLon + c * cellLon;
-        const color = s >= 25 ? "#ef4444" : "#eab308";
-        L.rectangle(
-          [[cLat - cellLat / 2, cLon - cellLon / 2], [cLat + cellLat / 2, cLon + cellLon / 2]],
-          { color, weight: 0, fillColor: color, fillOpacity: s >= 25 ? 0.45 : 0.25 }
-        ).addTo(evaPlanGroup);
-      }
-      return Math.min(1.0, s / 25.0);
-    })
-  );
+    const cellLat = (maxLat - minLat) / (N - 1);
+    const cellLon = (maxLon - minLon) / (N - 1);
+    var hazardCount = 0;
+    const riskGrid = (grid.slope_deg || []).map((row, r) =>
+      row.map((s, c) => {
+        if (s >= 15) {
+          hazardCount++;
+          const cLat = maxLat - r * cellLat;
+          const cLon = minLon + c * cellLon;
+          const color = s >= 25 ? "#ef4444" : "#eab308";
+          L.rectangle(
+            [[cLat - cellLat / 2, cLon - cellLon / 2], [cLat + cellLat / 2, cLon + cellLon / 2]],
+            { color, weight: 0, fillColor: color, fillOpacity: s >= 25 ? 0.45 : 0.25 }
+          ).addTo(evaPlanGroup);
+        }
+        return Math.min(1.0, s / 25.0);
+      })
+    );
 
-  const algo = document.getElementById("eva-algo")?.value || "astar";
-  const evaBudgetM = Math.max(100, Number(document.getElementById("eva-budget-m")?.value || 2000));
-  const maxSlopeDeg = Math.min(45, Math.max(5, Number(document.getElementById("eva-max-slope")?.value || 25)));
-  const plssO2Pct = Math.min(100, Math.max(0, Number(document.getElementById("eva-plss-o2")?.value || 82)));
-  const minReservePct = Math.min(90, Math.max(0, Number(document.getElementById("eva-reserve-pct")?.value || 25)));
-  const envCondition = document.getElementById("eva-env-state")?.value || "nominal";
+    var algo = document.getElementById("eva-algo")?.value || "astar";
+    const evaBudgetM = Math.max(100, Number(document.getElementById("eva-budget-m")?.value || 2000));
+    const maxSlopeDeg = Math.min(45, Math.max(5, Number(document.getElementById("eva-max-slope")?.value || 25)));
+    const plssO2Pct = Math.min(100, Math.max(0, Number(document.getElementById("eva-plss-o2")?.value || 82)));
+    const minReservePct = Math.min(90, Math.max(0, Number(document.getElementById("eva-reserve-pct")?.value || 25)));
+    const envCondition = document.getElementById("eva-env-state")?.value || "nominal";
 
-  const routeRes = await fetch("/api/v1/routes/plan", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      start: { x: sx, y: sy },
-      goal: { x: gx, y: gy },
-      elevation: grid.elevation_m,
-      risk: riskGrid,
-      risk_weight: 10.0,
-      cell_size_m: grid.cell_size_m || 10.0,
-      max_slope_deg: maxSlopeDeg,
-      algorithm: algo,
-      eva_budget_m: evaBudgetM,
-      plss_o2_pct: plssO2Pct,
-      min_reserve_pct: minReservePct,
-      env_condition: envCondition,
-    }),
-  });
-  const route = await routeRes.json();
+    const routeRes = await fetch("/api/v1/routes/plan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        start: { x: sx, y: sy },
+        goal: { x: gx, y: gy },
+        elevation: grid.elevation_m,
+        risk: riskGrid,
+        risk_weight: 10.0,
+        cell_size_m: grid.cell_size_m || 10.0,
+        max_slope_deg: maxSlopeDeg,
+        algorithm: algo,
+        eva_budget_m: evaBudgetM,
+        plss_o2_pct: plssO2Pct,
+        min_reserve_pct: minReservePct,
+        env_condition: envCondition,
+      }),
+    });
+    route = await routeRes.json();
+  } finally {
+    window.aresLoader?.hide();
+  }
   if (route.status !== "success" || !Array.isArray(route.route)) {
     inspectorBadge.textContent = "NO ROUTE";
     inspectorBody.innerHTML = `<p class="muted">No safe EVA path found (&lt; 25° slope): ${route.message || "blocked"}.</p>`;
@@ -1566,5 +1572,47 @@ function initInteractiveGuide() {
   } catch {}
 }
 
+window.aresLoader = (() => {
+  let depth = 0;
+  let tipTimer = null;
+  const facts = [
+    "Mars Light-Time: ~3–22 min one-way to Earth",
+    "Curiosity has driven >32 km across Gale Crater",
+    "Gale Crater spans 154 km with Aeolis Mons rising 5.5 km",
+    "Mars atmosphere is ~95% CO₂ at ~610–850 Pa",
+  ];
+  const show = (msg = "Syncing Mars data...", pct = 45) => {
+    depth++;
+    const wrap = document.getElementById("ares-loader");
+    const fill = document.getElementById("ares-loader-fill");
+    const text = document.getElementById("ares-loader-text");
+    if (!wrap) return;
+    wrap.classList.remove("hidden");
+    if (fill) fill.style.width = `${Math.min(95, Math.max(12, pct))}%`;
+    if (text) text.textContent = msg;
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => {
+      if (depth > 0 && text) {
+        const fact = facts[Math.floor(Math.random() * facts.length)];
+        text.textContent = `${msg} · ${fact}`;
+        if (fill) fill.style.width = "82%";
+      }
+    }, 1800);
+  };
+  const hide = () => {
+    depth = Math.max(0, depth - 1);
+    if (depth > 0) return;
+    clearTimeout(tipTimer);
+    const wrap = document.getElementById("ares-loader");
+    const fill = document.getElementById("ares-loader-fill");
+    if (fill) fill.style.width = "100%";
+    setTimeout(() => {
+      if (depth === 0) wrap?.classList.add("hidden");
+    }, 180);
+  };
+  return { show, hide };
+})();
+
 initInteractiveGuide();
-init();
+window.aresLoader.show("Loading Mars map, rover tracks & telemetry...", 35);
+Promise.resolve(init()).finally(() => window.aresLoader.hide());

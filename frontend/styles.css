@@ -636,5 +636,54 @@ button.accent { border-color: var(--accent); color: #ffd4c4; }
   box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.25) !important;
   border-radius: 6px;
 }
+.ares-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9800;
+  pointer-events: none;
+}
+.ares-loader.hidden { display: none; }
+.ares-loader-track {
+  height: 3px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.8);
+  overflow: hidden;
+}
+.ares-loader-fill {
+  height: 100%;
+  width: 35%;
+  background: linear-gradient(90deg, #f97316, #38bdf8, #22c55e);
+  transition: width 0.25s ease;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+}
+.ares-loader-pill {
+  margin: 8px auto 0;
+  width: fit-content;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(8, 15, 28, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 11.5px;
+  color: #e0f2fe;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+}
+.ares-loader-spinner {
+  width: 11px;
+  height: 11px;
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: ares-spin 0.8s linear infinite;
+}
+@keyframes ares-spin {
+  to { transform: rotate(360deg); }
+}
   background: rgba(56, 189, 248, 0.14);
 }
