@@ -232,10 +232,11 @@ async function handleGlobeRouteClick(lat, lon) {
     while (globeRouteGroup.children.length) globeRouteGroup.remove(globeRouteGroup.children[0]);
     globeRouteStart = { lat, lon };
     const startPin = new THREE.Mesh(
-      new THREE.SphereGeometry(0.32, 14, 14),
+      new THREE.SphereGeometry(0.28, 14, 14),
       new THREE.MeshBasicMaterial({ color: 0x22c55e })
     );
-    startPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.32));
+    startPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.08));
+    startPin.userData.isRoutePin = true;
     globeRouteGroup.add(startPin);
     statsEl.textContent = `EVA Start: ${lat.toFixed(3)}°, ${lon.toFixed(3)}° — Click Goal on Mars Globe`;
     infoTitle.textContent = "Globe EVA Start Set";
@@ -251,10 +252,11 @@ async function handleGlobeRouteClick(lat, lon) {
   btnPlanGlobeEva?.classList.remove("active");
 
   const goalPin = new THREE.Mesh(
-    new THREE.SphereGeometry(0.32, 14, 14),
+    new THREE.SphereGeometry(0.28, 14, 14),
     new THREE.MeshBasicMaterial({ color: 0xef4444 })
   );
-  goalPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.32));
+  goalPin.position.copy(latLonToVec3(lat, lon, GLOBE_R + 0.08));
+  goalPin.userData.isRoutePin = true;
   globeRouteGroup.add(goalPin);
 
   statsEl.textContent = "Computing safe EVA route on Mars Globe...";
@@ -761,8 +763,16 @@ function animate() {
     // Keep globe pins constant apparent size as user zooms in
     for (const pin of pickables) {
       const d = camera.position.distanceTo(pin.position);
-      const s = Math.max(0.14, Math.min(1.15, d / 54));
+      const s = Math.max(0.03, Math.min(1.15, d / 54));
       pin.scale.setScalar(s);
+    }
+    if (globeRouteGroup) {
+      for (const child of globeRouteGroup.children) {
+        if (!child.userData?.isRoutePin) continue;
+        const d = camera.position.distanceTo(child.position);
+        const s = Math.max(0.03, Math.min(1.15, d / 48));
+        child.scale.setScalar(s);
+      }
     }
     if (globeSelectionMarker && globeSelectionMarker.visible) {
       const d = camera.position.distanceTo(globeSelectionMarker.position);
