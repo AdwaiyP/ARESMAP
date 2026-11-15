@@ -4,12 +4,16 @@ import { MarsChunkManager, CHUNK_DEG, CHUNK_WORLD, drawRoutePath3D, computeScale
 const modal = document.getElementById("streetview-modal");
 const canvas = document.getElementById("sv-canvas");
 const hudHeading = document.getElementById("sv-heading");
+const hudWpBadge = document.getElementById("sv-wp-badge");
 const hudMeta = document.getElementById("sv-meta");
 const stripEl = document.getElementById("sv-filmstrip");
 const photoBox = document.getElementById("sv-photo-preview");
 const photoImg = document.getElementById("sv-photo-img");
 const photoLabel = document.getElementById("sv-photo-label");
 const visorSafetyEl = document.getElementById("visor-safety");
+const visorWpCurrentEl = document.getElementById("visor-wp-current");
+const visorWpRemainingEl = document.getElementById("visor-wp-remaining");
+const visorWpProgressEl = document.getElementById("visor-wp-progress");
 const visorNextEl = document.getElementById("visor-next");
 const visorPlssEl = document.getElementById("visor-plss");
 const visorPnrEl = document.getElementById("visor-pnr");
@@ -366,7 +370,7 @@ function updateVisorHud(wx, wz, lon, lat) {
   } else if (nearestHazardUnits < Infinity) {
     const aheadM = Math.round(nearestHazardUnits * ((CHUNK_DEG * 59274) / CHUNK_WORLD));
     visorSafetyEl.className = "pill hazard";
-    visorSafetyEl.textContent = `⚠️ DROP/CLIFF AHEAD · ~${aheadM}m`;
+    visorSafetyEl.innerHTML = `<svg class="lucide-icon" width="12" height="12" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> DROP/CLIFF AHEAD · ~${aheadM}m`;
   } else if (hereSlope >= 15 || maxAheadSlope >= 15) {
     visorSafetyEl.className = "pill caution";
     visorSafetyEl.textContent = `CAUTION · ${Math.max(hereSlope, maxAheadSlope).toFixed(1)}°`;
@@ -375,16 +379,88 @@ function updateVisorHud(wx, wz, lon, lat) {
     visorSafetyEl.textContent = `NOMINAL · ${hereSlope.toFixed(1)}°`;
   }
 
-  const routeTarget = activeStops[activeStopIdx + 1] || (activeStops.length > 1 ? activeStops[activeStopIdx] : null);
+  // Auto-advance activeStopIdx when Astronaut/Rover/Drone reaches a forward waypoint (<= 22m)
+  if (activeStops.length > 1 && activeStopIdx < activeStops.length - 1) {
+    for (let j = activeStopIdx + 1; j < activeStops.length; j++) {
+      const st = activeStops[j];
+      const sLatM = (st.lat - lat) * 59274;
+      const sLonM = (st.lon - lon) * 59274 * Math.cos((lat * Math.PI) / 180);
+      const sDistM = Math.hypot(sLonM, sLatM);
+      if (sDistM <= 22) {
+        activeStopIdx = j;
+        currentStepTag = `${activeStopIdx + 1}/${activeStops.length}`;
+      } else {
+        break;
+      }
+    }
+  }
+
+  const totalWps = Math.max(1, activeStops.length);
+  const currentWpNum = Math.min(totalWps, activeStopIdx + 1);
+  const remainingWps = Math.max(0, totalWps - currentWpNum);
+  const curStop = activeStops[activeStopIdx] || { label: currentLabel };
+  const curStopLabel = curStop.label || `WP ${currentWpNum}`;
+
+  const svgCheck = `<svg class="lucide-icon" width="11" height="11" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>`;
+  const svgPin = `<svg class="lucide-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>`;
+  const svgCurrent = `<svg class="lucide-icon" width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>`;
+  const svgPending = `<svg class="lucide-icon" width="10" height="10" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>`;
+
+  if (visorWpCurrentEl) {
+    visorWpCurrentEl.textContent = `WP ${currentWpNum} / ${totalWps} · ${curStopLabel}`;
+  }
+  if (visorWpRemainingEl) {
+    if (remainingWps === 0 && totalWps > 1) {
+      visorWpRemainingEl.className = "pill ok";
+      visorWpRemainingEl.innerHTML = `0 Remaining · Complete ${svgCheck}`;
+    } else {
+      visorWpRemainingEl.className = remainingWps > 0 ? "pill caution" : "pill ok";
+      visorWpRemainingEl.textContent = `${remainingWps} Remaining`;
+    }
+  }
+  if (hudWpBadge) {
+    hudWpBadge.innerHTML =
+      remainingWps === 0 && totalWps > 1
+        ? `${svgPin} WP ${currentWpNum} / ${totalWps} · COMPLETE ${svgCheck}`
+        : `${svgPin} WP ${currentWpNum} / ${totalWps} · ${remainingWps} Left`;
+  }
+  if (visorWpProgressEl) {
+    const pct = totalWps > 1 ? Math.round((currentWpNum / totalWps) * 100) : 100;
+    const chipsHtml = activeStops
+      .map((s, i) => {
+        const cls = i < activeStopIdx ? "done" : i === activeStopIdx ? "current" : "";
+        const icon = i < activeStopIdx ? svgCheck : i === activeStopIdx ? svgCurrent : svgPending;
+        return `<button type="button" class="visor-wp-chip ${cls}" data-wpidx="${i}" title="Jump to WP ${i + 1}: ${s.label || ""}">${icon} WP${i + 1}</button>`;
+      })
+      .join("");
+    const sig = `${activeStopIdx}:${totalWps}`;
+    if (visorWpProgressEl.dataset.sig !== sig) {
+      visorWpProgressEl.dataset.sig = sig;
+      visorWpProgressEl.innerHTML = `
+        <div class="visor-wp-bar"><div class="visor-wp-fill" style="width:${pct}%"></div></div>
+        <div class="visor-wp-chips">${chipsHtml}</div>
+      `;
+      visorWpProgressEl.querySelectorAll(".visor-wp-chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.wpidx);
+          if (!Number.isNaN(idx)) loadStop(idx);
+        });
+      });
+    }
+  }
+
+  const routeTarget = activeStops[activeStopIdx + 1] || null;
   const navTarget = routeTarget || landingSite;
-  const navPrefix = routeTarget ? "ROUTE" : "LANDER";
+  const navPrefix = routeTarget ? `WP ${currentWpNum + 1}` : "LANDER";
 
   if (routeTarget) {
     const dLatM = (routeTarget.lat - lat) * 59274;
     const dLonM = (routeTarget.lon - lon) * 59274 * Math.cos((lat * Math.PI) / 180);
     const distM = Math.hypot(dLonM, dLatM);
     const brg = Math.round(((Math.atan2(dLonM, dLatM) * 180) / Math.PI + 360) % 360);
-    visorNextEl.textContent = `${Math.round(distM)} m @ ${String(brg).padStart(3, "0")}°`;
+    visorNextEl.textContent = `WP ${currentWpNum + 1} · ${Math.round(distM)} m @ ${String(brg).padStart(3, "0")}°`;
+  } else if (totalWps > 1) {
+    visorNextEl.innerHTML = `All Waypoints Reached ${svgCheck}`;
   } else {
     visorNextEl.textContent = "Free Roam";
   }
@@ -616,7 +692,7 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
           .map(
             (nf, idx) => `
           <button class="visor-nearby-btn" data-nfidx="${idx}" title="Click to look toward ${nf.name}">
-            <span>${nf.has_panorama ? "📷 " : ""}${nf.name}</span>
+            <span>${nf.has_panorama ? '<svg class="lucide-icon" width="12" height="12" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg> ' : ""}${nf.name}</span>
             <span class="muted">${nf.distance_m < 1000 ? `${Math.round(nf.distance_m)}m` : `${(nf.distance_m / 1000).toFixed(1)}km`} @ ${Math.round(nf.bearing_deg)}°</span>
           </button>`
           )
@@ -680,7 +756,24 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
   }
 }
 
+function buildLocalTraverseStops(lon, lat, baseLabel = "EVA Traverse") {
+  const cosLat = Math.max(0.2, Math.cos((lat * Math.PI) / 180));
+  const offsetsMeters = [
+    [0, 0, `${baseLabel} Start`],
+    [25, 65, "Ridge Check"],
+    [60, 125, "Regolith Sample"],
+    [35, 195, "Outcrop Scan"],
+    [80, 260, "EVA Goal"],
+  ];
+  return offsetsMeters.map(([eastM, northM, lbl]) => ({
+    lon: lon + eastM / (59274 * cosLat),
+    lat: lat + northM / 59274,
+    label: lbl,
+  }));
+}
+
 window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops = null) {
+  window.aresCloseSidebars?.();
   document.getElementById("terrain-3d-modal")?.classList.add("hidden");
   modal.classList.remove("hidden");
   ensureRenderer();
@@ -689,23 +782,29 @@ window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops
   if (Array.isArray(routeStops) && routeStops.length > 0) {
     activeStops = routeStops;
     activeStopIdx = 0;
-  } else if (Array.isArray(window.aresRouteStops) && window.aresRouteStops.length > 0) {
-    activeStops = window.aresRouteStops;
-    // Find nearest stop to clicked (lon, lat)
+  } else if (Array.isArray(window.aresRouteStops) && window.aresRouteStops.length > 1) {
+    // Use global route stops only if they are reasonably close (< 0.45° ~ 26 km) to the opened location
     let best = 0;
     let bestD = Infinity;
-    activeStops.forEach((s, i) => {
-      const d = (s.lon - lon) ** 2 + (s.lat - lat) ** 2;
+    window.aresRouteStops.forEach((s, i) => {
+      const d = Math.hypot(s.lon - lon, s.lat - lat);
       if (d < bestD) {
         bestD = d;
         best = i;
       }
     });
-    activeStopIdx = best;
+    if (bestD <= 0.45) {
+      activeStops = window.aresRouteStops;
+      activeStopIdx = best;
+    } else {
+      activeStops = buildLocalTraverseStops(lon, lat, label);
+      activeStopIdx = 0;
+    }
   } else {
-    activeStops = [{ lon, lat, label }];
+    activeStops = buildLocalTraverseStops(lon, lat, label);
     activeStopIdx = 0;
   }
+  if (visorWpProgressEl) visorWpProgressEl.dataset.sig = "";
 
   await loadStop(activeStopIdx);
   if (!animId) animate();
@@ -766,19 +865,23 @@ btnSetLander?.addEventListener("click", () => {
   updateVisorHud(playerPos.x, playerPos.z, lon, lat);
   window.aresSetLandingSiteMarker?.(lat, lon);
 });
+const _SVG_FOG = `<svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 17H7"/><path d="M17 21H9"/></svg>`;
+const _SVG_MAX = `<svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>`;
+const _SVG_MIN = `<svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>`;
+
 btnFogToggle?.addEventListener("click", () => {
   fogEnabled = !fogEnabled;
   if (scene) {
     scene.fog = fogEnabled ? new THREE.FogExp2(_SV_FOG_COLOR, _SV_FOG_DENSITY) : null;
   }
   btnFogToggle.classList.toggle("active", fogEnabled);
-  btnFogToggle.textContent = fogEnabled ? "🌫️ Dust Fog: ON" : "🌫️ Dust Fog: OFF";
+  btnFogToggle.innerHTML = `${_SVG_FOG} ${fogEnabled ? "Dust Fog: ON" : "Dust Fog: OFF"}`;
 });
 const btnSvFullscreen = document.getElementById("sv-fullscreen");
 btnSvFullscreen?.addEventListener("click", () => {
   const isFull = modal.classList.toggle("fullscreen");
   btnSvFullscreen.classList.toggle("active", isFull);
-  btnSvFullscreen.textContent = isFull ? "🗗 Exit Fullscreen" : "⛶ Fullscreen";
+  btnSvFullscreen.innerHTML = isFull ? `${_SVG_MIN} Exit Fullscreen` : `${_SVG_MAX} Fullscreen`;
   resizeCanvas();
 });
 
@@ -788,7 +891,7 @@ document.getElementById("btn-close-sv").addEventListener("click", () => {
   modal.classList.remove("fullscreen");
   if (btnSvFullscreen) {
     btnSvFullscreen.classList.remove("active");
-    btnSvFullscreen.textContent = "⛶ Fullscreen";
+    btnSvFullscreen.innerHTML = `${_SVG_MAX} Fullscreen`;
   }
   if (animId) {
     cancelAnimationFrame(animId);

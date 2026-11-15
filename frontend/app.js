@@ -45,6 +45,35 @@ let plannedCount = 0;
 
 const inspectorBadge = document.getElementById("inspector-badge");
 const inspectorBody = document.getElementById("inspector-body");
+const leftSidebar = document.getElementById("left-sidebar");
+const rightSidebar = document.getElementById("inspector");
+const btnToggleLeft = document.getElementById("btn-toggle-left");
+const btnToggleRight = document.getElementById("btn-toggle-right");
+const btnCloseLeft = document.getElementById("btn-close-left");
+const btnCloseRight = document.getElementById("btn-close-right");
+
+function setSidebarOpen(side, isOpen) {
+  const panel = side === "left" ? leftSidebar : rightSidebar;
+  const fab = side === "left" ? btnToggleLeft : btnToggleRight;
+  if (!panel || !fab) return;
+  panel.classList.toggle("collapsed", !isOpen);
+  fab.classList.toggle("hidden-fab", isOpen);
+  fab.setAttribute("aria-expanded", String(isOpen));
+}
+
+function revealInspector() {
+  setSidebarOpen("right", true);
+}
+
+window.aresCloseSidebars = function () {
+  setSidebarOpen("left", false);
+  setSidebarOpen("right", false);
+};
+
+btnToggleLeft?.addEventListener("click", () => setSidebarOpen("left", true));
+btnCloseLeft?.addEventListener("click", () => setSidebarOpen("left", false));
+btnToggleRight?.addEventListener("click", () => setSidebarOpen("right", true));
+btnCloseRight?.addEventListener("click", () => setSidebarOpen("right", false));
 
 function buildLayerInstance(cfg) {
   if (cfg.protocol === "WMS") {
@@ -98,6 +127,7 @@ function renderKV(rows) {
 }
 
 function inspectThemis(props) {
+  revealInspector();
   inspectorBadge.textContent = "THEMIS";
   const tempText =
     props.surf_temp_k != null
@@ -129,12 +159,13 @@ window.aresSetLandingSiteMarker = function (lat, lon) {
     fillColor: "#f97316",
     fillOpacity: 0.85,
   })
-    .bindTooltip(`🚀 Rocket Landing Site (${lat.toFixed(4)}°, ${lon.toFixed(4)}°)`)
+    .bindTooltip(`Rocket Landing Site (${lat.toFixed(4)}°, ${lon.toFixed(4)}°)`)
     .addTo(landingSiteMarkerGroup);
 };
 
 function setSelectedMapPoint(lat, lon, label = "Selected Point") {
   selectedMapPoint = { lat, lon, label };
+  revealInspector();
   if (!selectedPointMarkerGroup) {
     selectedPointMarkerGroup = L.layerGroup().addTo(map);
   }
@@ -169,7 +200,7 @@ function bindStreetViewBtn(container, lon, lat, label) {
 }
 
 function streetViewBtnHtml() {
-  return `<button class="btn-full btn-sv-here" style="margin:8px 0;border-color:#22c55e;color:#bbf7d0;">🛰️ Open 360° Street View Here</button>`;
+  return `<button class="btn-full btn-primary btn-sv-here" style="margin:8px 0;"><svg class="lucide-icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg> Open 360° Street View Here</button>`;
 }
 
 async function inspectWaypoint(props, lat, lon) {
@@ -217,7 +248,7 @@ async function inspectWaypoint(props, lat, lon) {
       return;
     }
     target.innerHTML = `
-      <h4 style="margin:8px 0 4px;font-size:12px;color:#38bdf8;">Nearby Raw Images (${data.count})</h4>
+      <h4 class="inspector-subhead">Nearby Raw Images (${data.count})</h4>
       <div class="raw-grid">
         ${data.images
           .map((im) => {
@@ -269,7 +300,7 @@ async function inspectSurfacePoint(lat, lon) {
         ["Longitude", `${lon.toFixed(5)}°`],
       ]) +
       streetViewBtnHtml() +
-      `<h4 style="margin:8px 0 4px;font-size:12px;color:#38bdf8;">Predicted Climate (13:30 LTST)</h4>` +
+      `<h4 class="inspector-subhead">Predicted Climate (13:30 LTST)</h4>` +
       renderKV(rows);
     bindStreetViewBtn(inspectorBody, lon, lat, "Selected Surface Point");
   } catch {
@@ -504,6 +535,7 @@ async function init() {
       }).bindTooltip(props.name || "Mineral Target");
       marker.on("click", (e) => {
         L.DomEvent.stopPropagation(e);
+        revealInspector();
         inspectorBadge.textContent = "MINERALOGY";
         inspectorBody.innerHTML = renderKV([
           ["Target", props.name],
@@ -572,6 +604,7 @@ function addPlannedMarker(feat) {
 
   marker.on("click", (e) => {
     L.DomEvent.stopPropagation(e);
+    revealInspector();
     inspectorBadge.textContent = "PLANNED WP";
     inspectorBody.innerHTML =
       renderKV([
@@ -580,7 +613,7 @@ function addPlannedMarker(feat) {
         ["Coordinates", `${lat.toFixed(5)}°, ${lon.toFixed(5)}°`],
         ["Notes", props.notes || "—"],
       ]) +
-      `<button id="btn-del-wp" style="border-color:#ef4444;color:#fecaca;">Delete Waypoint</button>`;
+      `<button id="btn-del-wp" class="btn-danger">Delete Waypoint</button>`;
     document.getElementById("btn-del-wp").addEventListener("click", async () => {
       const res = await fetch(`/api/v1/map/waypoints/${props.feature_id}`, { method: "DELETE" });
       if (res.ok) {
@@ -889,6 +922,7 @@ function startRelayCountdown() {
 }
 
 function openDropWaypointForm(lat, lon) {
+  revealInspector();
   inspectorBadge.textContent = "NEW WAYPOINT";
   inspectorBody.innerHTML = `
     <div class="wp-form">
@@ -1178,7 +1212,7 @@ async function handleEvaPlanClick(lat, lng) {
   const safetyHtml = `
     <div class="safety-dash">
       <div class="safety-dash-hdr">
-        <span>🛡️ Astronaut Safety Dashboard</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;"><svg class="lucide-icon" width="14" height="14" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Astronaut Safety Dashboard</span>
         <span class="safety-pill ${badgeCls}">${safety.safety_status || "UNVERIFIED"}</span>
       </div>
       ${checkLabels
@@ -1192,6 +1226,7 @@ async function handleEvaPlanClick(lat, lng) {
     </div>
   `;
 
+  revealInspector();
   inspectorBadge.textContent = hazardSegs > 0 || distM > 2000 || safety.safety_status === "UNSAFE" ? "EVA WARN" : "EVA READY";
   inspectorBody.innerHTML =
     renderKV([
@@ -1205,7 +1240,7 @@ async function handleEvaPlanClick(lat, lng) {
       ["Waypoints", `${stops.length} visor beacons`],
     ]) +
     safetyHtml +
-    `<button id="btn-walk-eva-sv" class="btn-full" style="margin-top:8px;border-color:#22c55e;color:#bbf7d0;">Walk EVA in Visor Street View</button>`;
+    `<button id="btn-walk-eva-sv" class="btn-full btn-primary" style="margin-top:8px;"><svg class="lucide-icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg> Walk EVA in Visor Street View</button>`;
 
   document.getElementById("btn-walk-eva-sv").addEventListener("click", () => {
     if (window.openStreetView) {
@@ -1261,12 +1296,14 @@ document.getElementById("toggle-aoi").addEventListener("change", (e) => {
 });
 
 document.getElementById("btn-open-globe").addEventListener("click", () => {
+  window.aresCloseSidebars?.();
   if (window.open3DGlobe) {
     window.open3DGlobe();
   }
 });
 
 document.getElementById("btn-open-3d").addEventListener("click", () => {
+  window.aresCloseSidebars?.();
   let bbox;
   let title = "Regional 3D Terrain";
   if (selectedMapPoint) {

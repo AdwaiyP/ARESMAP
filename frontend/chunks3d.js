@@ -422,24 +422,27 @@ export function drawRoutePath3D(targetGroup, stops, chunkMgr, opts = {}) {
     }
 
     if (showCones) {
-      // Directional cones along each segment floating cleanly above the terrain
+      // Directional cones sitting directly on each path segment
       const up = new THREE.Vector3(0, 1, 0);
+      const cRad = isHumanScale ? 0.22 : 0.38;
+      const cLen = isHumanScale ? 0.65 : 1.1;
       for (let i = 0; i < pts.length - 1; i++) {
         const a = pts[i];
         const b = pts[i + 1];
-        const dir = new THREE.Vector3().subVectors(b, a);
+        const mx = 0.5 * (a.x + b.x);
+        const mz = 0.5 * (a.z + b.z);
+        const my = sampleAboveGround(mx, mz);
+        const dir = new THREE.Vector3(b.x - a.x, b.y - a.y, b.z - a.z);
         const len = dir.length();
         if (len < 0.5) continue;
         dir.normalize();
-        const mx = 0.5 * (a.x + b.x);
-        const mz = 0.5 * (a.z + b.z);
-        const my = chunkMgr.getGroundY(mx, mz) + 1.85;
         const cone = new THREE.Mesh(
-          new THREE.ConeGeometry(0.48, 1.35, 10),
+          new THREE.ConeGeometry(cRad, cLen, 12),
           new THREE.MeshBasicMaterial({ color: 0xfacc15 })
         );
         cone.position.set(mx, my, mz);
         cone.quaternion.setFromUnitVectors(up, dir);
+        cone.renderOrder = 3;
         targetGroup.add(cone);
       }
     }

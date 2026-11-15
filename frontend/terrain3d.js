@@ -464,11 +464,14 @@ document.getElementById("globe-info-close").addEventListener("click", () => {
   infoCard.classList.add("hidden");
 });
 
+const _SVG_3D_MAX = `<svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>`;
+const _SVG_3D_MIN = `<svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>`;
+
 const btnFullscreen3d = document.getElementById("btn-fullscreen-3d");
 btnFullscreen3d?.addEventListener("click", () => {
   const isFull = modal.classList.toggle("fullscreen");
   btnFullscreen3d.classList.toggle("active", isFull);
-  btnFullscreen3d.textContent = isFull ? "🗗 Exit Fullscreen" : "⛶ Fullscreen";
+  btnFullscreen3d.innerHTML = isFull ? `${_SVG_3D_MIN} Exit Fullscreen` : `${_SVG_3D_MAX} Fullscreen`;
   resizeCanvas();
 });
 
@@ -477,7 +480,7 @@ document.getElementById("btn-close-3d").addEventListener("click", () => {
   modal.classList.remove("fullscreen");
   if (btnFullscreen3d) {
     btnFullscreen3d.classList.remove("active");
-    btnFullscreen3d.textContent = "⛶ Fullscreen";
+    btnFullscreen3d.innerHTML = `${_SVG_3D_MAX} Fullscreen`;
   }
   if (animId) {
     cancelAnimationFrame(animId);
