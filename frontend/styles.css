@@ -583,6 +583,16 @@ button.accent { border-color: var(--accent); color: #ffd4c4; }
 .visor-nearby-btn:hover {
   border-color: var(--cyan);
 }
+.tour-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 8500;
+  background: rgba(4, 9, 18, 0.65);
+  backdrop-filter: blur(2.5px);
+  pointer-events: none;
+  transition: clip-path 0.18s ease;
+}
+.tour-backdrop.hidden { display: none; }
 .tour-card {
   position: fixed;
   bottom: 20px;

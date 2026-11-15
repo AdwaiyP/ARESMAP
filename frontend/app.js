@@ -1436,6 +1436,7 @@ document.getElementById("btn-test-edac").addEventListener("click", async () => {
 
 function initInteractiveGuide() {
   const card = document.getElementById("tour-card");
+  const backdrop = document.getElementById("tour-backdrop");
   const badge = document.getElementById("tour-step-badge");
   const titleEl = document.getElementById("tour-title");
   const descEl = document.getElementById("tour-desc");
@@ -1486,6 +1487,17 @@ function initInteractiveGuide() {
   let idx = 0;
   let activeEl = null;
 
+  const updateBackdropHole = () => {
+    if (!backdrop || backdrop.classList.contains("hidden") || !activeEl) return;
+    const r = activeEl.getBoundingClientRect();
+    const p = 6;
+    const x1 = Math.max(0, r.left - p);
+    const y1 = Math.max(0, r.top - p);
+    const x2 = Math.min(window.innerWidth, r.right + p);
+    const y2 = Math.min(window.innerHeight, r.bottom + p);
+    backdrop.style.clipPath = `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${x1}px ${y1}px, ${x1}px ${y2}px, ${x2}px ${y2}px, ${x2}px ${y1}px, ${x1}px ${y1}px)`;
+  };
+
   const clearHighlight = () => {
     activeEl?.classList.remove("tour-highlight");
     activeEl = null;
@@ -1499,19 +1511,28 @@ function initInteractiveGuide() {
     descEl.textContent = step.desc;
     prevBtn.disabled = idx === 0;
     nextBtn.textContent = idx === steps.length - 1 ? "Finish" : "Next";
+    backdrop?.classList.remove("hidden");
     const target = document.querySelector(step.sel);
     if (target) {
       activeEl = target;
       activeEl.classList.add("tour-highlight");
       activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      updateBackdropHole();
+      setTimeout(updateBackdropHole, 260);
     }
   };
 
   const closeTour = () => {
     clearHighlight();
+    backdrop?.classList.add("hidden");
     card.classList.add("hidden");
     try { localStorage.setItem("ares_tour_seen", "1"); } catch {}
   };
+
+  window.addEventListener("resize", updateBackdropHole);
+  document.querySelectorAll(".sidebar, .hud-panel").forEach((el) => {
+    el.addEventListener("scroll", updateBackdropHole, { passive: true });
+  });
 
   startBtn?.addEventListener("click", () => {
     document.getElementById("terrain-3d-modal")?.classList.add("hidden");
