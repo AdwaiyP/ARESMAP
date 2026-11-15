@@ -22,11 +22,12 @@ NASA Mars Data → Geospatial Processing & Hazard Mapping → A* / Theta* Pathfi
   - **MongoDB Vector Layers:** Toggle Mineral Signatures, Planned Waypoints, EVA Tactical markers, Global Mars Landmarks, Curiosity & Perseverance waypoints, and THEMIS thermal stamps.
 - **AI EVA Route Planning & Safety Validation (`A*` & `Theta*`):**
   - Computes terrain-aware paths using grid-based **A\*** or any-angle **Theta\*** with configurable distance budget, max slope (°), suit O₂ (%), reserve (%), and atmospheric condition (`Nominal`, `Dusty`, `Dust Storm`, `Unverified`).
+  - Displays a floating **EVA Route Key** (`#eva-route-legend`), inline Inspector color key, and hover tooltips explaining **Red** (Steep Hazard `≥ 25°`), **Yellow** (Caution `15°–24.9°`), and **Cyan** (Safe `< 15°`) terrain cells and route segments.
 - **3D Mars Globe, Regional 3D Terrain & Mars 360° Street View (Three.js):**
-  - **3D Mars Globe:** Interactive planetary sphere with synced MongoDB layers, raycast surface inspection, and 2-click **Plan EVA Route** directly on the globe.
-  - **5×5 Chunk-Streamed 3D Terrain & Street View:** Zero-seam terrain streaming with photo-relief micro-depth, `Drone` / `Astronaut` / `Rover` / `Overview` modes, `WASD`/Arrow controls, **Dust Fog**, **Set Landing Site** rocket beacon, 3D waypoint tracking, Street View Quick Jump, and NASA rover photo galleries.
+  - **3D Mars Globe:** Interactive planetary sphere with synced MongoDB layers, cyan 3D surface selection highlight, dynamic high-res regional texture LOD when zooming in, and 2-click **Plan EVA Route** directly on the globe with distance-scaled Start/Goal pins.
+  - **5×5 Chunk-Streamed 3D Terrain & Street View:** Zero-seam terrain streaming with photo-relief micro-depth, `Drone` / `Astronaut` / `Rover` / `Overview` modes, `WASD`/Arrow controls, **Dust Fog**, **Set Landing Site** rocket beacon, single-point or EVA-route waypoint tracking, Street View Quick Jump, and mission-matched NASA rover photo galleries with an enlargeable **Prev/Next Lightbox**.
 - **Live Telemetry, PLSS & Space Weather HUD:**
-  - Real-time **Mars Clock** (`MY`, `Ls`, `MSD`, `MTC`, `LMST`, `UTC`, `OWLT`), configurable **PLSS Life Support (EVA-1)**, **Orbital Relay** pass countdown, **Hamming(7,4) EDAC** bit-flip recovery tester, **MEDA/REMS** weather, and **MSL RAD / NASA DONKI** radiation monitoring.
+  - Real-time **Mars Clock** (`MY`, `Ls`, `MSD`, `MTC`, `LMST`, `UTC`, `OWLT`), configurable **PLSS Life Support (EVA-1)**, **Orbital Relay** pass countdown, **Hamming(7,4) EDAC** bit-flip recovery tester, and coordinate- & elevation-aware **MEDA/REMS** weather and **MSL RAD / NASA DONKI** radiation monitoring.
   - Includes an interactive **11-step `? Guide`** with spotlight walkthrough and a global progress loader (`#ares-loader`).
 
 ---
