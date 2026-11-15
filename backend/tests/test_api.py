@@ -93,3 +93,17 @@ def test_climate_prediction():
 
     for value in data["safety_alerts"].values():
         assert isinstance(value, bool)
+
+
+def test_surface_radiation():
+    response = client.get(
+        "/api/v1/map/radiation",
+        params={"lat": -4.5895, "lon": 137.4417, "elevation_m": -4500},
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "ok"
+    rad = data["radiation"]
+    assert rad["gcr_dose_msv_day"] > 0
+    assert rad["total_dose_rate_usv_hr"] > 0
+    assert rad["safety_state"] in {"NOMINAL", "CAUTION", "HAZARD"}

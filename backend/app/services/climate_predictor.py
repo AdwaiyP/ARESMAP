@@ -175,20 +175,49 @@ def _format_climate_response(
     }
 
 
+def _fallback_diurnal_predictions(minute_of_sol):
+    """Return diurnal MEDA-calibrated baseline predictions when .skops is absent."""
+    phase = 2.0 * np.pi * (minute_of_sol - 840) / 1440.0
+    diurnal = 0.5 * (1.0 + np.cos(phase))
+    solar_zenith = float(np.clip(np.rad2deg(np.arccos(np.clip(np.cos(2.0 * np.pi * (minute_of_sol - 720) / 1440.0), -1.0, 1.0))), 0.0, 180.0))
+    cos_z = max(0.0, np.cos(np.deg2rad(solar_zenith)))
+    sunlit = 1.0 if solar_zenith < 88.0 else 0.0
+    wind_angle = np.deg2rad((minute_of_sol / 1440.0) * 360.0 + 110.0)
+    return {
+        "ground_temp_c": float(-78.0 + 70.0 * diurnal),
+        "air_temp_c": float(-74.0 + 56.0 * diurnal),
+        "wind_speed_ms": float(3.2 + 4.8 * diurnal),
+        "wind_sin": float(np.sin(wind_angle)),
+        "wind_cos": float(np.cos(wind_angle)),
+        "pressure_pa": float(735.0 + 18.0 * np.cos(phase)),
+        "solar_zenith_deg": solar_zenith,
+        "sunlit_fraction": sunlit,
+        "uv_irradiance": float(0.045 * (cos_z ** 1.2)),
+        "total_solar_rad": float(520.0 * cos_z),
+    }
+
+
 def predict_climate(latitude, longitude, ltst_time, elevation_m):
     """Predict Mars surface climate and EVA alerts for a site and LTST."""
     hour, minute = map(int, ltst_time.split(":"))
     minute_of_sol = hour * 60 + minute
 
-    # Match the teammate's notebook: model inference uses
-    # reference-location features, followed by heuristic corrections.
-    features = build_features(minute_of_sol, REF_LAT, REF_LON, REF_ELEV)
-    models = load_models()
-    predictions = {
-        target: float(models[target].predict(features)[0])
-        for target in TARGETS
-    }
+    if MODEL_PATH.exists():
+        features = build_features(minute_of_sol, REF_LAT, REF_LON, REF_ELEV)
+        models = load_models()
+        predictions = {
+            target: float(models[target].predict(features)[0])
+            for target in TARGETS
+        }
+        model_meta = ("RandomForestRegressor", len(models), "reference_location_with_heuristic_adjustments")
+    else:
+        predictions = _fallback_diurnal_predictions(minute_of_sol)
+        model_meta = ("MEDAPhysicsFallback", len(TARGETS), "diurnal_meda_physics_fallback")
+
     _apply_climate_adjustments(predictions, latitude, elevation_m)
-    return _format_climate_response(
-        predictions, latitude, longitude, ltst_time, elevation_m, len(models)
+    result = _format_climate_response(
+        predictions, latitude, longitude, ltst_time, elevation_m, model_meta[1]
     )
+    result["model_metadata"]["model_type"] = model_meta[0]
+    result["model_metadata"]["inference_method"] = model_meta[2]
+    return result

@@ -22,6 +22,7 @@ from pydantic import BaseModel, Field
 
 from app.db import get_db
 from app.services.mars_time import compute_mars_time
+from app.services.radiation import assess_surface_radiation
 from app.services.space_edac import compute_crc32, simulate_space_link_transfer
 
 router = APIRouter(prefix="/api/v1/map", tags=["Map"])
@@ -813,6 +814,16 @@ def get_globe_texture(
     return Response(content=raw, media_type="image/jpeg", headers={"X-Cache": "MISS", "Cache-Control": "public, max-age=86400"})
 
 
+@router.get("/radiation")
+def get_surface_radiation(
+    lat: float = Query(-4.5895, description="Martian latitude in degrees"),
+    lon: float = Query(137.4417, description="Martian east longitude in degrees"),
+    elevation_m: float = Query(-4500.0, description="Surface elevation in meters"),
+):
+    """Assess Mars surface GCR/SEP ionizing radiation and EVA safety state."""
+    return assess_surface_radiation(lat, lon, elevation_m)
+
+
 def _stitch_trek_bbox(
     layer: str,
     ext: str,
@@ -986,3 +997,13 @@ def get_regional_texture(
     raw = buf.getvalue()
     _cache_set(cache_key, raw)
     return Response(content=raw, media_type="image/jpeg", headers={"X-Cache": "MISS", "Cache-Control": "public, max-age=86400"})
+
+
+@router.get("/radiation")
+def get_surface_radiation(
+    lat: float = Query(-4.5895, description="Martian latitude in degrees"),
+    lon: float = Query(137.4417, description="Martian east longitude in degrees"),
+    elevation_m: float = Query(-4500.0, description="Surface elevation in meters"),
+):
+    """Assess Mars surface GCR/SEP ionizing radiation and EVA safety state."""
+    return assess_surface_radiation(lat, lon, elevation_m)

@@ -667,7 +667,31 @@ function renderClimateChart(records, summary) {
   `;
 }
 
+async function loadRadiationHud(lat = -4.5895, lon = 137.4417, elevationM = -4500) {
+  const el = document.getElementById("hud-radiation");
+  const badge = document.getElementById("hud-rad-badge");
+  if (!el) return;
+  try {
+    const res = await fetch(`/api/v1/map/radiation?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&elevation_m=${encodeURIComponent(elevationM)}`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const r = data.radiation || {};
+    if (badge) badge.textContent = r.safety_state || "NOMINAL";
+    el.innerHTML = `
+      <div>Dose Rate: <strong>${r.total_dose_rate_usv_hr ?? "--"} µSv/hr</strong></div>
+      <div>Daily GCR: <strong>${r.gcr_dose_msv_day ?? "--"} mSv/d</strong></div>
+      <div>4h EVA Dose: <strong>${r.eva_4h_dose_msv ?? "--"} mSv</strong></div>
+      <div>SEP Storm: <strong>${r.sep_alert_level ?? "QUIET"}</strong></div>
+      <div>Shielding: <strong>${r.column_depth_g_cm2 ?? "--"} g/cm²</strong></div>
+      <div>Source: <strong>${data.source === "nasa_donki_live+msl_rad" ? "DONKI+RAD" : "MSL RAD"}</strong></div>
+    `;
+  } catch (err) {
+    console.warn("Radiation HUD failed:", err);
+  }
+}
+
 async function loadWeatherHud() {
+  loadRadiationHud();
   const el = document.getElementById("hud-weather");
   const titleEl = document.getElementById("hud-weather-title");
   const rangeEl = document.getElementById("weather-range");
