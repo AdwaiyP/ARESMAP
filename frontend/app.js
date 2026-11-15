@@ -1514,6 +1514,8 @@ function initInteractiveGuide() {
   };
 
   startBtn?.addEventListener("click", () => {
+    document.getElementById("terrain-3d-modal")?.classList.add("hidden");
+    document.getElementById("streetview-modal")?.classList.add("hidden");
     idx = 0;
     card.classList.remove("hidden");
     renderStep();
