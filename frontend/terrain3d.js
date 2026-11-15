@@ -9,6 +9,7 @@ let pickables = [];
 let globePlanMode = false;
 let globeRouteStart = null;
 let globeRouteGroup = null;
+let globeLayers = {};
 let lastBbox = [137.25, -4.9, 137.65, -4.5];
 let animId = null;
 let mroAngle = 0;
@@ -95,6 +96,7 @@ function clearGroup() {
   globeSphere = null;
   horizonSkirt = null;
   pickables = [];
+  globeLayers = {};
   globeRouteGroup = null;
   globeRouteStart = null;
   globePlanMode = false;
@@ -272,11 +274,14 @@ function handleGlobeClick(e) {
   pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointerNDC, camera);
 
-  // 1. Check landmark/mineral/planned pins first
-  const pinHits = raycaster.intersectObjects(pickables, false);
+  // 1. Check visible landmark/mineral/planned pins first
+  const pinHits = raycaster.intersectObjects(pickables, false).filter(
+    (h) => h.object.visible && h.object.parent?.visible !== false
+  );
   if (pinHits.length > 0) {
     const ud = pinHits[0].object.userData;
     if (globePlanMode) handleGlobeRoutePoint(ud.lat, ud.lon);
+    else if (window.isDropWaypointMode?.()) window.openDropWaypointForm?.(ud.lat, ud.lon);
     else inspectGlobeLocation(ud.lat, ud.lon, ud);
     return;
   }
@@ -287,6 +292,7 @@ function handleGlobeClick(e) {
     if (sphereHits.length > 0) {
       const { lat, lon } = vec3ToLatLon(sphereHits[0].point);
       if (globePlanMode) handleGlobeRoutePoint(lat, lon);
+      else if (window.isDropWaypointMode?.()) window.openDropWaypointForm?.(lat, lon);
       else inspectGlobeLocation(lat, lon, null);
     }
   }
@@ -350,11 +356,23 @@ async function buildGlobe() {
   mroSat = new THREE.Mesh(new THREE.SphereGeometry(0.55, 12, 12), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
   orbitLine.add(mroSat);
 
+  globeLayers = {
+    landmarks: new THREE.Group(),
+    minerals: new THREE.Group(),
+    planned: new THREE.Group(),
+    msl: new THREE.Group(),
+    waypoints: new THREE.Group(),
+    themis: new THREE.Group(),
+    aoi: new THREE.Group(),
+  };
+  Object.values(globeLayers).forEach((g) => activeGroup.add(g));
+
   const res = await fetch("/api/v1/map/features?slim=true&limit=10000");
   const fc = await res.json();
   let pinCount = 0;
   const pinGeom = new THREE.SphereGeometry(0.28, 12, 12);
   const roverTracks = { msl_gale: [], mars2020_jezero: [], mer_a_gusev: [], mer_b_meridiani: [] };
+  const themisPts = [];
   for (const feat of fc.features || []) {
     const props = feat.properties || {};
     const ft = props.feature_type;
@@ -368,6 +386,10 @@ async function buildGlobe() {
       if (roverTracks[mid]) roverTracks[mid].push(latLonToVec3(lat, lon, GLOBE_R + 0.12));
       continue;
     }
+    if (ft === "themis_stamp") {
+      themisPts.push(latLonToVec3(lat, lon, GLOBE_R + 0.08));
+      continue;
+    }
     if (!["mars_landmark", "mineral_signature", "planned_waypoint"].includes(ft)) continue;
     const color = ft === "mineral_signature" ? 0xeab308 : ft === "planned_waypoint" ? 0xec4899 : 0xa855f7;
     const pin = new THREE.Mesh(pinGeom, new THREE.MeshBasicMaterial({ color }));
@@ -379,10 +401,35 @@ async function buildGlobe() {
       elevation_m: props.elevation_m,
       description: props.description || props.mineral_class || props.category || "",
     };
-    activeGroup.add(pin);
+    const targetGrp =
+      ft === "mineral_signature"
+        ? globeLayers.minerals
+        : ft === "planned_waypoint"
+        ? globeLayers.planned
+        : globeLayers.landmarks;
+    targetGrp.add(pin);
     pickables.push(pin);
     pinCount++;
   }
+
+  if (themisPts.length > 0) {
+    globeLayers.themis.add(
+      new THREE.Points(
+        new THREE.BufferGeometry().setFromPoints(themisPts),
+        new THREE.PointsMaterial({ color: 0xf97316, size: 0.22 })
+      )
+    );
+  }
+
+  const aoiBoxPts = [
+    [-5.6, 137.2], [-5.6, 138.4], [-4.6, 138.4], [-4.6, 137.2], [-5.6, 137.2],
+  ].map(([la, lo]) => latLonToVec3(la, lo, GLOBE_R + 0.18));
+  globeLayers.aoi.add(
+    new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(aoiBoxPts),
+      new THREE.LineBasicMaterial({ color: 0xfacc15 })
+    )
+  );
 
   const trackColors = {
     msl_gale: 0x22c55e,
@@ -392,7 +439,8 @@ async function buildGlobe() {
   };
   for (const [mid, pts] of Object.entries(roverTracks)) {
     if (pts.length > 1) {
-      activeGroup.add(
+      const targetGrp = mid === "msl_gale" ? globeLayers.msl : globeLayers.waypoints;
+      targetGrp.add(
         new THREE.Line(
           new THREE.BufferGeometry().setFromPoints(pts),
           new THREE.LineBasicMaterial({ color: trackColors[mid] || 0x38bdf8 })
@@ -401,6 +449,7 @@ async function buildGlobe() {
     }
   }
 
+  window.syncGlobeLayers();
   statsEl.textContent = `3D Mars Globe (2048×1024) | Click any dot or point on Mars to inspect`;
 }
 
@@ -586,3 +635,39 @@ document.getElementById("btn-close-3d").addEventListener("click", () => {
     animId = null;
   }
 });
+
+window.syncGlobeLayers = () => {
+  const checked = (id) => Boolean(document.getElementById(id)?.checked);
+  if (globeLayers.landmarks) globeLayers.landmarks.visible = checked("toggle-landmarks");
+  if (globeLayers.minerals) globeLayers.minerals.visible = checked("toggle-minerals");
+  if (globeLayers.planned) globeLayers.planned.visible = checked("toggle-planned");
+  if (globeLayers.msl) globeLayers.msl.visible = checked("toggle-msl");
+  if (globeLayers.waypoints) globeLayers.waypoints.visible = checked("toggle-waypoints");
+  if (globeLayers.themis) globeLayers.themis.visible = checked("toggle-themis");
+  if (globeLayers.aoi) globeLayers.aoi.visible = checked("toggle-aoi");
+  if (globeRouteGroup) globeRouteGroup.visible = checked("toggle-eva") || globeRouteGroup.children.length > 0;
+};
+
+window.jumpGlobeTo = (lat, lon, zoom = 3, label = "Mars Target") => {
+  if (modal.classList.contains("hidden") || modeSelect.value !== "globe" || !camera || !controls) return false;
+  const dist = zoom <= 3 ? 62 : zoom <= 8 ? 42 : 31;
+  camera.position.copy(latLonToVec3(lat, lon, dist));
+  controls.target.set(0, 0, 0);
+  controls.update();
+  statsEl.textContent = `3D Mars Globe · Centered on ${label} (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
+  return true;
+};
+
+window.setGlobeTextureStyle = (style) => {
+  if (!globeTexSelect) return;
+  globeTexSelect.value = style;
+  if (!modal.classList.contains("hidden") && modeSelect.value === "globe") {
+    buildGlobe();
+  }
+};
+
+window.refreshGlobeLayers = () => {
+  if (!modal.classList.contains("hidden") && modeSelect.value === "globe") {
+    buildGlobe();
+  }
+};

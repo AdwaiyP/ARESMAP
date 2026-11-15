@@ -922,9 +922,12 @@ function openDropWaypointForm(lat, lon) {
       dropWaypointMode = false;
       document.getElementById("btn-drop-wp").classList.remove("active");
       inspectorBody.innerHTML = `<p class="muted">Saved <strong>${name}</strong> to <code>ares_base.spatial_features</code>.</p>`;
+      window.refreshGlobeLayers?.();
     }
   });
 }
+window.openDropWaypointForm = openDropWaypointForm;
+window.isDropWaypointMode = () => dropWaypointMode;
 
 // UI Bindings
 map.on("moveend", () => {
@@ -949,7 +952,10 @@ map.on("click", (e) => {
 document.querySelectorAll("button[data-jump]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const r = REGIONS[btn.dataset.jump];
-    if (r) map.setView(r.center, r.zoom);
+    if (r) {
+      map.setView(r.center, r.zoom);
+      window.jumpGlobeTo?.(r.center[0], r.center[1], r.zoom, btn.textContent.trim());
+    }
   });
 });
 
@@ -958,6 +964,8 @@ document.querySelectorAll("input[name='baselayer']").forEach((radio) => {
     if (baseLayers[activeBaseId]) map.removeLayer(baseLayers[activeBaseId]);
     activeBaseId = radio.value;
     if (baseLayers[activeBaseId]) baseLayers[activeBaseId].addTo(map);
+    if (radio.value === "mola_global_color") window.setGlobeTextureStyle?.("mola");
+    else if (radio.value === "mars_viking_red") window.setGlobeTextureStyle?.("viking_red");
   });
 });
 
@@ -1341,6 +1349,21 @@ document.getElementById("btn-test-edac").addEventListener("click", async () => {
     ["CRC Match", d.crc_match ? "PASS (100% Recovered)" : "FAIL"],
     ["Recovered Payload", d.recovered],
   ]);
+});
+
+[
+  "toggle-minerals",
+  "toggle-planned",
+  "toggle-eva",
+  "toggle-landmarks",
+  "toggle-msl",
+  "toggle-themis",
+  "toggle-waypoints",
+  "toggle-aoi",
+].forEach((id) => {
+  document.getElementById(id)?.addEventListener("change", () => {
+    window.syncGlobeLayers?.();
+  });
 });
 
 init();
