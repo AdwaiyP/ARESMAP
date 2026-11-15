@@ -572,8 +572,11 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
 
   drawRouteBeacons(activeStops);
   if (window.aresRoverTracks) {
-    for (const track of Object.values(window.aresRoverTracks)) {
-      if (track?.points?.length > 1) {
+    const showMsl = Boolean(document.getElementById("toggle-msl")?.checked);
+    const showWp = Boolean(document.getElementById("toggle-waypoints")?.checked);
+    for (const [mid, track] of Object.entries(window.aresRoverTracks)) {
+      const visible = mid === "msl_gale" ? showMsl : showWp;
+      if (visible && track?.points?.length > 1) {
         drawRoutePath3D(routeGroup, track.points, svChunkMgr, {
           color: track.color,
           showBeacons: false,
@@ -689,19 +692,6 @@ window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops
   if (Array.isArray(routeStops) && routeStops.length > 0) {
     activeStops = routeStops;
     activeStopIdx = 0;
-  } else if (Array.isArray(window.aresRouteStops) && window.aresRouteStops.length > 0) {
-    activeStops = window.aresRouteStops;
-    // Find nearest stop to clicked (lon, lat)
-    let best = 0;
-    let bestD = Infinity;
-    activeStops.forEach((s, i) => {
-      const d = (s.lon - lon) ** 2 + (s.lat - lat) ** 2;
-      if (d < bestD) {
-        bestD = d;
-        best = i;
-      }
-    });
-    activeStopIdx = best;
   } else {
     activeStops = [{ lon, lat, label }];
     activeStopIdx = 0;
