@@ -1006,9 +1006,9 @@ def get_regional_texture(
     mid_lon = 0.5 * (min_lon + max_lon)
     mid_lat = 0.5 * (min_lat + max_lat)
 
-    if 77.22 <= mid_lon <= 77.58 and 18.30 <= mid_lat <= 18.67:
+    if 77.22 <= min_lon and max_lon <= 77.58 and 18.30 <= min_lat and max_lat <= 18.67:
         layer, ext, z = "JEZ_hirise_soc_006_orthoMosaic_25cm_Eqc_latTs0_lon0_first_dd", "png", 12
-    elif 135.18 <= mid_lon <= 139.24 and -6.57 <= mid_lat <= -2.81:
+    elif 135.18 <= min_lon and max_lon <= 139.24 and -6.57 <= min_lat and max_lat <= -2.81:
         layer, ext, z = "Gale_CTX_BlockAdj_dd", "png", 11
     else:
         layer, ext, z = "Mars_Viking_MDIM21_ClrMosaic_global_232m", "jpg", 7

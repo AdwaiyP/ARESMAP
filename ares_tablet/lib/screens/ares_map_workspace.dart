@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../data/backend_api.dart';
 import '../data/exploration_data.dart';
 import '../models/ares_models.dart';
 import '../state/ares_scope.dart';
@@ -533,12 +535,117 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
 
   // Cached decoded raster images for fast CustomPainter rendering
   final Map<String, ui.Image> _loadedImages = {};
+  final AresBackend _mapBackend = AresBackend();
+  ui.Image? _regionalTexImage;
+  Rect? _regionalTexBbox;
+  String? _regionalTexStyle;
+  Timer? _regionalTexTimer;
+  int _regionalTexGen = 0;
+  Size _lastMapSize = const Size(1280, 800);
 
   @override
   void initState() {
     super.initState();
     _plssResetEpochSec = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     _loadMapImages();
+    _scheduleRegionalTextureFetch();
+  }
+
+  @override
+  void dispose() {
+    _regionalTexTimer?.cancel();
+    _regionalTexImage?.dispose();
+    super.dispose();
+  }
+
+  String _regionalStyleForLayer(String layer) {
+    switch (layer) {
+      case 'mola_color':
+        return 'mola_color';
+      case 'themis_ir_global':
+        return 'themis_day_ir';
+      case 'ctx_global':
+        return 'themis_blend';
+      default:
+        return 'viking_red';
+    }
+  }
+
+  void _scheduleRegionalTextureFetch({bool force = false}) {
+    _regionalTexTimer?.cancel();
+    if (_zoom < 3.0) {
+      if (_regionalTexImage != null && mounted) {
+        setState(() {
+          _regionalTexImage?.dispose();
+          _regionalTexImage = null;
+          _regionalTexBbox = null;
+          _regionalTexStyle = null;
+        });
+      }
+      return;
+    }
+    _regionalTexTimer = Timer(const Duration(milliseconds: 220), () {
+      _fetchRegionalTexture(force: force);
+    });
+  }
+
+  Future<void> _fetchRegionalTexture({bool force = false}) async {
+    if (!mounted || _zoom < 3.0) return;
+    final style = _regionalStyleForLayer(_baseLayer);
+    final lonSpan = 360.0 / _zoom;
+    final latSpan = lonSpan * (_lastMapSize.height / math.max(_lastMapSize.width, 1.0));
+    final vMinLon = (_centerLon - lonSpan * 0.5).clamp(-180.0, 179.9);
+    final vMaxLon = (_centerLon + lonSpan * 0.5).clamp(-179.9, 180.0);
+    final vMinLat = (_centerLat - latSpan * 0.5).clamp(-85.0, 84.9);
+    final vMaxLat = (_centerLat + latSpan * 0.5).clamp(-84.9, 85.0);
+
+    // Reuse existing cached regional texture if it covers the viewport at comparable resolution
+    if (!force &&
+        _regionalTexImage != null &&
+        _regionalTexBbox != null &&
+        _regionalTexStyle == style) {
+      final b = _regionalTexBbox!;
+      final coversViewport = b.left <= vMinLon &&
+          b.right >= vMaxLon &&
+          b.top <= vMinLat &&
+          b.bottom >= vMaxLat;
+      final resRatio = b.width / math.max(lonSpan, 0.01);
+      if (coversViewport && resRatio >= 1.0 && resRatio <= 2.4) {
+        return;
+      }
+    }
+
+    // Pad fetch bbox 1.5x so small pans stay crisp immediately
+    final padLon = lonSpan * 0.75;
+    final padLat = latSpan * 0.75;
+    final minLon = (_centerLon - padLon).clamp(-180.0, 179.5);
+    final maxLon = (_centerLon + padLon).clamp(minLon + 0.05, 180.0);
+    final minLat = (_centerLat - padLat).clamp(-85.0, 84.5);
+    final maxLat = (_centerLat + padLat).clamp(minLat + 0.05, 85.0);
+
+    final gen = ++_regionalTexGen;
+    final bboxStr =
+        '${minLon.toStringAsFixed(4)},${minLat.toStringAsFixed(4)},${maxLon.toStringAsFixed(4)},${maxLat.toStringAsFixed(4)}';
+    final bytes = await _mapBackend.fetchRegionalTextureBytes(
+      bbox: bboxStr,
+      style: style,
+      size: 1024,
+    );
+    if (!mounted || gen != _regionalTexGen || bytes == null) return;
+    try {
+      final codec = await ui.instantiateImageCodec(bytes);
+      final frame = await codec.getNextFrame();
+      if (!mounted || gen != _regionalTexGen) {
+        frame.image.dispose();
+        return;
+      }
+      setState(() {
+        _regionalTexImage?.dispose();
+        _regionalTexImage = frame.image;
+        _regionalTexBbox = Rect.fromLTRB(minLon, minLat, maxLon, maxLat);
+        _regionalTexStyle = style;
+      });
+    } catch (_) {}
   }
 
   Future<void> _loadMapImages() async {
@@ -648,6 +755,7 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
       _cursorGeo = GeoPoint(preset.lon, preset.lat);
       _terrainModalTitle = preset.title;
     });
+    _scheduleRegionalTextureFetch();
   }
 
   void _addCustomJumpAtCenter() {
@@ -1444,6 +1552,7 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
           InkWell(
             onTap: () {
               setState(() => _zoom = (_zoom * 1.45).clamp(1.0, 90.0));
+              _scheduleRegionalTextureFetch();
             },
             child: const SizedBox(
               width: 30,
@@ -1464,6 +1573,7 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
           InkWell(
             onTap: () {
               setState(() => _zoom = (_zoom / 1.45).clamp(1.0, 90.0));
+              _scheduleRegionalTextureFetch();
             },
             child: const SizedBox(
               width: 30,
@@ -1525,6 +1635,7 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final size = Size(constraints.maxWidth, constraints.maxHeight);
+        _lastMapSize = size;
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onScaleUpdate: (details) {
@@ -1540,6 +1651,7 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
                   .clamp(-85.0, 85.0);
               _cursorGeo = GeoPoint(_centerLon, _centerLat);
             });
+            _scheduleRegionalTextureFetch();
           },
           onTapUp: (details) {
             final lonSpan = 360.0 / _zoom;
@@ -1572,6 +1684,8 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
               vecPerseverance: _vecPerseverance,
               vecAoiBounds: _vecAoiBounds,
               loadedImages: _loadedImages,
+              regionalTexImage: _regionalTexImage,
+              regionalTexBbox: _regionalTexBbox,
               minerals: _mineralSites,
               landmarks: _globalLandmarks,
               plannedWaypoints: _plannedWaypoints,
@@ -2030,25 +2144,37 @@ class _AresMapWorkspaceState extends State<AresMapWorkspace> {
                         label: 'Viking MDIM 2.1 True Color',
                         value: 'viking_color',
                         groupValue: _baseLayer,
-                        onChanged: (v) => setState(() => _baseLayer = v),
+                        onChanged: (v) {
+                          setState(() => _baseLayer = v);
+                          _scheduleRegionalTextureFetch(force: true);
+                        },
                       ),
                       _radioLayerRow(
                         label: 'MOLA Colorized Elevation',
                         value: 'mola_color',
                         groupValue: _baseLayer,
-                        onChanged: (v) => setState(() => _baseLayer = v),
+                        onChanged: (v) {
+                          setState(() => _baseLayer = v);
+                          _scheduleRegionalTextureFetch(force: true);
+                        },
                       ),
                       _radioLayerRow(
                         label: 'THEMIS Day IR Global (100m)',
                         value: 'themis_ir_global',
                         groupValue: _baseLayer,
-                        onChanged: (v) => setState(() => _baseLayer = v),
+                        onChanged: (v) {
+                          setState(() => _baseLayer = v);
+                          _scheduleRegionalTextureFetch(force: true);
+                        },
                       ),
                       _radioLayerRow(
                         label: 'CTX Global Mosaic Beta (5m)',
                         value: 'ctx_global',
                         groupValue: _baseLayer,
-                        onChanged: (v) => setState(() => _baseLayer = v),
+                        onChanged: (v) {
+                          setState(() => _baseLayer = v);
+                          _scheduleRegionalTextureFetch(force: true);
+                        },
                       ),
                     ],
                   ),
@@ -3617,6 +3743,8 @@ class _Ares2DMapPainter extends CustomPainter {
     required this.vecPerseverance,
     required this.vecAoiBounds,
     required this.loadedImages,
+    this.regionalTexImage,
+    this.regionalTexBbox,
     required this.minerals,
     required this.landmarks,
     required this.plannedWaypoints,
@@ -3650,6 +3778,8 @@ class _Ares2DMapPainter extends CustomPainter {
   final bool vecPerseverance;
   final bool vecAoiBounds;
   final Map<String, ui.Image> loadedImages;
+  final ui.Image? regionalTexImage;
+  final Rect? regionalTexBbox;
   final List<_MineralSite> minerals;
   final List<_GlobalLandmark> landmarks;
   final List<SurveyFeature> plannedWaypoints;
@@ -3722,6 +3852,23 @@ class _Ares2DMapPainter extends CustomPainter {
         Rect.fromLTWH(0, 0, globalImg.width.toDouble(), globalImg.height.toDouble()),
         dst,
         paint,
+      );
+    }
+
+    // 2b. High-res Regional Mars Trek / USGS Texture (when zoomed in)
+    if (regionalTexImage != null && regionalTexBbox != null && zoom >= 3.0) {
+      final b = regionalTexBbox!;
+      final dst = _bboxToRect(b.left, b.top, b.right, b.bottom, size);
+      canvas.drawImageRect(
+        regionalTexImage!,
+        Rect.fromLTWH(
+          0,
+          0,
+          regionalTexImage!.width.toDouble(),
+          regionalTexImage!.height.toDouble(),
+        ),
+        dst,
+        Paint()..filterQuality = FilterQuality.high,
       );
     }
 

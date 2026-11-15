@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import '../util/terrain.dart';
 
@@ -112,6 +113,32 @@ class AresBackend {
       terrainSource:
           json['terrain_source'] as String? ?? 'client_supplied_grid',
     );
+  }
+
+  Future<Uint8List?> fetchRegionalTextureBytes({
+    required String bbox,
+    String style = 'viking_red',
+    int size = 1024,
+  }) async {
+    final client = HttpClient()..connectionTimeout = const Duration(seconds: 6);
+    try {
+      final uri = Uri.parse(
+        '$baseUrl/api/v1/map/regional-texture?bbox=${Uri.encodeQueryComponent(bbox)}&style=${Uri.encodeQueryComponent(style)}&size=$size',
+      );
+      final request = await client.getUrl(uri).timeout(const Duration(seconds: 6));
+      final response = await request.close().timeout(const Duration(seconds: 8));
+      if (response.statusCode != 200) return null;
+      final builder = BytesBuilder(copy: false);
+      await for (final chunk in response) {
+        builder.add(chunk);
+      }
+      final bytes = builder.takeBytes();
+      return bytes.isEmpty ? null : bytes;
+    } on Exception {
+      return null;
+    } finally {
+      client.close(force: true);
+    }
   }
 
   Future<_BackendResponse?> _send(
