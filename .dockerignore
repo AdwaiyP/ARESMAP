@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.venv
+backend/.venv
+**/__pycache__
+**/.pytest_cache
+*.pyc
+ares_tablet
+sample_data
+data
+docs
+tests
+backend/tests
