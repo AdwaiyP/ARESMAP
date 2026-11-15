@@ -976,6 +976,7 @@ def _mola_elev_from_trek(
 @router.get("/regional-texture")
 def get_regional_texture(
     bbox: str = Query("137.25,-4.9,137.65,-4.5", description="min_lon,min_lat,max_lon,max_lat"),
+    size: int = Query(512, ge=256, le=1024),
 ):
     """Stitch & crop real Mars Trek CTX/HiRISE/Viking tiles for a bbox to drape onto 3D terrain."""
     try:
@@ -983,7 +984,7 @@ def get_regional_texture(
     except ValueError:
         raise HTTPException(status_code=422, detail="bbox must be min_lon,min_lat,max_lon,max_lat")
 
-    cache_key = f"reg_tex2:{round(min_lon,4)},{round(min_lat,4)},{round(max_lon,4)},{round(max_lat,4)}"
+    cache_key = f"reg_tex2:{round(min_lon,4)},{round(min_lat,4)},{round(max_lon,4)},{round(max_lat,4)}:{size}"
     cached = _cache_get(cache_key)
     if cached is not None:
         return Response(content=cached, media_type="image/jpeg", headers={"X-Cache": "HIT", "Cache-Control": "public, max-age=86400"})
@@ -998,7 +999,7 @@ def get_regional_texture(
     else:
         layer, ext, z = "Mars_Viking_MDIM21_ClrMosaic_global_232m", "jpg", 7
 
-    cropped = _stitch_trek_bbox(layer, ext, z, min_lon, min_lat, max_lon, max_lat, 512, 512)
+    cropped = _stitch_trek_bbox(layer, ext, z, min_lon, min_lat, max_lon, max_lat, size, size)
     cropped = ImageEnhance.Sharpness(cropped).enhance(1.25)
     buf = io.BytesIO()
     cropped.save(buf, format="JPEG", quality=88)

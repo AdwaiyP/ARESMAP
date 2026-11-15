@@ -591,11 +591,17 @@ async function updateGlobeDetailPatch() {
   if (!hits.length) return;
   const { lat, lon } = vec3ToLatLon(hits[0].point);
 
-  const halfDeg = Math.max(0.22, Math.min(8.0, alt * 0.42));
-  const minLat = Math.max(-85, lat - halfDeg);
-  const maxLat = Math.min(85, lat + halfDeg);
-  const minLon = Math.max(-179.5, lon - halfDeg);
-  const maxLon = Math.min(179.5, lon + halfDeg);
+  const fovRad = THREE.MathUtils.degToRad((camera.fov || 48) * 0.5);
+  const aspect = Math.max(1.0, camera.aspect || 1.6);
+  const worldHalf = alt * Math.tan(fovRad) * aspect * 1.55;
+  const halfLatDeg = Math.max(0.45, Math.min(14.0, THREE.MathUtils.radToDeg(worldHalf / GLOBE_R)));
+  const cosLat = Math.max(0.25, Math.cos(THREE.MathUtils.degToRad(lat)));
+  const halfLonDeg = Math.max(0.45, Math.min(18.0, halfLatDeg / cosLat));
+
+  const minLat = Math.max(-85, lat - halfLatDeg);
+  const maxLat = Math.min(85, lat + halfLatDeg);
+  const minLon = Math.max(-179.5, lon - halfLonDeg);
+  const maxLon = Math.min(179.5, lon + halfLonDeg);
   if (maxLon - minLon < 0.05 || maxLat - minLat < 0.05) return;
 
   const key = `${minLon.toFixed(2)},${minLat.toFixed(2)},${maxLon.toFixed(2)},${maxLat.toFixed(2)}`;
@@ -607,7 +613,7 @@ async function updateGlobeDetailPatch() {
 
   const loader = new THREE.TextureLoader();
   const patchTex = await new Promise((resolve) => {
-    loader.load(`/api/v1/map/regional-texture?bbox=${key}`, resolve, undefined, () => resolve(null));
+    loader.load(`/api/v1/map/regional-texture?bbox=${key}&size=1024`, resolve, undefined, () => resolve(null));
   });
   if (!patchTex || globeDetailKey !== key || modeSelect.value !== "globe") {
     patchTex?.dispose();
@@ -760,7 +766,7 @@ function animate() {
     }
     if (globeSelectionMarker && globeSelectionMarker.visible) {
       const d = camera.position.distanceTo(globeSelectionMarker.position);
-      const s = Math.max(0.22, Math.min(1.35, d / 48));
+      const s = Math.max(0.03, Math.min(1.35, d / 48));
       globeSelectionMarker.scale.setScalar(s);
       const pulse = globeSelectionMarker.getObjectByName("pulseRing");
       if (pulse) {
