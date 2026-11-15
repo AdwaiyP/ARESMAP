@@ -970,22 +970,123 @@ map.on("mousemove", (e) => {
     `${e.latlng.lat.toFixed(4)}°, ${e.latlng.lng.toFixed(4)}°`;
 });
 
+let markJumpMode = false;
+
 map.on("click", (e) => {
   if (evaPlanMode) {
     handleEvaPlanClick(e.latlng.lat, e.latlng.lng);
   } else if (dropWaypointMode) {
     openDropWaypointForm(e.latlng.lat, e.latlng.lng);
+  } else if (markJumpMode) {
+    markJumpMode = false;
+    document.getElementById("btn-mark-jump")?.classList.remove("active");
+    const label = window.prompt(
+      `Name Quick Jump at ${e.latlng.lat.toFixed(3)}°, ${e.latlng.lng.toFixed(3)}°:`,
+      `Site ${loadCustomJumps().length + 1}`
+    );
+    if (label && label.trim()) {
+      window.saveCustomJumpAt(e.latlng.lat, e.latlng.lng, label.trim());
+    }
   } else {
     inspectSurfacePoint(e.latlng.lat, e.latlng.lng);
   }
 });
 
+function setActiveJumpBtn(activeBtn) {
+  document.querySelectorAll("button[data-jump], #custom-jump-grid button[data-custom-jump]").forEach((b) => {
+    b.classList.remove("accent");
+  });
+  if (activeBtn) activeBtn.classList.add("accent");
+}
+
+function jumpToLocation(lat, lon, zoom, label, btnEl) {
+  setActiveJumpBtn(btnEl);
+  map.setView([lat, lon], zoom);
+  const svModal = document.getElementById("streetview-modal");
+  if (svModal && !svModal.classList.contains("hidden") && window.jumpStreetViewTo) {
+    window.jumpStreetViewTo(lat, lon, label);
+  }
+}
+
 document.querySelectorAll("button[data-jump]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const r = REGIONS[btn.dataset.jump];
-    if (r) map.setView(r.center, r.zoom);
+    if (r) {
+      jumpToLocation(r.center[0], r.center[1], r.zoom, btn.textContent.trim(), btn);
+    }
   });
 });
+
+function loadCustomJumps() {
+  try {
+    return JSON.parse(localStorage.getItem("ares_custom_jumps") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveCustomJumps(items) {
+  try {
+    localStorage.setItem("ares_custom_jumps", JSON.stringify(items));
+  } catch {}
+}
+
+function renderCustomJumps() {
+  const grid = document.getElementById("custom-jump-grid");
+  if (!grid) return;
+  const items = loadCustomJumps();
+  grid.innerHTML = "";
+  items.forEach((item, idx) => {
+    const row = document.createElement("div");
+    row.className = "custom-jump-row";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.dataset.customJump = String(idx);
+    btn.textContent = item.label;
+    btn.title = `${item.label} (${item.lat.toFixed(3)}°, ${item.lon.toFixed(3)}°)`;
+    btn.addEventListener("click", () => {
+      jumpToLocation(item.lat, item.lon, item.zoom || 9, item.label, btn);
+    });
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "custom-jump-del";
+    del.textContent = "×";
+    del.title = "Remove Quick Jump";
+    del.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const updated = loadCustomJumps().filter((_, i) => i !== idx);
+      saveCustomJumps(updated);
+      renderCustomJumps();
+      window.dispatchEvent(new CustomEvent("ares-custom-jumps-changed"));
+    });
+    row.appendChild(btn);
+    row.appendChild(del);
+    grid.appendChild(row);
+  });
+}
+
+window.saveCustomJumpAt = (lat, lon, label) => {
+  const items = loadCustomJumps();
+  items.push({ lat, lon, zoom: 10, label });
+  saveCustomJumps(items);
+  renderCustomJumps();
+  window.dispatchEvent(new CustomEvent("ares-custom-jumps-changed"));
+};
+
+window.getCustomJumps = loadCustomJumps;
+window.ARES_REGIONS = REGIONS;
+
+document.getElementById("btn-mark-jump")?.addEventListener("click", () => {
+  markJumpMode = !markJumpMode;
+  const btn = document.getElementById("btn-mark-jump");
+  btn?.classList.toggle("active", markJumpMode);
+  if (markJumpMode) {
+    inspectorBadge.textContent = "MARK JUMP";
+    inspectorBody.innerHTML = `<p class="muted">Click anywhere on the 2D Mars map to save a custom Quick Jump bookmark.</p>`;
+  }
+});
+
+renderCustomJumps();
 
 document.querySelectorAll("input[name='baselayer']").forEach((radio) => {
   radio.addEventListener("change", () => {
@@ -1362,3 +1463,315 @@ document.getElementById("btn-test-edac").addEventListener("click", async () => {
 });
 
 init();
+
+[
+  "toggle-minerals",
+  "toggle-planned",
+  "toggle-eva",
+  "toggle-landmarks",
+  "toggle-msl",
+  "toggle-themis",
+  "toggle-waypoints",
+  "toggle-aoi",
+].forEach((id) => {
+  document.getElementById(id)?.addEventListener("change", () => {
+    window.syncGlobeLayers?.();
+  });
+});
+
+function initInteractiveGuide() {
+  const card = document.getElementById("tour-card");
+  const backdrop = document.getElementById("tour-backdrop");
+  const badge = document.getElementById("tour-step-badge");
+  const titleEl = document.getElementById("tour-title");
+  const descEl = document.getElementById("tour-desc");
+  const prevBtn = document.getElementById("tour-prev");
+  const nextBtn = document.getElementById("tour-next");
+  const closeBtn = document.getElementById("tour-close");
+  const startBtn = document.getElementById("btn-start-guide");
+  if (!card) return;
+
+  const steps = [
+    {
+      sel: ".telemetry-strip",
+      title: "1. Live Mars Clock & Telemetry Strip",
+      html: `<p>Tracks real-time Martian mission timing and cursor coordinates using IAU:49900 (Mars) projections:</p>
+        <ul>
+          <li><strong>MSD / MTC / LMST:</strong> Mars Sol Date, Coordinated Mars Time, and Local Mean Solar Time at the active site.</li>
+          <li><strong>UTC &amp; OWLT:</strong> Earth UTC clock plus One-Way Light Time (~3–22 min radio signal delay between Earth and Mars).</li>
+          <li><strong>Cursor Lat/Lon:</strong> Live Martian coordinates as you move across the 2D map.</li>
+        </ul>
+        <div class="tour-tip">Tip: Press <code>←</code> / <code>→</code> to step through this guide, or <code>Esc</code> to close.</div>`,
+    },
+    {
+      sel: "[data-jump='mtsharp']",
+      drawer: "left",
+      title: "2. Quick Jump & Custom Bookmarks",
+      html: `<p>Instantly fly to key Martian landmarks or save your own exploration targets:</p>
+        <ul>
+          <li><strong>Built-in Sites:</strong> Jump to <strong>Mount Sharp</strong>, <strong>Gale Crater</strong>, <strong>Jezero</strong>, or <strong>Whole Mars</strong> in 2D Map and 360° Street View.</li>
+          <li><strong>Mark Custom Location:</strong> Click <strong>+ Mark Quick Jump Here</strong>, click anywhere on the 2D map (or use <strong>+ Mark</strong> in Street View), and name your bookmark.</li>
+        </ul>`,
+    },
+    {
+      sel: "#btn-open-globe",
+      drawer: "left",
+      title: "3. 3D Mars Globe",
+      html: `<p>Opens an interactive planetary 3D Mars globe powered by Three.js and NASA orbital tiles:</p>
+        <ul>
+          <li><strong>Controls:</strong> Drag to orbit, scroll to zoom, and switch between <strong>Viking Red</strong> and <strong>MOLA Elevation</strong> textures.</li>
+          <li><strong>Inspect Pin:</strong> Click any point on the globe surface to drop a pin and read elevation, climate, and radiation data.</li>
+          <li><strong>Globe Route Planning:</strong> Click <strong>Plan EVA Route</strong> inside the globe toolbar, pick Start &amp; Goal on the sphere, and view the terrain-conforming path.</li>
+        </ul>`,
+    },
+    {
+      sel: "#btn-open-sv",
+      drawer: "left",
+      title: "4. 3D Terrain & Mars 360° Street View",
+      html: `<p>Explore Mars up close in two dedicated 3D visualization modes:</p>
+        <ul>
+          <li><strong>3D Regional Terrain:</strong> Generates a real-time 5×5 MOLA/HiRISE DEM mesh around the current map center with slope hazard and exaggeration controls.</li>
+          <li><strong>Mars 360° Street View:</strong> First-person explorer with <strong>Drone</strong>, <strong>Astronaut</strong>, <strong>Rover</strong>, and <strong>Overview</strong> camera modes, waypoint tracking, and rover photo gallery.</li>
+          <li><strong>Controls:</strong> <code>W A S D</code> / Arrows to move, <code>E</code>/<code>Q</code> for altitude, Drag to look, plus <strong>Dust Fog</strong> and <strong>Set Landing Site</strong>.</li>
+        </ul>`,
+    },
+    {
+      sel: "#eva-algo",
+      drawer: "left",
+      title: "5. EVA Route Parameters & Safety",
+      html: `<p>Configure how ARES evaluates terrain hazards before computing a traversable EVA path:</p>
+        <ul>
+          <li><strong>Algo (A* vs Theta*):</strong> <code>A*</code> follows grid steps; <code>Theta*</code> uses any-angle line-of-sight smoothing for shorter, natural routes.</li>
+          <li><strong>Budget (m) &amp; Max Slope (°):</strong> Caps total path distance and rejects steep cliffs/craters exceeding your slope limit.</li>
+          <li><strong>Suit O₂ (%), Reserve (%), &amp; Env:</strong> Factors PLSS oxygen reserves and <code>Dusty/Storm</code> penalties into route feasibility.</li>
+        </ul>`,
+    },
+    {
+      sel: "#btn-plan-eva",
+      drawer: "left",
+      title: "6. Plan Safe EVA Route & Drop Waypoints",
+      html: `<p>Compute safe paths and persist custom mission markers to MongoDB:</p>
+        <ul>
+          <li><strong>Plan Safe EVA Route:</strong> Click the button, then click a <strong>Start</strong> point and <strong>Goal</strong> point on the 2D map to compute the safe route and elevation profile.</li>
+          <li><strong>Drop Planned Waypoint:</strong> Activate waypoint mode and click on the map to save a named custom waypoint directly to MongoDB.</li>
+        </ul>`,
+    },
+    {
+      sel: "[data-overlay='gale_ctx_optical']",
+      drawer: "left",
+      title: "7. Base Layers & High-Res Overlays",
+      html: `<p>Switch planetary base maps and layer orbital reconnaissance imagery:</p>
+        <ul>
+          <li><strong>Base Layers:</strong> Choose <strong>Viking Red</strong>, <strong>MOLA Elevation Heatmap</strong>, <strong>USGS MOLA + THEMIS Blend</strong>, or <strong>THEMIS Day IR</strong>.</li>
+          <li><strong>High-Res Overlays:</strong> Toggle <strong>Gale CTX (5.5 m)</strong>, <strong>Gale 1 m DEM</strong>, <strong>Jezero HiRISE (25 cm)</strong>, and <strong>Jezero DEM Mosaic</strong>.</li>
+        </ul>`,
+    },
+    {
+      sel: "#toggle-landmarks",
+      drawer: "left",
+      title: "8. MongoDB Vector Layers (2D & 3D Sync)",
+      html: `<p>Toggle curated science &amp; navigation datasets stored in MongoDB:</p>
+        <ul>
+          <li><strong>Minerals &amp; Landmarks:</strong> View mineral signatures, landing sites, and major Martian craters/volcanoes.</li>
+          <li><strong>Rover Traverses &amp; Waypoints:</strong> Overlay Curiosity &amp; Perseverance waypoints, planned routes, and EVA tactical markers.</li>
+          <li><strong>THEMIS Stamps:</strong> Inspect orbital infrared thermal inertia footprints directly on the map.</li>
+        </ul>
+        <div class="tour-tip">All toggled vector layers automatically sync with the 3D Mars Globe.</div>`,
+    },
+    {
+      sel: "#hud-plss-status",
+      drawer: "right",
+      title: "9. Configurable PLSS Life Support",
+      html: `<p>Simulate Portable Life Support System (PLSS) consumables for EVA-1 in real time:</p>
+        <ul>
+          <li><strong>Initial Inputs:</strong> Adjust starting <strong>Init O₂ (%)</strong>, <strong>Init Bat (%)</strong>, <strong>H₂O (L)</strong>, <strong>Work (W)</strong>, and <strong>Press (kPa)</strong>.</li>
+          <li><strong>Live Readouts:</strong> Monitors remaining endurance, <strong>ppCO₂</strong> scrubber load, and dynamic depletion as you plan routes or walk in Street View.</li>
+        </ul>`,
+    },
+    {
+      sel: "#hud-edac",
+      drawer: "right",
+      title: "10. Orbital Relay & EDAC Bit-Flip Test",
+      html: `<p>Model Mars-to-Earth communications and radiation-hardened memory protection:</p>
+        <ul>
+          <li><strong>Orbital Relay:</strong> Set <strong>Orbit (min)</strong> and <strong>Offset (min)</strong> to simulate overhead pass windows, or click <strong>Sat Nearby (Reset Pass)</strong>.</li>
+          <li><strong>Hamming(7,4) EDAC:</strong> Click <strong>Test Bit-Flip EDAC</strong> to inject cosmic-ray bit flips and verify 100% payload recovery.</li>
+        </ul>`,
+    },
+    {
+      sel: "#inspector-body",
+      drawer: "right",
+      title: "11. Weather, Radiation & Surface Inspector",
+      html: `<p>Combine live Mars environmental feeds with point-by-point surface analysis:</p>
+        <ul>
+          <li><strong>Space Weather &amp; Radiation:</strong> View <strong>MEDA/REMS</strong> sol temperatures/wind/pressure and live <strong>MSL RAD</strong> radiation alerts.</li>
+          <li><strong>Surface Inspector:</strong> Click any point on the 2D map, 3D Globe, THEMIS stamp, or rover waypoint to view elevation, predicted climate, and real NASA rover imagery.</li>
+        </ul>`,
+    },
+  ];
+
+  let idx = 0;
+  let activeEl = null;
+
+  const ensureDrawerOpen = (drawer) => {
+    const left = document.getElementById("left-sidebar");
+    const right = document.getElementById("inspector");
+    if (drawer === "left") {
+      left?.classList.remove("collapsed");
+      right?.classList.add("collapsed");
+    } else if (drawer === "right") {
+      right?.classList.remove("collapsed");
+      left?.classList.add("collapsed");
+    }
+  };
+
+  const updateBackdropHole = () => {
+    if (!backdrop || backdrop.classList.contains("hidden") || !activeEl) return;
+    const r = activeEl.getBoundingClientRect();
+    const p = 6;
+    const x1 = Math.max(0, r.left - p);
+    const y1 = Math.max(0, r.top - p);
+    const x2 = Math.min(window.innerWidth, r.right + p);
+    const y2 = Math.min(window.innerHeight, r.bottom + p);
+    backdrop.style.clipPath = `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${x1}px ${y1}px, ${x1}px ${y2}px, ${x2}px ${y2}px, ${x2}px ${y1}px, ${x1}px ${y1}px)`;
+  };
+
+  const clearHighlight = () => {
+    activeEl?.classList.remove("tour-highlight");
+    activeEl = null;
+  };
+
+  const renderStep = () => {
+    clearHighlight();
+    const step = steps[idx];
+    if (step.drawer) ensureDrawerOpen(step.drawer);
+    badge.textContent = `STEP ${idx + 1} / ${steps.length}`;
+    titleEl.textContent = step.title;
+    descEl.innerHTML = step.html || step.desc || "";
+    prevBtn.disabled = idx === 0;
+    nextBtn.textContent = idx === steps.length - 1 ? "Finish" : "Next";
+    backdrop?.classList.remove("hidden");
+    const target = document.querySelector(step.sel);
+    if (target) {
+      activeEl = target;
+      activeEl.classList.add("tour-highlight");
+      activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      updateBackdropHole();
+      setTimeout(updateBackdropHole, 280);
+    }
+  };
+
+  const closeTour = () => {
+    clearHighlight();
+    backdrop?.classList.add("hidden");
+    card.classList.add("hidden");
+    try { localStorage.setItem("ares_tour_seen", "1"); } catch {}
+  };
+
+  window.addEventListener("resize", updateBackdropHole);
+  document.querySelectorAll(".sidebar, .inspector").forEach((el) => {
+    el.addEventListener("scroll", updateBackdropHole, { passive: true });
+  });
+
+  startBtn?.addEventListener("click", () => {
+    document.getElementById("terrain-3d-modal")?.classList.add("hidden");
+    document.getElementById("streetview-modal")?.classList.add("hidden");
+    idx = 0;
+    card.classList.remove("hidden");
+    renderStep();
+  });
+  prevBtn?.addEventListener("click", () => {
+    if (idx > 0) { idx--; renderStep(); }
+  });
+  nextBtn?.addEventListener("click", () => {
+    if (idx < steps.length - 1) { idx++; renderStep(); }
+    else closeTour();
+  });
+  closeBtn?.addEventListener("click", closeTour);
+  window.addEventListener("keydown", (e) => {
+    if (card.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeTour();
+    else if (e.key === "ArrowRight") {
+      if (idx < steps.length - 1) { idx++; renderStep(); }
+      else closeTour();
+    } else if (e.key === "ArrowLeft" && idx > 0) {
+      idx--;
+      renderStep();
+    }
+  });
+}
+
+initInteractiveGuide();
+
+window.aresLoader = (() => {
+  let depth = 0;
+  let tipTimer = null;
+  const facts = [
+    "Mars Light-Time: ~3–22 min one-way to Earth",
+    "Curiosity has driven >32 km across Gale Crater",
+    "Mount Sharp rises 5.5 km above Gale Crater floor",
+    "Martian gravity is 3.71 m/s² (~38% of Earth)",
+    "Martian Sol is 24h 39m 35s long",
+  ];
+  const el = () => document.getElementById("ares-loader");
+  const txt = () => document.getElementById("ares-loader-text");
+  const fill = () => document.getElementById("ares-loader-fill");
+  return {
+    show(msg, pct = null) {
+      depth++;
+      const root = el();
+      if (!root) return;
+      root.classList.remove("hidden");
+      if (txt() && msg) txt().textContent = msg;
+      if (fill() && pct !== null) {
+        fill().style.animation = "none";
+        fill().style.width = `${Math.max(10, Math.min(100, pct))}%`;
+      } else if (fill()) {
+        fill().style.animation = "";
+        fill().style.width = "35%";
+      }
+      if (!tipTimer) {
+        let i = 0;
+        tipTimer = setInterval(() => {
+          if (txt() && depth > 0) {
+            txt().textContent = `${msg || "Syncing Mars data..."} · ${facts[i++ % facts.length]}`;
+          }
+        }, 2800);
+      }
+    },
+    hide() {
+      depth = Math.max(0, depth - 1);
+      if (depth === 0) {
+        el()?.classList.add("hidden");
+        if (tipTimer) {
+          clearInterval(tipTimer);
+          tipTimer = null;
+        }
+      }
+    },
+  };
+})();
+
+const _origFetch = window.fetch.bind(window);
+window.fetch = async (input, init) => {
+  const url = typeof input === "string" ? input : (input?.url || "");
+  const isSlowApi =
+    url.includes("/api/v1/map/terrain-grid") ||
+    url.includes("/api/v1/routes/plan") ||
+    url.includes("/api/v1/map/globe-texture") ||
+    url.includes("/api/v1/climate/predict");
+  if (isSlowApi) {
+    window.aresLoader.show(
+      url.includes("/routes/plan")
+        ? "Computing A*/Theta* safe EVA route..."
+        : url.includes("/terrain-grid")
+          ? "Streaming NASA Mars DEM terrain..."
+          : "Fetching Mars orbital & climate telemetry..."
+    );
+  }
+  try {
+    return await _origFetch(input, init);
+  } finally {
+    if (isSlowApi) window.aresLoader.hide();
+  }
+};

@@ -602,7 +602,12 @@ async function loadStop(idx) {
   if (!activeStops.length) return;
   activeStopIdx = Math.max(0, Math.min(activeStops.length - 1, idx));
   const stop = activeStops[activeStopIdx];
-  await loadPatchAt(stop.lon, stop.lat, stop.label || "EVA Stop", `${activeStopIdx + 1}/${activeStops.length}`);
+  window.aresLoader?.show(`Streaming Mars 360° terrain & imagery for ${stop.label || "EVA Stop"}...`, 40);
+  try {
+    await loadPatchAt(stop.lon, stop.lat, stop.label || "EVA Stop", `${activeStopIdx + 1}/${activeStops.length}`);
+  } finally {
+    window.aresLoader?.hide();
+  }
   if (activeStopIdx + 1 < activeStops.length) {
     const nxt = activeStops[activeStopIdx + 1];
     const brg = (Math.atan2(nxt.lon - stop.lon, nxt.lat - stop.lat) * 180) / Math.PI;
@@ -812,6 +817,85 @@ window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops
 
 document.getElementById("sv-prev").addEventListener("click", () => loadStop(activeStopIdx - 1));
 document.getElementById("sv-next").addEventListener("click", () => loadStop(activeStopIdx + 1));
+
+window.jumpStreetViewTo = async (lat, lon, label = "Quick Jump") => {
+  if (modal.classList.contains("hidden")) {
+    await window.openStreetView(lon, lat, label);
+    return;
+  }
+  activeStops = buildLocalTraverseStops(lon, lat, label);
+  activeStopIdx = 0;
+  if (visorWpProgressEl) visorWpProgressEl.dataset.sig = "";
+  await loadStop(0);
+};
+
+const svJumpSelect = document.getElementById("sv-jump");
+const svMarkBtn = document.getElementById("sv-mark-jump");
+
+function populateSvJump() {
+  if (!svJumpSelect) return;
+  const regions = window.ARES_REGIONS || {
+    mtsharp: { center: [-5.1, 137.8] },
+    gale: { center: [-4.5, 137.4] },
+    jezero: { center: [18.45, 77.4] },
+    ares_vallis: { center: [19.33, -33.55] },
+    gusev: { center: [-14.57, 175.48] },
+    meridiani: { center: [-1.95, -5.53] },
+    valles_marineris: { center: [-13.9, -59.2] },
+  };
+  const labels = {
+    mtsharp: "Mount Sharp",
+    gale: "Gale Crater",
+    jezero: "Jezero (M20)",
+    ares_vallis: "Ares Vallis",
+    gusev: "Gusev Crater",
+    meridiani: "Meridiani Planum",
+    valles_marineris: "Valles Marineris",
+  };
+  svJumpSelect.innerHTML = `<option value="">Quick Jump...</option>`;
+  Object.entries(labels).forEach(([k, name]) => {
+    const r = regions[k];
+    if (!r) return;
+    const opt = document.createElement("option");
+    opt.value = `${r.center[0]},${r.center[1]}|${name}`;
+    opt.textContent = name;
+    svJumpSelect.appendChild(opt);
+  });
+  (window.getCustomJumps?.() || []).forEach((item) => {
+    const opt = document.createElement("option");
+    opt.value = `${item.lat},${item.lon}|${item.label}`;
+    opt.textContent = `★ ${item.label}`;
+    svJumpSelect.appendChild(opt);
+  });
+}
+
+populateSvJump();
+window.addEventListener("ares-custom-jumps-changed", populateSvJump);
+
+svJumpSelect?.addEventListener("change", () => {
+  const val = svJumpSelect.value;
+  if (!val) return;
+  const [coords, label] = val.split("|");
+  const [lat, lon] = coords.split(",").map(Number);
+  if (Number.isFinite(lat) && Number.isFinite(lon)) {
+    window.jumpStreetViewTo(lat, lon, label || "Quick Jump");
+  }
+  svJumpSelect.value = "";
+});
+
+svMarkBtn?.addEventListener("click", () => {
+  const stop = activeStops[activeStopIdx];
+  const curLon = svChunkMgr && camera ? svChunkMgr.originLon + camera.position.x / 59274 : stop?.lon;
+  const curLat = svChunkMgr && camera ? svChunkMgr.originLat - camera.position.z / 59274 : stop?.lat;
+  if (!Number.isFinite(curLat) || !Number.isFinite(curLon)) return;
+  const label = window.prompt(
+    `Name Quick Jump at ${curLat.toFixed(4)}°, ${curLon.toFixed(4)}°:`,
+    currentLabel || "Street View Bookmark"
+  );
+  if (label && label.trim()) {
+    window.saveCustomJumpAt?.(curLat, curLon, label.trim());
+  }
+});
 
 async function setExplorerViewMode(mode) {
   viewMode = mode;

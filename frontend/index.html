@@ -9,7 +9,7 @@
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     crossorigin=""
   />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261115g" />
   <script type="importmap">
     {
       "imports": {
@@ -34,6 +34,7 @@
       <span>UTC: <strong id="clock-utc">--</strong></span>
       <span>OWLT: <strong id="clock-owlt">3m–22m</strong></span>
       <span class="coords-pill">IAU:49900 <strong id="cursor-coords">0.0000°, 0.0000°</strong></span>
+      <button id="btn-start-guide" type="button" class="guide-launch-btn" title="Open Interactive User Guide">? Guide</button>
     </div>
   </header>
 
@@ -57,13 +58,17 @@
         <h3>Quick Jump</h3>
         <div class="btn-grid">
           <button data-jump="mars">Whole Mars</button>
-          <button data-jump="mtsharp" class="accent">Mount Sharp</button>
+          <button data-jump="mtsharp">Mount Sharp</button>
           <button data-jump="gale">Gale Crater</button>
           <button data-jump="jezero">Jezero (M20)</button>
           <button data-jump="ares_vallis">Ares Vallis</button>
           <button data-jump="gusev">Gusev Crater</button>
           <button data-jump="meridiani">Meridiani Planum</button>
           <button data-jump="valles_marineris">Valles Marineris</button>
+        </div>
+        <div id="custom-jump-grid" class="btn-grid" style="margin-top:6px;"></div>
+        <div class="action-stack" style="margin-top:6px;">
+          <button id="btn-mark-jump" class="btn-full btn-mark-jump">+ Mark Quick Jump Here</button>
         </div>
         <div class="action-stack">
           <button id="btn-open-globe" class="btn-full"><svg class="lucide-icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> 3D Mars Globe</button>
@@ -164,6 +169,7 @@
                 <option value="elevation">Elevation Heatmap</option>
                 <option value="slope">Slope Hazard</option>
               </select>
+              <button id="btn-plan-globe-eva" title="Pick Start &amp; Goal on 3D Mars Globe">Plan EVA Route</button>
               <button id="btn-fullscreen-3d" title="Toggle Fullscreen"><svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg> Fullscreen</button>
               <button id="btn-close-3d"><svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Close 3D</button>
             </div>
@@ -210,6 +216,10 @@
                 <button id="sv-prev"><svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg> Prev</button>
                 <button id="sv-next">Next <svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
               </div>
+              <select id="sv-jump" title="Quick Jump in Street View">
+                <option value="">Quick Jump...</option>
+              </select>
+              <button id="sv-mark-jump" title="Save current Street View position as Quick Jump">+ Mark</button>
               <button id="sv-fullscreen" title="Toggle Fullscreen"><svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg> Fullscreen</button>
               <button id="btn-close-sv"><svg class="lucide-icon" width="13" height="13" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Close</button>
             </div>
@@ -360,12 +370,34 @@
     </aside>
   </main>
 
+  <div id="ares-loader" class="ares-loader hidden" role="status" aria-live="polite">
+    <div class="ares-loader-track"><div id="ares-loader-fill" class="ares-loader-fill"></div></div>
+    <div class="ares-loader-pill">
+      <span class="ares-loader-spinner"></span>
+      <span id="ares-loader-text">Syncing Mars telemetry...</span>
+    </div>
+  </div>
+
+  <div id="tour-backdrop" class="tour-backdrop hidden"></div>
+  <div id="tour-card" class="tour-card hidden" role="dialog" aria-label="ARES Interactive User Guide">
+    <div class="tour-header">
+      <span id="tour-step-badge" class="badge">STEP 1 / 11</span>
+      <button id="tour-close" type="button" style="padding:2px 8px;font-size:11px;">Close</button>
+    </div>
+    <h4 id="tour-title" class="tour-title">Welcome to ARES</h4>
+    <div id="tour-desc" class="tour-desc"></div>
+    <div class="tour-actions">
+      <button id="tour-prev" type="button">Prev</button>
+      <button id="tour-next" type="button" class="accent">Next</button>
+    </div>
+  </div>
+
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     crossorigin=""
   ></script>
-  <script src="/app.js"></script>
-  <script type="module" src="/terrain3d.js"></script>
-  <script type="module" src="/streetview.js"></script>
+  <script src="/app.js?v=20261115g"></script>
+  <script type="module" src="/terrain3d.js?v=20261115g"></script>
+  <script type="module" src="/streetview.js?v=20261115g"></script>
 </body>
 </html>
