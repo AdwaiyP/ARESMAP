@@ -68,17 +68,28 @@ def _determine_radiation_safety(total_usv_hr, sep_active):
 
 def assess_surface_radiation(latitude, longitude, elevation_m=-4500.0):
     """Estimate Mars surface GCR/SEP dose rate and EVA safety state."""
+    lat = float(latitude)
+    lon = float(longitude)
     elev = float(elevation_m)
     column_g_cm2 = _REF_COLUMN_G_CM2 * math.exp(
         -(elev - _REF_ELEV_M) / _SCALE_HEIGHT_M
     )
-    shield_factor = max(0.75, min(2.2, _REF_COLUMN_G_CM2 / max(column_g_cm2, 1.0)))
-    gcr_msv_day = _REF_GCR_MSV_DAY * (0.7 + 0.3 * shield_factor)
+    shield_factor = max(0.70, min(2.35, _REF_COLUMN_G_CM2 / max(column_g_cm2, 1.0)))
+
+    # Southern Highlands crustal magnetic anomaly (Terra Sirenum / Terra Cimmeria)
+    # spans roughly lat [-65, -20], lon [140..180] or [-180..-120]
+    in_crustal_anomaly = (-65.0 <= lat <= -20.0) and (lon >= 140.0 or lon <= -120.0)
+    mag_factor = 0.88 if in_crustal_anomaly else 1.0
+
+    # High-latitude polar regions have slightly higher solar/cosmic particle access
+    polar_factor = 1.0 + 0.08 * max(0.0, (abs(lat) - 55.0) / 35.0)
+
+    gcr_msv_day = _REF_GCR_MSV_DAY * (0.7 + 0.3 * shield_factor) * mag_factor * polar_factor
     gcr_usv_hr = (gcr_msv_day * 1000.0) / 24.0
 
     events, source = _fetch_donki_sep_events()
     sep_active = len(events) > 0
-    sep_usv_hr = 95.0 * shield_factor if sep_active else 0.0
+    sep_usv_hr = 95.0 * shield_factor * mag_factor * polar_factor if sep_active else 0.0
     total_usv_hr = gcr_usv_hr + sep_usv_hr
     eva_4h_msv = (total_usv_hr * 4.0) / 1000.0
     safety_state, recommendations = _determine_radiation_safety(

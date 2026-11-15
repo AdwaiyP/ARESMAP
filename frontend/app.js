@@ -276,8 +276,34 @@ async function inspectSurfacePoint(lat, lon) {
       ["Longitude", `${lon.toFixed(5)}°`],
     ]) +
     streetViewBtnHtml() +
-    `<p class="muted">Querying climate model...</p>`;
+    `<p class="muted">Querying MOLA/DEM elevation, radiation &amp; climate model...</p>`;
   bindStreetViewBtn(inspectorBody, lon, lat, "Selected Surface Point");
+
+  let elevM = -3500;
+  let slopeDeg = null;
+  try {
+    const pad = 0.04;
+    const bbox = `${(lon - pad).toFixed(4)},${(lat - pad).toFixed(4)},${(lon + pad).toFixed(4)},${(lat + pad).toFixed(4)}`;
+    const gRes = await fetch(`/api/v1/map/terrain-grid?bbox=${bbox}&rows=8&cols=8`);
+    if (gRes.ok) {
+      const g = await gRes.json();
+      const midR = Math.floor((g.elevation_m?.length || 1) / 2);
+      const midC = Math.floor((g.elevation_m?.[0]?.length || 1) / 2);
+      if (g.elevation_m?.[midR]?.[midC] != null) elevM = Number(g.elevation_m[midR][midC]);
+      if (g.slope_deg?.[midR]?.[midC] != null) slopeDeg = Number(g.slope_deg[midR][midC]);
+    }
+  } catch {}
+
+  // Update Radiation HUD for the actual clicked location & elevation
+  loadRadiationHud(lat, lon, elevM);
+
+  // Compute local Martian solar time (LTST) for this longitude
+  const nowMs = Date.now();
+  const jdTt = 2440587.5 + nowMs / 86400000.0 + 69.184 / 86400.0;
+  const msd = (jdTt - 2451545.0 - 4.5) / 1.0274912517 + 44796.0 - 0.0009626;
+  const mtcHours = (msd % 1.0) * 24.0;
+  const ltstHours = ((mtcHours + lon / 15.0 + (_marsClockMeta.equation_of_time_min || 0) / 60.0) % 24 + 24) % 24;
+  const ltstStr = `${String(Math.floor(ltstHours)).padStart(2, "0")}:${String(Math.floor((ltstHours % 1) * 60)).padStart(2, "0")}`;
 
   try {
     const res = await fetch("/api/v1/climate/predict", {
@@ -286,23 +312,49 @@ async function inspectSurfacePoint(lat, lon) {
       body: JSON.stringify({
         latitude: lat,
         longitude: lon,
-        ltst_time: "13:30",
-        elevation_m: -3500,
+        ltst_time: ltstStr,
+        elevation_m: elevM,
       }),
     });
     if (!res.ok) return;
     const data = await res.json();
     const preds = data.predictions || {};
-    const rows = Object.entries(preds).slice(0, 6).map(([k, v]) => [k, typeof v === "number" ? v.toFixed(2) : v]);
+    const rows = [
+      ["Elevation", `${elevM.toFixed(0)} m`],
+      ...(slopeDeg != null ? [["Local Slope", `${slopeDeg.toFixed(1)}°`]] : []),
+      ...Object.entries(preds).slice(0, 6).map(([k, v]) => [k, typeof v === "number" ? v.toFixed(2) : v]),
+    ];
     inspectorBody.innerHTML =
       renderKV([
         ["Latitude", `${lat.toFixed(5)}°`],
         ["Longitude", `${lon.toFixed(5)}°`],
       ]) +
       streetViewBtnHtml() +
-      `<h4 class="inspector-subhead">Predicted Climate (13:30 LTST)</h4>` +
+      `<h4 class="inspector-subhead">Predicted Climate (${ltstStr} LTST)</h4>` +
       renderKV(rows);
     bindStreetViewBtn(inspectorBody, lon, lat, "Selected Surface Point");
+
+    // Also update Space Weather HUD with live local surface conditions when in default mode
+    const rangeEl = document.getElementById("weather-range");
+    if (!rangeEl || rangeEl.value === "sol100") {
+      const wEl = document.getElementById("hud-weather");
+      const wTitle = document.getElementById("hud-weather-title");
+      const pPa = preds.pressure_pa ?? (610.0 * Math.exp(-elevM / 11100.0));
+      const airC = preds.air_temp_c ?? preds.temp_c;
+      const gndC = preds.ground_temp_c ?? preds.surface_temp_c;
+      const windMs = preds.wind_speed_mps ?? preds.wind_mps;
+      if (wTitle) wTitle.textContent = `Space Weather (${lat.toFixed(1)}°, ${lon.toFixed(1)}°)`;
+      if (wEl) {
+        wEl.innerHTML = `
+          <div>Air Temp: <strong>${airC != null ? Number(airC).toFixed(1) + " °C" : "N/A"}</strong></div>
+          <div>Ground Temp: <strong>${gndC != null ? Number(gndC).toFixed(1) + " °C" : "N/A"}</strong></div>
+          <div>Pressure: <strong>${Number(pPa).toFixed(0)} Pa</strong></div>
+          <div>Elevation: <strong>${elevM.toFixed(0)} m</strong></div>
+          <div>Local LTST: <strong>${ltstStr}</strong></div>
+          <div>Wind / Slope: <strong>${windMs != null ? Number(windMs).toFixed(1) + " m/s" : (slopeDeg != null ? slopeDeg.toFixed(1) + "°" : "NOMINAL")}</strong></div>
+        `;
+      }
+    }
   } catch {
     // climate model optional
   }
@@ -1002,6 +1054,7 @@ function setActiveJumpBtn(activeBtn) {
 function jumpToLocation(lat, lon, zoom, label, btnEl) {
   setActiveJumpBtn(btnEl);
   map.setView([lat, lon], zoom);
+  inspectSurfacePoint(lat, lon);
   const t3dModal = document.getElementById("terrain-3d-modal");
   if (t3dModal && !t3dModal.classList.contains("hidden") && window.jumpGlobeTo) {
     window.jumpGlobeTo(lat, lon, label, zoom);
