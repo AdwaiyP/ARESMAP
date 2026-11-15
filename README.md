@@ -4,6 +4,13 @@
 
 ARES transforms raw NASA orbital imagery, elevation grids, rover telemetry, and space-weather data into an astronaut-ready navigation and mission-planning tablet interface.
 
+## Live Demo
+
+- **Demo URL:** https://ares-map.onrender.com/
+
+> [!NOTE]
+> The live demo is hosted on **Render's free tier** (single worker, 512 MB RAM). Because of free-tier CPU/memory limits and cold-start behavior, processing speed is slower than local deployment and heavy terrain/3D chunk streaming or complex route requests may take longer or yield less accurate intermediate results. For full performance and fidelity, run ARES locally via Docker or Python (see [Quick Start](#quick-start)).
+
 ---
 
 ## Engineering Pipeline
