@@ -784,29 +784,12 @@ window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops
   ensureRenderer();
   resizeCanvas();
 
+  walkedMeters = 0;
   if (Array.isArray(routeStops) && routeStops.length > 0) {
     activeStops = routeStops;
     activeStopIdx = 0;
-  } else if (Array.isArray(window.aresRouteStops) && window.aresRouteStops.length > 1) {
-    // Use global route stops only if they are reasonably close (< 0.45° ~ 26 km) to the opened location
-    let best = 0;
-    let bestD = Infinity;
-    window.aresRouteStops.forEach((s, i) => {
-      const d = Math.hypot(s.lon - lon, s.lat - lat);
-      if (d < bestD) {
-        bestD = d;
-        best = i;
-      }
-    });
-    if (bestD <= 0.45) {
-      activeStops = window.aresRouteStops;
-      activeStopIdx = best;
-    } else {
-      activeStops = buildLocalTraverseStops(lon, lat, label);
-      activeStopIdx = 0;
-    }
   } else {
-    activeStops = buildLocalTraverseStops(lon, lat, label);
+    activeStops = [{ lon, lat, label }];
     activeStopIdx = 0;
   }
   if (visorWpProgressEl) visorWpProgressEl.dataset.sig = "";
@@ -823,7 +806,8 @@ window.jumpStreetViewTo = async (lat, lon, label = "Quick Jump") => {
     await window.openStreetView(lon, lat, label);
     return;
   }
-  activeStops = buildLocalTraverseStops(lon, lat, label);
+  walkedMeters = 0;
+  activeStops = [{ lon, lat, label }];
   activeStopIdx = 0;
   if (visorWpProgressEl) visorWpProgressEl.dataset.sig = "";
   await loadStop(0);

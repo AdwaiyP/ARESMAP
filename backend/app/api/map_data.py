@@ -774,10 +774,14 @@ def get_streetview_bundle(
                 }
             )
     else:
-        # Match rover mission to region (Curiosity in Gale Crater, Perseverance elsewhere)
-        mission = "msl" if in_gale else "mars2020"
-        photos = _fetch_nasa_rover_rss(mission, limit=limit)
-        nearest_mode = f"live_nasa_{mission}_fallback" if photos else "none"
+        in_jezero = 77.0 <= lon <= 78.0 and 18.0 <= lat <= 19.0
+        if in_gale or in_jezero:
+            mission = "msl" if in_gale else "mars2020"
+            photos = _fetch_nasa_rover_rss(mission, limit=limit)
+            nearest_mode = f"live_nasa_{mission}_fallback" if photos else "orbital_only"
+        else:
+            photos = []
+            nearest_mode = "orbital_only"
 
     return {
         "center": [lon, lat],
@@ -947,7 +951,7 @@ def _mola_elev_from_trek(
         for r, c, tile in pool.map(_fetch, tasks):
             stitched.paste(tile, ((c - c0) * 256, (r - r0) * 256))
 
-    stitched = stitched.filter(ImageFilter.GaussianBlur(radius=3.0))
+    stitched = stitched.filter(ImageFilter.GaussianBlur(radius=0.8))
     arr = np.asarray(stitched, dtype=np.float64) / 255.0
     h, w, _ = arr.shape
 
@@ -1000,7 +1004,11 @@ def get_regional_texture(
         layer, ext, z = "Mars_Viking_MDIM21_ClrMosaic_global_232m", "jpg", 7
 
     cropped = _stitch_trek_bbox(layer, ext, z, min_lon, min_lat, max_lon, max_lat, size, size)
-    cropped = ImageEnhance.Sharpness(cropped).enhance(1.25)
+    if layer == "Mars_Viking_MDIM21_ClrMosaic_global_232m":
+        cropped = ImageEnhance.Contrast(cropped).enhance(1.12)
+        cropped = ImageEnhance.Sharpness(cropped).enhance(1.5)
+    else:
+        cropped = ImageEnhance.Sharpness(cropped).enhance(1.25)
     buf = io.BytesIO()
     cropped.save(buf, format="JPEG", quality=88)
     raw = buf.getvalue()
