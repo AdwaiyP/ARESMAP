@@ -6,6 +6,9 @@ let renderer, scene, camera, controls, activeGroup, mroSat, globeSphere;
 let globeLayers = {};
 let globeRouteGroup = null;
 let globeSelectionMarker = null;
+let globeDetailMesh = null;
+let globeDetailKey = "";
+let globeDetailTimer = null;
 let globePlanMode = false;
 let globeRouteStart = null;
 let chunkMgr = null;
@@ -52,6 +55,7 @@ function ensureScene() {
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.zoomSpeed = 0.55;
+  controls.addEventListener("change", scheduleGlobeDetailUpdate);
 
   scene.add(new THREE.AmbientLight(0xffffff, 0.7));
   const sun = new THREE.DirectionalLight(0xfff1dc, 1.25);
@@ -96,6 +100,8 @@ function clearGroup() {
   mroSat = null;
   globeSphere = null;
   globeSelectionMarker = null;
+  globeDetailMesh = null;
+  globeDetailKey = "";
   horizonSkirt = null;
   pickables = [];
 }
@@ -371,7 +377,7 @@ async function buildGlobe() {
 
   camera.position.set(0, 16, 62);
   controls.target.set(0, 0, 0);
-  controls.minDistance = GLOBE_R + 2.5;
+  controls.minDistance = GLOBE_R + 0.8;
   controls.maxDistance = 95;
   controls.enablePan = false;
   controls.update();
@@ -382,12 +388,36 @@ async function buildGlobe() {
   });
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  tex.minFilter = THREE.LinearMipmapLinearFilter;
+  tex.magFilter = THREE.LinearFilter;
 
   globeSphere = new THREE.Mesh(
-    new THREE.SphereGeometry(GLOBE_R, 72, 54),
-    new THREE.MeshStandardMaterial({ map: tex, roughness: 0.88, metalness: 0.04 })
+    new THREE.SphereGeometry(GLOBE_R, 96, 72),
+    new THREE.MeshStandardMaterial({
+      map: tex,
+      bumpMap: tex,
+      bumpScale: 0.28,
+      roughness: 0.88,
+      metalness: 0.04,
+    })
   );
   activeGroup.add(globeSphere);
+
+  // Progressively upgrade base globe texture to z=3 (4096x2048) in background
+  const currentSphere = globeSphere;
+  loader.load(`/api/v1/map/globe-texture?style=${style}&z=3`, (hiTex) => {
+    if (globeSphere !== currentSphere) {
+      hiTex.dispose();
+      return;
+    }
+    hiTex.colorSpace = THREE.SRGBColorSpace;
+    hiTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    hiTex.minFilter = THREE.LinearMipmapLinearFilter;
+    hiTex.magFilter = THREE.LinearFilter;
+    currentSphere.material.map = hiTex;
+    currentSphere.material.bumpMap = hiTex;
+    currentSphere.material.needsUpdate = true;
+  });
 
   const atmo = new THREE.Mesh(
     new THREE.SphereGeometry(GLOBE_R * 1.025, 48, 32),
@@ -531,14 +561,87 @@ window.syncGlobeLayers = () => {
 
 window.jumpGlobeTo = (lat, lon, label = "Quick Jump", zoom = 8) => {
   if (!camera || !controls || modeSelect.value !== "globe") return;
-  const dist = zoom <= 2 ? 64 : zoom <= 6 ? 40 : 30;
+  const dist = zoom <= 2 ? 64 : zoom <= 6 ? 38 : 28;
   const targetPos = latLonToVec3(lat, lon, dist);
   camera.position.copy(targetPos);
   controls.target.set(0, 0, 0);
   controls.update();
   setGlobeSelectionHighlight(lat, lon);
+  scheduleGlobeDetailUpdate();
   statsEl.textContent = `3D Mars Globe | Focused on ${label} (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
 };
+
+function scheduleGlobeDetailUpdate() {
+  if (!camera || !globeSphere || modeSelect.value !== "globe" || modal.classList.contains("hidden")) return;
+  if (globeDetailTimer) clearTimeout(globeDetailTimer);
+  globeDetailTimer = setTimeout(updateGlobeDetailPatch, 260);
+}
+
+async function updateGlobeDetailPatch() {
+  if (!camera || !globeSphere || !activeGroup || modeSelect.value !== "globe" || modal.classList.contains("hidden")) return;
+  const dist = camera.position.length();
+  const alt = dist - GLOBE_R;
+  if (alt >= 22) {
+    if (globeDetailMesh) globeDetailMesh.visible = false;
+    return;
+  }
+
+  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+  const hits = raycaster.intersectObject(globeSphere, false);
+  if (!hits.length) return;
+  const { lat, lon } = vec3ToLatLon(hits[0].point);
+
+  const halfDeg = Math.max(0.22, Math.min(8.0, alt * 0.42));
+  const minLat = Math.max(-85, lat - halfDeg);
+  const maxLat = Math.min(85, lat + halfDeg);
+  const minLon = Math.max(-179.5, lon - halfDeg);
+  const maxLon = Math.min(179.5, lon + halfDeg);
+  if (maxLon - minLon < 0.05 || maxLat - minLat < 0.05) return;
+
+  const key = `${minLon.toFixed(2)},${minLat.toFixed(2)},${maxLon.toFixed(2)},${maxLat.toFixed(2)}`;
+  if (key === globeDetailKey && globeDetailMesh) {
+    globeDetailMesh.visible = true;
+    return;
+  }
+  globeDetailKey = key;
+
+  const loader = new THREE.TextureLoader();
+  const patchTex = await new Promise((resolve) => {
+    loader.load(`/api/v1/map/regional-texture?bbox=${key}`, resolve, undefined, () => resolve(null));
+  });
+  if (!patchTex || globeDetailKey !== key || modeSelect.value !== "globe") {
+    patchTex?.dispose();
+    return;
+  }
+  patchTex.colorSpace = THREE.SRGBColorSpace;
+  patchTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  patchTex.minFilter = THREE.LinearMipmapLinearFilter;
+  patchTex.magFilter = THREE.LinearFilter;
+
+  const phiStart = THREE.MathUtils.degToRad(minLon + 180);
+  const phiLength = THREE.MathUtils.degToRad(maxLon - minLon);
+  const thetaStart = THREE.MathUtils.degToRad(90 - maxLat);
+  const thetaLength = THREE.MathUtils.degToRad(maxLat - minLat);
+
+  const geom = new THREE.SphereGeometry(GLOBE_R + 0.025, 48, 32, phiStart, phiLength, thetaStart, thetaLength);
+  if (globeDetailMesh) {
+    globeDetailMesh.geometry.dispose();
+    globeDetailMesh.material.map?.dispose();
+    globeDetailMesh.material.dispose();
+    activeGroup.remove(globeDetailMesh);
+  }
+  globeDetailMesh = new THREE.Mesh(
+    geom,
+    new THREE.MeshStandardMaterial({
+      map: patchTex,
+      bumpMap: patchTex,
+      bumpScale: 0.32,
+      roughness: 0.88,
+      metalness: 0.03,
+    })
+  );
+  activeGroup.add(globeDetailMesh);
+}
 
 window.setGlobeTextureStyle = (layerId) => {
   const mapped = layerId === "mola_global_color" ? "mola" : "viking_red";
