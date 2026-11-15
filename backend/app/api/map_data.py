@@ -49,7 +49,12 @@ def _cache_get(key: str) -> Any | None:
     return val
 
 
+_CACHE_MAX_ENTRIES = 1024
+
+
 def _cache_set(key: str, val: Any) -> Any:
+    if key not in _cache and len(_cache) >= _CACHE_MAX_ENTRIES:
+        _cache.pop(next(iter(_cache)))
     _cache[key] = (time.monotonic(), val)
     return val
 
@@ -422,6 +427,7 @@ def _get_global_elev_points(db) -> tuple[np.ndarray, np.ndarray]:
 
 @router.get("/terrain-grid")
 def get_terrain_grid(
+    response: Response,
     bbox: str = Query("137.3,-4.8,137.6,-4.45", description="min_lon,min_lat,max_lon,max_lat"),
     rows: int = Query(48, ge=8, le=128),
     cols: int = Query(48, ge=8, le=128),
@@ -433,6 +439,13 @@ def get_terrain_grid(
         raise HTTPException(status_code=422, detail="bbox must be min_lon,min_lat,max_lon,max_lat")
     if min_lon >= max_lon or min_lat >= max_lat:
         raise HTTPException(status_code=422, detail="bbox min values must be less than max values")
+
+    grid_key = f"tgrid:{round(min_lon, 5)}:{round(min_lat, 5)}:{round(max_lon, 5)}:{round(max_lat, 5)}:{rows}:{cols}"
+    cached_grid = _cache_get(grid_key)
+    if cached_grid is not None:
+        response.headers["X-Cache"] = "HIT"
+        response.headers["Cache-Control"] = "public, max-age=300"
+        return cached_grid
 
     db = get_db()
     lon_grid = np.linspace(min_lon, max_lon, cols)
@@ -473,7 +486,7 @@ def get_terrain_grid(
     dz_dy, dz_dx = np.gradient(elev_mat, cell_y_m, cell_x_m)
     slope_mat = np.degrees(np.arctan(np.hypot(dz_dx, dz_dy)))
 
-    return {
+    payload = {
         "bbox": [min_lon, min_lat, max_lon, max_lat],
         "rows": rows,
         "cols": cols,
@@ -485,6 +498,10 @@ def get_terrain_grid(
         "elevation_m": np.round(elev_mat, 2).tolist(),
         "slope_deg": np.round(slope_mat, 2).tolist(),
     }
+    _cache_set(grid_key, payload)
+    response.headers["X-Cache"] = "MISS"
+    response.headers["Cache-Control"] = "public, max-age=300"
+    return payload
 
 
 class PlannedWaypointIn(BaseModel):

@@ -1,8 +1,12 @@
+from collections import defaultdict, deque
+import os
 from pathlib import Path
+import time
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.map_data import get_mars_time, router as map_router
@@ -23,13 +27,56 @@ app = FastAPI(
     version="0.2.0",
 )
 
+_cors_raw = os.getenv("ARES_CORS_ORIGINS", "*").strip()
+_cors_origins = ["*"] if _cors_raw == "*" else [o.strip() for o in _cors_raw.split(",") if o.strip()]
+
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+_RATE_LIMIT_RPM = int(os.getenv("ARES_RATE_LIMIT_RPM", "300"))
+_ARES_API_KEY = os.getenv("ARES_API_KEY", "").strip()
+_ip_windows: dict[str, deque[float]] = defaultdict(deque)
+
+
+@app.middleware("http")
+async def gateway_security_and_rate_limit(request: Request, call_next):
+    path = request.url.path
+    if path.startswith("/api/") and path != "/api/v1/health":
+        # Optional API key protection for mutating mission-data endpoints
+        if _ARES_API_KEY and request.method in ("POST", "PUT", "PATCH", "DELETE"):
+            if path.startswith("/api/v1/map/waypoints") or path.startswith("/api/v1/map/features"):
+                auth_hdr = request.headers.get("authorization", "")
+                bearer = auth_hdr[7:].strip() if auth_hdr.lower().startswith("bearer ") else ""
+                api_key = request.headers.get("x-api-key", "").strip() or bearer
+                if api_key != _ARES_API_KEY:
+                    return JSONResponse({"detail": "Unauthorized: invalid or missing API key"}, status_code=401)
+
+        # Sliding-window per-IP rate limiting (high enough for 5x5 Street View bursts)
+        if _RATE_LIMIT_RPM > 0:
+            fwd = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+            client_ip = fwd or (request.client.host if request.client else "unknown")
+            now = time.monotonic()
+            win = _ip_windows[client_ip]
+            while win and now - win[0] > 60.0:
+                win.popleft()
+            if len(win) >= _RATE_LIMIT_RPM:
+                return JSONResponse(
+                    {"detail": "Rate limit exceeded; retry shortly"},
+                    status_code=429,
+                    headers={"Retry-After": "10"},
+                )
+            win.append(now)
+
+    resp = await call_next(request)
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return resp
 
 if climate_router is not None:
     app.include_router(climate_router)
