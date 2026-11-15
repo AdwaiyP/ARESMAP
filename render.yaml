@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ares-map
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: UVICORN_WORKERS
+        value: "1"
+      - key: MONGO_DB
+        value: ares_base
+      - key: MONGO_URI
+        sync: false
+      - key: ARES_CORS_ORIGINS
+        value: "*"
