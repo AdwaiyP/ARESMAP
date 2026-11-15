@@ -1,0 +1,815 @@
+{
+  "region": "Mount Sharp / Aeolis Mons",
+  "bbox_lon_lat": [
+    137.2,
+    -5.6,
+    138.4,
+    -4.6
+  ],
+  "crs": "IAU:49900 / EPSG:4326 (Equirectangular)",
+  "wms_aligned_layers": [
+    {
+      "file": "images/wms/themis_day_ir.png",
+      "layer": "THEMIS_controlled",
+      "source": "USGS Astrogeology Mars WMS",
+      "width_px": 960,
+      "height_px": 800,
+      "bbox_lon_lat": [
+        137.2,
+        -5.6,
+        138.4,
+        -4.6
+      ],
+      "crs": "EPSG:4326 / IAU_2015:49900",
+      "bytes": 592010
+    },
+    {
+      "file": "images/wms/themis_night_ir.png",
+      "layer": "THEMIS_night",
+      "source": "USGS Astrogeology Mars WMS",
+      "width_px": 960,
+      "height_px": 800,
+      "bbox_lon_lat": [
+        137.2,
+        -5.6,
+        138.4,
+        -4.6
+      ],
+      "crs": "EPSG:4326 / IAU_2015:49900",
+      "bytes": 583530
+    },
+    {
+      "file": "images/wms/mola_themis_blend.png",
+      "layer": "MOLA_THEMIS_blend",
+      "source": "USGS Astrogeology Mars WMS",
+      "width_px": 960,
+      "height_px": 800,
+      "bbox_lon_lat": [
+        137.2,
+        -5.6,
+        138.4,
+        -4.6
+      ],
+      "crs": "EPSG:4326 / IAU_2015:49900",
+      "bytes": 1016950
+    },
+    {
+      "file": "images/wms/mola_color_topo.png",
+      "layer": "MOLA_color",
+      "source": "USGS Astrogeology Mars WMS",
+      "width_px": 960,
+      "height_px": 800,
+      "bbox_lon_lat": [
+        137.2,
+        -5.6,
+        138.4,
+        -4.6
+      ],
+      "crs": "EPSG:4326 / IAU_2015:49900",
+      "bytes": 34364
+    },
+    {
+      "file": "images/wms/mdim21_optical_color.png",
+      "layer": "MDIM21_color",
+      "source": "USGS Astrogeology Mars WMS",
+      "width_px": 960,
+      "height_px": 800,
+      "bbox_lon_lat": [
+        137.2,
+        -5.6,
+        138.4,
+        -4.6
+      ],
+      "crs": "EPSG:4326 / IAU_2015:49900",
+      "bytes": 216186
+    }
+  ],
+  "mars_trek_ctx_tiles": {
+    "layer": "Gale_CTX_BlockAdj_dd",
+    "source": "NASA Mars Trek WMTS",
+    "crs": "IAU:49900 (Equirectangular 2:1)",
+    "zoom": 10,
+    "tile_size_px": 256,
+    "grid": {
+      "row_min": 538,
+      "row_max": 543,
+      "col_min": 1804,
+      "col_max": 1811
+    },
+    "tiles": [
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1804.png",
+        "z": 10,
+        "row": 538,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -4.746094,
+          137.285156,
+          -4.570312
+        ],
+        "bytes": 59645
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1805.png",
+        "z": 10,
+        "row": 538,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -4.746094,
+          137.460938,
+          -4.570312
+        ],
+        "bytes": 54927
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1806.png",
+        "z": 10,
+        "row": 538,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -4.746094,
+          137.636719,
+          -4.570312
+        ],
+        "bytes": 54842
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1807.png",
+        "z": 10,
+        "row": 538,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -4.746094,
+          137.8125,
+          -4.570312
+        ],
+        "bytes": 59046
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1808.png",
+        "z": 10,
+        "row": 538,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -4.746094,
+          137.988281,
+          -4.570312
+        ],
+        "bytes": 65081
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1809.png",
+        "z": 10,
+        "row": 538,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -4.746094,
+          138.164062,
+          -4.570312
+        ],
+        "bytes": 63097
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1810.png",
+        "z": 10,
+        "row": 538,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -4.746094,
+          138.339844,
+          -4.570312
+        ],
+        "bytes": 49634
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r538_c1811.png",
+        "z": 10,
+        "row": 538,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -4.746094,
+          138.515625,
+          -4.570312
+        ],
+        "bytes": 49265
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1804.png",
+        "z": 10,
+        "row": 539,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -4.921875,
+          137.285156,
+          -4.746094
+        ],
+        "bytes": 58441
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1805.png",
+        "z": 10,
+        "row": 539,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -4.921875,
+          137.460938,
+          -4.746094
+        ],
+        "bytes": 63262
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1806.png",
+        "z": 10,
+        "row": 539,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -4.921875,
+          137.636719,
+          -4.746094
+        ],
+        "bytes": 62156
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1807.png",
+        "z": 10,
+        "row": 539,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -4.921875,
+          137.8125,
+          -4.746094
+        ],
+        "bytes": 59145
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1808.png",
+        "z": 10,
+        "row": 539,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -4.921875,
+          137.988281,
+          -4.746094
+        ],
+        "bytes": 63725
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1809.png",
+        "z": 10,
+        "row": 539,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -4.921875,
+          138.164062,
+          -4.746094
+        ],
+        "bytes": 56671
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1810.png",
+        "z": 10,
+        "row": 539,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -4.921875,
+          138.339844,
+          -4.746094
+        ],
+        "bytes": 56787
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r539_c1811.png",
+        "z": 10,
+        "row": 539,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -4.921875,
+          138.515625,
+          -4.746094
+        ],
+        "bytes": 45845
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1804.png",
+        "z": 10,
+        "row": 540,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -5.097656,
+          137.285156,
+          -4.921875
+        ],
+        "bytes": 60911
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1805.png",
+        "z": 10,
+        "row": 540,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -5.097656,
+          137.460938,
+          -4.921875
+        ],
+        "bytes": 60519
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1806.png",
+        "z": 10,
+        "row": 540,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -5.097656,
+          137.636719,
+          -4.921875
+        ],
+        "bytes": 56760
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1807.png",
+        "z": 10,
+        "row": 540,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -5.097656,
+          137.8125,
+          -4.921875
+        ],
+        "bytes": 58330
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1808.png",
+        "z": 10,
+        "row": 540,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -5.097656,
+          137.988281,
+          -4.921875
+        ],
+        "bytes": 62810
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1809.png",
+        "z": 10,
+        "row": 540,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -5.097656,
+          138.164062,
+          -4.921875
+        ],
+        "bytes": 60770
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1810.png",
+        "z": 10,
+        "row": 540,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -5.097656,
+          138.339844,
+          -4.921875
+        ],
+        "bytes": 59369
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r540_c1811.png",
+        "z": 10,
+        "row": 540,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -5.097656,
+          138.515625,
+          -4.921875
+        ],
+        "bytes": 54882
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1804.png",
+        "z": 10,
+        "row": 541,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -5.273438,
+          137.285156,
+          -5.097656
+        ],
+        "bytes": 58896
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1805.png",
+        "z": 10,
+        "row": 541,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -5.273438,
+          137.460938,
+          -5.097656
+        ],
+        "bytes": 63214
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1806.png",
+        "z": 10,
+        "row": 541,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -5.273438,
+          137.636719,
+          -5.097656
+        ],
+        "bytes": 54944
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1807.png",
+        "z": 10,
+        "row": 541,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -5.273438,
+          137.8125,
+          -5.097656
+        ],
+        "bytes": 48615
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1808.png",
+        "z": 10,
+        "row": 541,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -5.273438,
+          137.988281,
+          -5.097656
+        ],
+        "bytes": 54764
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1809.png",
+        "z": 10,
+        "row": 541,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -5.273438,
+          138.164062,
+          -5.097656
+        ],
+        "bytes": 60830
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1810.png",
+        "z": 10,
+        "row": 541,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -5.273438,
+          138.339844,
+          -5.097656
+        ],
+        "bytes": 60638
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r541_c1811.png",
+        "z": 10,
+        "row": 541,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -5.273438,
+          138.515625,
+          -5.097656
+        ],
+        "bytes": 58789
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1804.png",
+        "z": 10,
+        "row": 542,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -5.449219,
+          137.285156,
+          -5.273438
+        ],
+        "bytes": 59253
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1805.png",
+        "z": 10,
+        "row": 542,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -5.449219,
+          137.460938,
+          -5.273438
+        ],
+        "bytes": 64822
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1806.png",
+        "z": 10,
+        "row": 542,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -5.449219,
+          137.636719,
+          -5.273438
+        ],
+        "bytes": 49123
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1807.png",
+        "z": 10,
+        "row": 542,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -5.449219,
+          137.8125,
+          -5.273438
+        ],
+        "bytes": 45269
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1808.png",
+        "z": 10,
+        "row": 542,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -5.449219,
+          137.988281,
+          -5.273438
+        ],
+        "bytes": 47516
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1809.png",
+        "z": 10,
+        "row": 542,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -5.449219,
+          138.164062,
+          -5.273438
+        ],
+        "bytes": 57125
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1810.png",
+        "z": 10,
+        "row": 542,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -5.449219,
+          138.339844,
+          -5.273438
+        ],
+        "bytes": 59462
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r542_c1811.png",
+        "z": 10,
+        "row": 542,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -5.449219,
+          138.515625,
+          -5.273438
+        ],
+        "bytes": 59217
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1804.png",
+        "z": 10,
+        "row": 543,
+        "col": 1804,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.109375,
+          -5.625,
+          137.285156,
+          -5.449219
+        ],
+        "bytes": 60671
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1805.png",
+        "z": 10,
+        "row": 543,
+        "col": 1805,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.285156,
+          -5.625,
+          137.460938,
+          -5.449219
+        ],
+        "bytes": 57138
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1806.png",
+        "z": 10,
+        "row": 543,
+        "col": 1806,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.460938,
+          -5.625,
+          137.636719,
+          -5.449219
+        ],
+        "bytes": 48901
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1807.png",
+        "z": 10,
+        "row": 543,
+        "col": 1807,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.636719,
+          -5.625,
+          137.8125,
+          -5.449219
+        ],
+        "bytes": 45510
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1808.png",
+        "z": 10,
+        "row": 543,
+        "col": 1808,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.8125,
+          -5.625,
+          137.988281,
+          -5.449219
+        ],
+        "bytes": 51681
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1809.png",
+        "z": 10,
+        "row": 543,
+        "col": 1809,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          137.988281,
+          -5.625,
+          138.164062,
+          -5.449219
+        ],
+        "bytes": 54620
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1810.png",
+        "z": 10,
+        "row": 543,
+        "col": 1810,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.164062,
+          -5.625,
+          138.339844,
+          -5.449219
+        ],
+        "bytes": 57269
+      },
+      {
+        "file": "images/mars_trek_ctx_z10/z10_r543_c1811.png",
+        "z": 10,
+        "row": 543,
+        "col": 1811,
+        "tile_px": 256,
+        "bbox_lon_lat": [
+          138.339844,
+          -5.625,
+          138.515625,
+          -5.449219
+        ],
+        "bytes": 60420
+      }
+    ]
+  },
+  "themis_stamps": {
+    "count": 327,
+    "named_description_count": 51,
+    "json_file": "themis_stamps.json",
+    "geojson_file": "themis_stamps.geojson"
+  },
+  "telemetry_summary": {
+    "bucket_count": 63,
+    "raw_sample_rows": 18,
+    "files": [
+      "telemetry_15min_sol100.csv",
+      "telemetry_15min_sol100.json",
+      "telemetry_raw_sample.csv"
+    ]
+  },
+  "reference_locations": [
+    {
+      "id": "vera_rubin_ridge",
+      "name": "Vera Rubin Ridge (NW Mount Sharp Slope)",
+      "lon_deg": 137.35,
+      "lat_deg": -4.69,
+      "category": "geologic_feature",
+      "notes": "Lower northwest Mount Sharp ridge explored by Curiosity (~4.69 S, 137.35 E)."
+    },
+    {
+      "id": "gale_crater_center",
+      "name": "Gale Crater Center",
+      "lon_deg": 137.8,
+      "lat_deg": -5.4,
+      "category": "landmark",
+      "notes": "Central Gale Crater reference (~5.4 S, 137.8 E)."
+    },
+    {
+      "id": "mount_sharp_summit",
+      "name": "Aeolis Mons (Mount Sharp) Central Peak",
+      "lon_deg": 137.85,
+      "lat_deg": -5.08,
+      "category": "landmark",
+      "notes": "Central mound rising ~5.5 km above crater floor (~5.08 S, 137.85 E)."
+    }
+  ]
+}
