@@ -101,8 +101,9 @@ Run both test suites from the **`backend/`** directory:
 
 ```bash
 cd backend
-pytest tests -v      # 26 backend, 3D/Street View & Mars time tests
-pytest ../tests -v   # 19 API, A* & EVA safety validation tests
+pytest tests -v                         # 146 backend tests (26 core + 120-case stress/boundary/security suite)
+pytest tests/test_stress_100plus.py -v  # 120-case API stress, boundary, negative & SSRF/injection suite
+pytest ../tests -v                      # 19 API, A* & EVA safety validation tests
 ```
 
 ---
@@ -118,7 +119,7 @@ ARES/
 │   │   ├── services/       # A*, Theta*, safety, Mars time, radiation, EDAC, climate
 │   │   ├── db.py           # MongoDB client helper
 │   │   └── main.py         # FastAPI app & static frontend mount
-│   ├── tests/              # 3D terrain/Street View, Mars time & API tests
+│   ├── tests/              # 3D terrain/Street View, Mars time, API & 120-case stress suite
 │   ├── push_to_mongo.py    # Idempotent MongoDB seeding & index setup
 │   ├── push_to_supabase.py # Supabase Storage & Postgres uploader
 │   └── supabase_schema.sql # Postgres schema for Supabase
