@@ -1201,6 +1201,7 @@ async function handleEvaPlanClick(lat, lng) {
   if (!evaStart) {
     evaStart = { lat, lng };
     evaPlanGroup.clearLayers();
+    document.getElementById("eva-route-legend")?.classList.add("hidden");
     L.circleMarker([lat, lng], { radius: 7, color: "#22c55e", fillColor: "#22c55e", fillOpacity: 0.9 })
       .bindTooltip("EVA Start")
       .addTo(evaPlanGroup);
@@ -1250,10 +1251,15 @@ async function handleEvaPlanClick(lat, lng) {
         const cLat = maxLat - r * cellLat;
         const cLon = minLon + c * cellLon;
         const color = s >= 25 ? "#ef4444" : "#eab308";
+        const cellTip = s >= 25
+          ? `Steep Hazard Cell: ${s.toFixed(1)}° slope (≥ 25° — High Risk)`
+          : `Caution Slope Cell: ${s.toFixed(1)}° slope (15°–24.9°)`;
         L.rectangle(
           [[cLat - cellLat / 2, cLon - cellLon / 2], [cLat + cellLat / 2, cLon + cellLon / 2]],
           { color, weight: 0, fillColor: color, fillOpacity: s >= 25 ? 0.45 : 0.25 }
-        ).addTo(evaPlanGroup);
+        )
+          .bindTooltip(cellTip, { sticky: true })
+          .addTo(evaPlanGroup);
       }
       return Math.min(1.0, s / 25.0);
     })
@@ -1310,14 +1316,19 @@ async function handleEvaPlanClick(lat, lng) {
     const s2 = grid.slope_deg?.[p2.y]?.[p2.x] ?? 0;
     const segSlope = Math.max(s1, s2);
     let segColor = "#38bdf8";
+    let segLabel = `Safe Segment: ${segSlope.toFixed(1)}° slope (< 15°)`;
     if (segSlope >= 25) {
       segColor = "#ef4444";
+      segLabel = `Hazard Segment: ${segSlope.toFixed(1)}° slope (≥ 25°)`;
       hazardSegs++;
     } else if (segSlope >= 15) {
       segColor = "#facc15";
+      segLabel = `Caution Segment: ${segSlope.toFixed(1)}° slope (15°–24.9°)`;
       cautionSegs++;
     }
-    L.polyline([latLngs[i], latLngs[i + 1]], { color: segColor, weight: 4.0, opacity: 0.95 }).addTo(evaPlanGroup);
+    L.polyline([latLngs[i], latLngs[i + 1]], { color: segColor, weight: 4.0, opacity: 0.95 })
+      .bindTooltip(segLabel, { sticky: true })
+      .addTo(evaPlanGroup);
   }
 
   // Extract Start, every turning point, and Goal as temporary waypoints so 3D Street View preserves all turns
@@ -1404,6 +1415,16 @@ async function handleEvaPlanClick(lat, lng) {
     </div>
   `;
 
+  const routeLegendHtml = `
+    <div class="eva-legend-inline">
+      <div><span class="swatch slope-hazard"></span><strong>Red</strong> — Steep Hazard (≥ 25° slope, high risk)</div>
+      <div><span class="swatch slope-caution"></span><strong>Yellow</strong> — Caution Terrain / Segment (15°–24.9°)</div>
+      <div><span class="swatch route-safe"></span><strong>Cyan</strong> — Safe Nominal Route (&lt; 15° slope)</div>
+      <div><span class="swatch turn-dot"></span><strong>Yellow Dot</strong> — Route Turn Waypoint</div>
+    </div>
+  `;
+
+  document.getElementById("eva-route-legend")?.classList.remove("hidden");
   revealInspector();
   inspectorBadge.textContent = hazardSegs > 0 || distM > 2000 || safety.safety_status === "UNSAFE" ? "EVA WARN" : "EVA READY";
   inspectorBody.innerHTML =
@@ -1417,6 +1438,7 @@ async function handleEvaPlanClick(lat, lng) {
       ["PLSS O₂ Budget", `~${o2Used}% (One-Way)`],
       ["Waypoints", `${stops.length} visor beacons`],
     ]) +
+    routeLegendHtml +
     safetyHtml +
     `<button id="btn-walk-eva-sv" class="btn-full btn-primary" style="margin-top:8px;"><svg class="lucide-icon" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg> Walk EVA in Visor Street View</button>`;
 
@@ -1853,3 +1875,7 @@ window.fetch = async (input, init) => {
     if (isSlowApi) window.aresLoader.hide();
   }
 };
+
+document.getElementById("eva-legend-close")?.addEventListener("click", () => {
+  document.getElementById("eva-route-legend")?.classList.add("hidden");
+});

@@ -9,7 +9,7 @@
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     crossorigin=""
   />
-  <link rel="stylesheet" href="/styles.css?v=20261115p" />
+  <link rel="stylesheet" href="/styles.css?v=20261115q" />
   <script type="importmap">
     {
       "imports": {
@@ -141,11 +141,22 @@
         <div><span class="swatch temp-unk"></span> THEMIS Temp Unknown (0 K sentinel)</div>
         <div><span class="swatch wp-dot"></span> Perseverance Waypoint / 360° POV</div>
         <div><span class="swatch aoi-box"></span> Mount Sharp Boxwork AOI</div>
+        <div><span class="swatch slope-hazard"></span> Route Hazard: Slope ≥ 25° (High Risk)</div>
+        <div><span class="swatch slope-caution"></span> Route Caution: Slope 15°–24.9°</div>
+        <div><span class="swatch route-safe"></span> Safe EVA Path: Slope &lt; 15°</div>
       </section>
     </aside>
 
     <section class="map-wrap">
       <div id="map"></div>
+      <div id="eva-route-legend" class="eva-route-legend hidden" role="region" aria-label="EVA Route &amp; Terrain Slope Legend">
+        <span class="eva-legend-title">EVA Route Key:</span>
+        <span class="eva-legend-item" title="Steep terrain or route segment with slope ≥ 25° (high risk / impassable)"><span class="swatch slope-hazard"></span> Red: Steep Hazard (≥ 25°)</span>
+        <span class="eva-legend-item" title="Moderate slope terrain or route segment between 15° and 24.9°"><span class="swatch slope-caution"></span> Yellow: Caution (15°–24.9°)</span>
+        <span class="eva-legend-item" title="Nominal safe EVA route segment below 15° slope"><span class="swatch route-safe"></span> Cyan: Safe (&lt; 15°)</span>
+        <span class="eva-legend-item" title="Turn waypoint along the planned path"><span class="swatch turn-dot"></span> Turn WP</span>
+        <button id="eva-legend-close" type="button" class="eva-legend-close" title="Hide route legend">×</button>
+      </div>
 
       <div id="terrain-3d-modal" class="modal hidden">
         <div class="modal-card">
@@ -396,8 +407,8 @@
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     crossorigin=""
   ></script>
-  <script src="/app.js?v=20261115p"></script>
-  <script type="module" src="/terrain3d.js?v=20261115p"></script>
-  <script type="module" src="/streetview.js?v=20261115p"></script>
+  <script src="/app.js?v=20261115q"></script>
+  <script type="module" src="/terrain3d.js?v=20261115q"></script>
+  <script type="module" src="/streetview.js?v=20261115q"></script>
 </body>
 </html>
