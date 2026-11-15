@@ -84,3 +84,21 @@ To address NASA's hyperlocal individual-spacewalk requirement:
   - **5×5 Chunk Streaming & Full Path Overview Island Lock:** Streams a `5×5` (`25`-chunk) sliding window around the drone, and locks the `5×5` terrain island in **Full Path Overview** mode regardless of camera movement.
   - **Turning-Point Waypoints & Zero-Seam Terrain:** Preserves every A\*/Theta\* turning point as a temporary waypoint in 3D, renders all 4 NASA rover traverse tracks (`Curiosity`, `Perseverance`, `Spirit`, `Opportunity`) on the 3D Globe (with distance-scaled pins) and 3D terrain, and aligns MOLA/IDW chunk borders to `0.0 m` seam error.
 
+---
+
+## 7. 3D Mars Globe Parity, Configurable PLSS & Radiation HUD
+
+- **3D Mars Globe Feature Parity (`frontend/terrain3d.js` + `frontend/app.js`):**
+  - **Globe EVA Route Planning:** Users can plan A\*/Theta\* routes directly on the 3D Mars Globe via the **`Plan EVA Route`** toolbar button (2-click Start → Goal) or via **`Set as EVA Route Start`** / **`Plan EVA Route to Here`** in the Globe inspector card. Computed routes render on both the 3D Globe and the 2D map and can launch directly into 3D Street View.
+  - **Quick Jump & Layer Sync:** Sidebar **Quick Jump** buttons (`window.jumpGlobeTo`), **Global Base Layer** radios (`window.setGlobeTextureStyle`), **`+ Drop Planned Waypoint`** (`window.openDropWaypointForm`), and all **MongoDB Vector Layer** checkboxes (`window.syncGlobeLayers`) operate seamlessly on the 3D Globe.
+- **Configurable PLSS Life Support & Orbital Relay (`frontend/index.html` + `frontend/app.js`):**
+  - **PLSS Life Support (EVA-1):** Users can pre-enter `Init O₂ (%)`, `Init Bat (%)`, `H₂O (L)`, `Work (W)` (metabolic rate), and `Press (kPa)`; remaining endurance, `ppCO₂`, walked depletion, and planned route O₂ estimates update dynamically and sync with the 3D Street View visor HUD.
+  - **Satellite Orbital Relay:** Users can configure **Orbit (min)** (default `112` min) and **Offset (min)**, or click **`Sat Nearby (Reset Pass)`** to mark the relay overhead and reset the pass countdown.
+- **Surface Radiation & Space Weather (`backend/app/services/radiation.py`, `GET /api/v1/map/radiation`):**
+  - Computes elevation-adjusted MSL RAD GCR dose rate (`µSv/hr`, `mSv/day`), atmospheric CO₂ column shielding (`g/cm²`), 4-hour EVA dose, and live/cached NASA DONKI Solar Energetic Particle (`SEP`) storm alerts in both the sidebar HUD and the 3D Globe inspector.
+- **Street View Photo-Clinometry Micro-Relief & Route Re-Draping (`frontend/chunks3d.js` + `frontend/streetview.js`):**
+  - `_applyPhotoRelief()` derives high-frequency terrain micro-relief from NASA orbital imagery (tapered to `0.0 m` at chunk borders) with orbital bump mapping (`bumpScale = 3.2`) and raking afternoon sunlight, while `ares-chunk-relief` automatically re-drapes 3D EVA route tubes onto the updated surface.
+- **Interactive `? Guide` & Custom Quick Jump Bookmarks (`frontend/index.html` + `frontend/app.js`):**
+  - Header **`? Guide`** launches a 7-step spotlight-blurred walkthrough (`#tour-backdrop` + `#tour-card`).
+  - **Quick Jump** syncs across 2D Map, 3D Globe, and Street View (`window.jumpStreetViewTo`), and users can save/remove custom Quick Jump bookmarks (`localStorage.ares_custom_jumps`).
+

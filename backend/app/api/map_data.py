@@ -446,10 +446,11 @@ def get_terrain_grid(
     if len(all_coords) >= 3:
         dx = gx[:, :, None] - all_coords[:, 0][None, None, :]
         dy = gy[:, :, None] - all_coords[:, 1][None, None, :]
-        dist2 = dx * dx + dy * dy + 1e-10
+        dist2 = dx * dx + dy * dy + 1e-4
         min_dist2 = dist2.min(axis=2)
-        blend = np.exp(-min_dist2 / (0.35 * 0.35))
-        if float(blend.max()) > 0.05:
+        raw_blend = np.exp(-min_dist2 / (0.35 * 0.35))
+        blend = np.clip((raw_blend - 0.05) / 0.95, 0.0, 1.0)
+        if float(blend.max()) > 0.0:
             weights = 1.0 / dist2
             idw_mat = (weights @ all_elevs) / weights.sum(axis=2)
             elev_mat = blend * idw_mat + (1.0 - blend) * mola_mat
@@ -812,16 +813,6 @@ def get_globe_texture(
     raw = buf.getvalue()
     _cache_set(cache_key, raw)
     return Response(content=raw, media_type="image/jpeg", headers={"X-Cache": "MISS", "Cache-Control": "public, max-age=86400"})
-
-
-@router.get("/radiation")
-def get_surface_radiation(
-    lat: float = Query(-4.5895, description="Martian latitude in degrees"),
-    lon: float = Query(137.4417, description="Martian east longitude in degrees"),
-    elevation_m: float = Query(-4500.0, description="Surface elevation in meters"),
-):
-    """Assess Mars surface GCR/SEP ionizing radiation and EVA safety state."""
-    return assess_surface_radiation(lat, lon, elevation_m)
 
 
 def _stitch_trek_bbox(

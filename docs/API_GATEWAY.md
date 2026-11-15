@@ -271,3 +271,8 @@ The trained `.skops` model file is intentionally excluded from Git because of it
 ## Repository guidance
 
 Keep this document at `docs/API_GATEWAY.md`. For the authoritative request/response schema from the actual checked-out source, run the backend and inspect `/docs` or `/openapi.json`. If implementation changes, update this document and the corresponding API tests together.
+
+## Additional Map & Environmental Endpoints (`map_data.py`)
+
+- `GET /api/v1/map/radiation?lat=-4.5895&lon=137.4417&elevation_m=-4500` — Returns MSL RAD-calibrated GCR dose rate (`µSv/hr`, `mSv/day`), 4h EVA dose (`mSv`), CO₂ column shielding (`g/cm²`), live/cached NASA DONKI SEP storm status (`QUIET` / `ACTIVE_SEP`), and `NOMINAL` / `CAUTION` / `HAZARD` recommendations.
+- `POST /api/v1/climate/predict` — Uses `mars_models.skops` (`RandomForestRegressor`) when present on disk and automatically falls back to `_fallback_diurnal_predictions` (`MEDAPhysicsFallback`) when the `.skops` artifact is absent.
