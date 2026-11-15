@@ -67,9 +67,10 @@ If you are building an API Gateway (or unifying the Rocket Edge + Base Station s
 | `GET /api/v1/map/terrain-grid` | Numeric `elevation_m[][]` + `slope_deg[][]` grid | `bbox`, `rows`, `cols` | — |
 | `POST /api/v1/map/waypoints` | Save astronaut-planned waypoint to MongoDB | `{ name, lon, lat, category, notes }` | Invalidates `features:` cache |
 | `DELETE /api/v1/map/waypoints/{feature_id}` | Remove `planned_*` waypoint | `feature_id` | Invalidates `features:` cache |
+| `GET /api/v1/map/radiation` | MSL RAD + NASA DONKI surface radiation & SEP alert state | `lat`, `lon`, `elevation_m` | — |
 | `POST /api/v1/map/edac/test` | Hamming(7,4) + CRC32 bit-flip recovery test | `{ message, inject_bit_flips }` | — |
-| `POST /api/v1/routes/plan` | Teammate's A\* route planner | `{ start, goal, elevation, ... }` | — |
-| `POST /api/v1/climate/predict` | Teammate's climate predictor (if `skops` installed) | `{ latitude, longitude, ltst_time, elevation_m }` | — |
+| `POST /api/v1/routes/plan` | A\* / Theta\* route planner with pre-EVA safety checks | `{ start, goal, elevation, algorithm, ... }` | — |
+| `POST /api/v1/climate/predict` | Climate predictor (`RandomForestRegressor` or MEDA physics fallback) | `{ latitude, longitude, ltst_time, elevation_m }` | — |
 
 ### B. Gateway Integration Tips
 1. **Preserve Compression & Integrity Headers:**
