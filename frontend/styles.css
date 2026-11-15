@@ -987,10 +987,51 @@ button.btn-danger:hover {
 .sv-photo-box.hidden {
   display: none;
 }
+.sv-photo-hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.sv-photo-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.sv-photo-actions button {
+  padding: 2px 7px;
+  font-size: 11px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .sv-photo-box img {
   width: 100%;
   border-radius: 6px;
   display: block;
+  cursor: zoom-in;
+}
+.sv-photo-box.expanded {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+  width: min(88vw, 960px);
+  max-height: 86vh;
+  z-index: 60;
+  padding: 14px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 0 100vmax rgba(0, 0, 0, 0.65);
+}
+.sv-photo-box.expanded img {
+  max-height: 74vh;
+  object-fit: contain;
+  background: #050507;
+  cursor: zoom-out;
+}
+.sv-thumb.active {
+  border: 1.5px solid #38bdf8;
+  background: rgba(56, 189, 248, 0.16);
 }
 
 /* Filmstrip */

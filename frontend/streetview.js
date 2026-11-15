@@ -733,6 +733,8 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
     })),
   ];
 
+  svActiveMedia = allMedia;
+  svActiveMediaIdx = -1;
   if (!allMedia.length) {
     stripEl.innerHTML = `<span class="muted">No cached rover photos or 360° panoramas nearby.</span>`;
   } else {
@@ -746,19 +748,35 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
       )
       .join("");
     stripEl.querySelectorAll(".sv-thumb").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const p = allMedia[Number(btn.dataset.pidx)];
-        yawDeg = p.mast_az_deg || 0;
-        pitchDeg = Math.max(-35, Math.min(35, p.mast_el_deg || 0));
-        updateCameraRotation();
-        photoImg.src = p.proxy_url;
-        photoLabel.textContent = p.is_panorama
-          ? `360° Panorama · ${p.name} (Sol ${p.sol ?? "?"}) · ${Math.round(p.distance_m)}m @ ${Math.round(p.bearing_deg)}°`
-          : `${p._kind} · Sol ${p.sol ?? "?"} · ${p.instrument} · Az ${p.mast_az_deg}° · ${p.date_taken_mars || ""}`;
-        photoBox.classList.remove("hidden");
-      });
+      btn.addEventListener("click", () => selectRoverPhoto(Number(btn.dataset.pidx)));
     });
   }
+}
+
+let svActiveMedia = [];
+let svActiveMediaIdx = -1;
+
+function selectRoverPhoto(idx) {
+  if (!svActiveMedia.length) return;
+  svActiveMediaIdx = ((idx % svActiveMedia.length) + svActiveMedia.length) % svActiveMedia.length;
+  const p = svActiveMedia[svActiveMediaIdx];
+  stripEl.querySelectorAll(".sv-thumb").forEach((el, i) => el.classList.toggle("active", i === svActiveMediaIdx));
+  if (typeof p.mast_az_deg === "number" && !Number.isNaN(p.mast_az_deg)) {
+    yawDeg = p.mast_az_deg;
+    pitchDeg = Math.max(-35, Math.min(35, p.mast_el_deg || 0));
+    updateCameraRotation();
+  }
+  photoImg.src = p.proxy_url;
+  photoLabel.textContent = p.is_panorama
+    ? `360° Panorama · ${p.name} (Sol ${p.sol ?? "?"}) · ${Math.round(p.distance_m)}m @ ${Math.round(p.bearing_deg)}°`
+    : `${p._kind} · Sol ${p.sol ?? "?"} · ${p.instrument} · Az ${p.mast_az_deg}° · ${p.date_taken_mars || ""}`;
+  photoBox.classList.remove("hidden");
+}
+
+function setPhotoExpanded(expanded) {
+  photoBox.classList.toggle("expanded", expanded);
+  const expBtn = document.getElementById("sv-expand-photo");
+  if (expBtn) expBtn.textContent = expanded ? "Shrink" : "Enlarge";
 }
 
 function buildLocalTraverseStops(lon, lat, baseLabel = "EVA Traverse") {
@@ -953,7 +971,28 @@ btnSvFullscreen?.addEventListener("click", () => {
   resizeCanvas();
 });
 
-document.getElementById("sv-close-photo").addEventListener("click", () => photoBox.classList.add("hidden"));
+document.getElementById("sv-close-photo").addEventListener("click", () => {
+  photoBox.classList.add("hidden");
+  setPhotoExpanded(false);
+  stripEl.querySelectorAll(".sv-thumb").forEach((el) => el.classList.remove("active"));
+});
+document.getElementById("sv-expand-photo")?.addEventListener("click", () => {
+  setPhotoExpanded(!photoBox.classList.contains("expanded"));
+});
+photoImg?.addEventListener("click", () => {
+  setPhotoExpanded(!photoBox.classList.contains("expanded"));
+});
+document.getElementById("sv-photo-prev")?.addEventListener("click", () => {
+  if (svActiveMedia.length) selectRoverPhoto(svActiveMediaIdx - 1);
+});
+document.getElementById("sv-photo-next")?.addEventListener("click", () => {
+  if (svActiveMedia.length) selectRoverPhoto(svActiveMediaIdx + 1);
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && photoBox && !photoBox.classList.contains("hidden") && photoBox.classList.contains("expanded")) {
+    setPhotoExpanded(false);
+  }
+});
 document.getElementById("btn-close-sv").addEventListener("click", () => {
   modal.classList.add("hidden");
   modal.classList.remove("fullscreen");

@@ -9,7 +9,7 @@
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     crossorigin=""
   />
-  <link rel="stylesheet" href="/styles.css?v=20261115r" />
+  <link rel="stylesheet" href="/styles.css?v=20261115s" />
   <script type="importmap">
     {
       "imports": {
@@ -281,11 +281,16 @@
               <div id="sv-nearby-list" class="visor-nearby"></div>
             </div>
             <div id="sv-photo-preview" class="sv-photo-box hidden">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <div class="sv-photo-hdr">
                 <span id="sv-photo-label" class="muted"></span>
-                <button id="sv-close-photo" style="padding:2px 6px;font-size:10px;">Hide</button>
+                <div class="sv-photo-actions">
+                  <button id="sv-photo-prev" type="button" title="Previous photo">‹</button>
+                  <button id="sv-photo-next" type="button" title="Next photo">›</button>
+                  <button id="sv-expand-photo" type="button" title="Enlarge / Shrink image">Enlarge</button>
+                  <button id="sv-close-photo" type="button" title="Hide preview">Hide</button>
+                </div>
               </div>
-              <img id="sv-photo-img" alt="Rover Camera Frame" />
+              <img id="sv-photo-img" alt="Rover Camera Frame" title="Click to enlarge / shrink" />
             </div>
           </div>
           <div id="sv-filmstrip" class="sv-filmstrip"></div>
@@ -407,8 +412,8 @@
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     crossorigin=""
   ></script>
-  <script src="/app.js?v=20261115r"></script>
-  <script type="module" src="/terrain3d.js?v=20261115r"></script>
-  <script type="module" src="/streetview.js?v=20261115r"></script>
+  <script src="/app.js?v=20261115s"></script>
+  <script type="module" src="/terrain3d.js?v=20261115s"></script>
+  <script type="module" src="/streetview.js?v=20261115s"></script>
 </body>
 </html>
