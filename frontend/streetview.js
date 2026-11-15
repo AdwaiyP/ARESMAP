@@ -522,6 +522,35 @@ function animate() {
   renderer.render(scene, camera);
 }
 
+function renderStreetViewRoutes() {
+  if (!routeGroup || !svChunkMgr) return;
+  drawRouteBeacons(activeStops);
+  if (window.aresRoverTracks) {
+    const showMsl = Boolean(document.getElementById("toggle-msl")?.checked);
+    const showWp = Boolean(document.getElementById("toggle-waypoints")?.checked);
+    for (const [mid, track] of Object.entries(window.aresRoverTracks)) {
+      const visible = mid === "msl_gale" ? showMsl : showWp;
+      if (visible && track?.points?.length > 1) {
+        drawRoutePath3D(routeGroup, track.points, svChunkMgr, {
+          color: track.color,
+          showBeacons: false,
+          showCones: false,
+          radius: 0.1,
+        });
+      }
+    }
+  }
+}
+
+let reliefRedrawTimer = null;
+window.addEventListener("ares-chunk-relief", () => {
+  if (modal.classList.contains("hidden")) return;
+  clearTimeout(reliefRedrawTimer);
+  reliefRedrawTimer = setTimeout(() => {
+    renderStreetViewRoutes();
+  }, 150);
+});
+
 async function loadStop(idx) {
   if (!activeStops.length) return;
   activeStopIdx = Math.max(0, Math.min(activeStops.length - 1, idx));
@@ -570,22 +599,7 @@ async function loadPatchAt(lon, lat, label = "Mars Surface", stepTag = "") {
   svHorizon.position.set(start.x, groundY - 20, start.z);
   routeGroup.add(svHorizon);
 
-  drawRouteBeacons(activeStops);
-  if (window.aresRoverTracks) {
-    const showMsl = Boolean(document.getElementById("toggle-msl")?.checked);
-    const showWp = Boolean(document.getElementById("toggle-waypoints")?.checked);
-    for (const [mid, track] of Object.entries(window.aresRoverTracks)) {
-      const visible = mid === "msl_gale" ? showMsl : showWp;
-      if (visible && track?.points?.length > 1) {
-        drawRoutePath3D(routeGroup, track.points, svChunkMgr, {
-          color: track.color,
-          showBeacons: false,
-          showCones: false,
-          radius: 0.1,
-        });
-      }
-    }
-  }
+  renderStreetViewRoutes();
   updateVisorHud(start.x, start.z, lon, lat);
 
   // Plot nearby geological/rover features as 3D pins + clickable visor intel

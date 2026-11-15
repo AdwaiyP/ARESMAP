@@ -200,6 +200,7 @@ export class MarsChunkManager {
             mesh.material.dispose();
             mesh.material = this._applyGeometryAndMaterial(mesh.geometry, ch);
           }
+          window.dispatchEvent(new CustomEvent("ares-chunk-relief"));
         }
       );
     } finally {
@@ -371,7 +372,7 @@ export function drawRoutePath3D(targetGroup, stops, chunkMgr, opts = {}) {
     showBeacons = true,
     showCones = true,
     radius = isHumanScale ? 0.14 : 0.24,
-    clearance = isHumanScale ? 0.35 : 1.35,
+    clearance = isHumanScale ? 0.65 : 1.35,
     beaconScale = isHumanScale ? 0.45 : 1.0,
   } = opts;
   const pts = [];
