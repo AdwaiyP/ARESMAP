@@ -1462,39 +1462,110 @@ function initInteractiveGuide() {
 
   const steps = [
     {
+      sel: ".telemetry-strip",
+      title: "1. Live Mars Clock & Telemetry Strip",
+      html: `<p>Tracks real-time Martian mission timing and cursor coordinates using IAU:49900 (Mars) projections:</p>
+        <ul>
+          <li><strong>MSD / MTC / LMST:</strong> Mars Sol Date, Coordinated Mars Time, and Local Mean Solar Time at the active site.</li>
+          <li><strong>UTC &amp; OWLT:</strong> Earth UTC clock plus One-Way Light Time (~3–22 min radio signal delay between Earth and Mars).</li>
+          <li><strong>Cursor Lat/Lon:</strong> Live Martian coordinates as you move across the 2D map.</li>
+        </ul>
+        <div class="tour-tip">Tip: You can press <code>←</code> / <code>→</code> arrow keys to step through this guide, or <code>Esc</code> to close.</div>`,
+    },
+    {
       sel: "[data-jump='mtsharp']",
-      title: "1. Quick Jump to Mars Sites",
-      desc: "Use Quick Jump to fly immediately to Mount Sharp, Gale Crater, Jezero, or Whole Mars. Works in both 2D Map and 3D Globe views.",
+      title: "2. Quick Jump & Custom Bookmarks",
+      html: `<p>Instantly fly to key Martian landmarks or save your own exploration targets:</p>
+        <ul>
+          <li><strong>Built-in Sites:</strong> Jump to <strong>Mount Sharp</strong>, <strong>Gale Crater</strong>, <strong>Jezero Crater</strong>, or <strong>Whole Mars</strong> in 2D Map, 3D Globe, and 360° Street View.</li>
+          <li><strong>Mark Custom Location:</strong> Click <strong>+ Mark Location</strong>, click anywhere on the 2D map (or save your current Street View position), and name your bookmark to add a reusable Quick Jump button.</li>
+        </ul>`,
     },
     {
       sel: "#btn-open-globe",
-      title: "2. 3D Globe, Terrain & 360° Street View",
-      desc: "Open the 3D Mars Globe, Regional 3D Terrain, or Mars 360° Street View (with Drone, Astronaut, and 6-Wheel Rover modes + photo-relief depth).",
+      title: "3. 3D Mars Globe",
+      html: `<p>Opens an interactive planetary 3D Mars globe powered by Three.js and NASA orbital tiles:</p>
+        <ul>
+          <li><strong>Controls:</strong> Drag to orbit, scroll to zoom, and use <strong>Reset View</strong> to re-center.</li>
+          <li><strong>Inspect Pin:</strong> Click any point on the globe surface to drop a pin and read elevation, climate, and radiation data in the right-hand Inspector.</li>
+          <li><strong>Globe Route Planning:</strong> Click <strong>Plan EVA Route</strong> inside the globe toolbar, pick Start &amp; Goal on the sphere, and view the terrain-conforming path.</li>
+        </ul>`,
+    },
+    {
+      sel: "#btn-open-sv",
+      title: "4. 3D Terrain & Mars 360° Street View",
+      html: `<p>Explore Mars up close in two dedicated 3D visualization modes:</p>
+        <ul>
+          <li><strong>3D Local Terrain:</strong> Generates a real-time MOLA/HiRISE-informed DEM mesh around the current map center with slope heatmap and exaggeration controls.</li>
+          <li><strong>Mars 360° Street View:</strong> First-person surface explorer with <strong>Drone</strong> (free fly), <strong>Astronaut</strong> (terrain-clamped walking + visor HUD), <strong>Rover</strong> (6-wheel articulated chassis), and <strong>Overview</strong> camera modes.</li>
+          <li><strong>Controls:</strong> <code>W A S D</code> / Arrows to move, <code>E</code>/<code>Q</code> for altitude (Drone), Drag to look around, plus <strong>Dust Fog</strong> and <strong>Set Landing Site</strong> (rocket lander beacon).</li>
+        </ul>`,
+    },
+    {
+      sel: "#eva-algo",
+      title: "5. EVA Route Parameters & Safety",
+      html: `<p>Configure how ARES evaluates terrain hazards before computing a traversable EVA path:</p>
+        <ul>
+          <li><strong>Algo (A* vs Theta*):</strong> <code>A*</code> follows grid steps; <code>Theta*</code> uses any-angle line-of-sight smoothing for shorter, natural routes.</li>
+          <li><strong>Budget (m) &amp; Max Slope (°):</strong> Caps total path distance and rejects steep cliffs/craters exceeding your rover or astronaut slope limit.</li>
+          <li><strong>Suit O₂ (%), Reserve (%), &amp; Env:</strong> Factors PLSS oxygen reserves and <code>Dust/Storm</code> penalties into route feasibility and turn-back (PNR) warnings.</li>
+        </ul>`,
     },
     {
       sel: "#btn-plan-eva",
-      title: "3. Plan Safe EVA Routes (A* / Theta*)",
-      desc: "Choose A* or Theta*, set Budget, Max Slope, and Suit O₂, then click Plan Hyperlocal EVA (or Plan EVA Route inside the 3D Globe) and pick Start & Goal.",
+      title: "6. Plan Hyperlocal EVA & Drop Waypoints",
+      html: `<p>Compute safe paths and persist custom mission markers to MongoDB:</p>
+        <ul>
+          <li><strong>Plan Hyperlocal EVA:</strong> Click the button, then click a <strong>Start</strong> point and <strong>Goal</strong> point on the 2D map. ARES queries the backend DEM pathfinder and draws the safe route + elevation profile.</li>
+          <li><strong>+ Drop Planned Waypoint:</strong> Activate waypoint mode and click on the map to save a named custom waypoint directly to MongoDB (synced across 2D, 3D Globe, and Street View).</li>
+        </ul>`,
+    },
+    {
+      sel: "[data-overlay='gale_ctx_optical']",
+      title: "7. Base Layers & High-Res Overlays",
+      html: `<p>Switch planetary base maps and layer orbital reconnaissance imagery:</p>
+        <ul>
+          <li><strong>Base Layers:</strong> Choose <strong>Viking Optical (Global)</strong> for natural color or <strong>MOLA Elevation (Color)</strong> for global topography.</li>
+          <li><strong>High-Res Overlays:</strong> Toggle <strong>Gale CTX Optical</strong> and <strong>Jezero HiRISE Optical</strong> (with transparency slider) for meter-scale crater and ridge detail.</li>
+        </ul>`,
     },
     {
       sel: "#toggle-landmarks",
-      title: "4. Toggle Layers & Drop Waypoints",
-      desc: "Toggle NASA optical/MOLA base layers, rover tracks, THEMIS thermal stamps, and minerals (synced to 2D & 3D), or drop custom waypoints into MongoDB.",
+      title: "8. MongoDB Vector Layers (2D & 3D Sync)",
+      html: `<p>Toggle curated science &amp; navigation datasets stored in MongoDB:</p>
+        <ul>
+          <li><strong>Minerals &amp; Landmarks:</strong> View clay/sulfate deposits, Olympus Mons, Valles Marineris, and crater targets.</li>
+          <li><strong>Curiosity Traverse &amp; Waypoints:</strong> Overlay MSL rover driving paths, planned routes, and user-dropped waypoints.</li>
+          <li><strong>THEMIS Thermal Stamps:</strong> Inspect orbital infrared thermal inertia footprints directly on the map.</li>
+        </ul>
+        <div class="tour-tip">All toggled vector layers automatically sync with the 3D Mars Globe.</div>`,
     },
     {
       sel: "#hud-plss-status",
-      title: "5. Configurable PLSS Life Support",
-      desc: "Pre-enter initial O₂ %, Battery %, H₂O, and Work (W). Endurance, ppCO₂, and suit depletion update dynamically as you plan routes or walk in Street View.",
+      title: "9. Configurable PLSS Life Support",
+      html: `<p>Simulate Portable Life Support System (PLSS) consumables for EVA-1 in real time:</p>
+        <ul>
+          <li><strong>Initial Inputs:</strong> Adjust starting <strong>O₂ (%)</strong>, <strong>Bat (%)</strong>, <strong>H₂O (L)</strong>, and metabolic <strong>Work (W)</strong> workload.</li>
+          <li><strong>Live Readouts:</strong> Monitors remaining endurance, <strong>ppCO₂</strong> scrubber load, thermal cooling loop, and dynamic depletion as you plan routes or walk in Street View.</li>
+        </ul>`,
     },
     {
-      sel: "#hud-rad-badge",
-      title: "6. Orbital Relay & Radiation HUD",
-      desc: "Set Satellite Orbit (min) / Offset or click Sat Nearby (Reset Pass), test Hamming(7,4) EDAC recovery, and monitor live MSL RAD / NASA DONKI radiation.",
+      sel: "#hud-edac",
+      title: "10. Orbital Relay & EDAC Bit-Flip Test",
+      html: `<p>Model Mars-to-Earth communications and radiation-hardened memory protection:</p>
+        <ul>
+          <li><strong>Orbital Relay:</strong> Set <strong>Orbit (min)</strong> and <strong>Offset</strong> to simulate MRO/TGO overhead pass windows, or click <strong>Sat Nearby (Reset Pass)</strong> to test an active link immediately.</li>
+          <li><strong>Hamming(7,4) EDAC:</strong> Click <strong>Bit-Flip Test</strong> to inject a single-event upset (cosmic ray bit flip) and watch the Error Detection &amp; Correction decoder recover the telemetry frame.</li>
+        </ul>`,
     },
     {
       sel: "#inspector-body",
-      title: "7. Inspect Any Surface Point",
-      desc: "Click any point on Mars, THEMIS stamp, or rover waypoint to inspect elevation, predicted climate, radiation, and real NASA rover imagery.",
+      title: "11. Weather, Radiation & Surface Inspector",
+      html: `<p>Combine live Mars environmental feeds with point-by-point surface analysis:</p>
+        <ul>
+          <li><strong>Space Weather &amp; Radiation:</strong> View <strong>MEDA/REMS</strong> sol temperatures/wind/pressure (with sol range selector) and live <strong>MSL RAD / NASA DONKI</strong> solar flare alerts.</li>
+          <li><strong>Surface Inspector:</strong> Click any point on the 2D map, 3D Globe, THEMIS stamp, or rover waypoint to view elevation, predicted climate, radiation dose, and real NASA rover imagery.</li>
+        </ul>`,
     },
   ];
 
@@ -1522,7 +1593,7 @@ function initInteractiveGuide() {
     const step = steps[idx];
     badge.textContent = `STEP ${idx + 1} / ${steps.length}`;
     titleEl.textContent = step.title;
-    descEl.textContent = step.desc;
+    descEl.innerHTML = step.html || step.desc || "";
     prevBtn.disabled = idx === 0;
     nextBtn.textContent = idx === steps.length - 1 ? "Finish" : "Next";
     backdrop?.classList.remove("hidden");
@@ -1563,6 +1634,17 @@ function initInteractiveGuide() {
     else closeTour();
   });
   closeBtn?.addEventListener("click", closeTour);
+  window.addEventListener("keydown", (e) => {
+    if (card.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeTour();
+    else if (e.key === "ArrowRight") {
+      if (idx < steps.length - 1) { idx++; renderStep(); }
+      else closeTour();
+    } else if (e.key === "ArrowLeft" && idx > 0) {
+      idx--;
+      renderStep();
+    }
+  });
 
   try {
     if (!localStorage.getItem("ares_tour_seen")) {
