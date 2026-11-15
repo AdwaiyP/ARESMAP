@@ -439,6 +439,12 @@ def get_terrain_grid(
         raise HTTPException(status_code=422, detail="bbox must be min_lon,min_lat,max_lon,max_lat")
     if min_lon >= max_lon or min_lat >= max_lat:
         raise HTTPException(status_code=422, detail="bbox min values must be less than max values")
+    if min_lon < -180 or max_lon > 180 or min_lat < -90 or max_lat > 90:
+        raise HTTPException(status_code=422, detail="bbox coordinates out of valid bounds (lon: -180..180, lat: -90..90)")
+    if min_lon >= max_lon or min_lat >= max_lat:
+        raise HTTPException(status_code=422, detail="bbox min values must be less than max values")
+    if min_lon < -180 or max_lon > 180 or min_lat < -90 or max_lat > 90:
+        raise HTTPException(status_code=422, detail="bbox coordinates out of valid bounds (lon: -180..180, lat: -90..90)")
 
     grid_key = f"tgrid:{round(min_lon, 5)}:{round(min_lat, 5)}:{round(max_lon, 5)}:{round(max_lat, 5)}:{rows}:{cols}"
     cached_grid = _cache_get(grid_key)
@@ -987,6 +993,10 @@ def get_regional_texture(
         min_lon, min_lat, max_lon, max_lat = [float(p.strip()) for p in bbox.split(",")]
     except ValueError:
         raise HTTPException(status_code=422, detail="bbox must be min_lon,min_lat,max_lon,max_lat")
+    if min_lon >= max_lon or min_lat >= max_lat:
+        raise HTTPException(status_code=422, detail="bbox min values must be less than max values")
+    if min_lon < -180 or max_lon > 180 or min_lat < -90 or max_lat > 90:
+        raise HTTPException(status_code=422, detail="bbox coordinates out of valid bounds (lon: -180..180, lat: -90..90)")
 
     cache_key = f"reg_tex2:{round(min_lon,4)},{round(min_lat,4)},{round(max_lon,4)},{round(max_lat,4)}:{size}"
     cached = _cache_get(cache_key)
@@ -1018,9 +1028,9 @@ def get_regional_texture(
 
 @router.get("/radiation")
 def get_surface_radiation(
-    lat: float = Query(-4.5895, description="Martian latitude in degrees"),
-    lon: float = Query(137.4417, description="Martian east longitude in degrees"),
-    elevation_m: float = Query(-4500.0, description="Surface elevation in meters"),
+    lat: float = Query(-4.5895, ge=-90.0, le=90.0, description="Martian latitude in degrees"),
+    lon: float = Query(137.4417, ge=-180.0, le=360.0, description="Martian east longitude in degrees"),
+    elevation_m: float = Query(-4500.0, ge=-10000.0, le=30000.0, description="Surface elevation in meters"),
 ):
     """Assess Mars surface GCR/SEP ionizing radiation and EVA safety state."""
     return assess_surface_radiation(lat, lon, elevation_m)
