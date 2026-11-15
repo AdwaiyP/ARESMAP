@@ -5,6 +5,7 @@ import { MarsChunkManager, drawRoutePath3D, computeScaleReadout } from "./chunks
 let renderer, scene, camera, controls, activeGroup, mroSat, globeSphere;
 let globeLayers = {};
 let globeRouteGroup = null;
+let globeSelectionMarker = null;
 let globePlanMode = false;
 let globeRouteStart = null;
 let chunkMgr = null;
@@ -94,6 +95,7 @@ function clearGroup() {
   }
   mroSat = null;
   globeSphere = null;
+  globeSelectionMarker = null;
   horizonSkirt = null;
   pickables = [];
 }
@@ -126,7 +128,35 @@ function vec3ToLatLon(pt) {
   return { lat, lon };
 }
 
+function setGlobeSelectionHighlight(lat, lon) {
+  if (!activeGroup || modeSelect.value !== "globe") return;
+  if (!globeSelectionMarker) {
+    globeSelectionMarker = new THREE.Group();
+    const dot = new THREE.Mesh(
+      new THREE.SphereGeometry(0.28, 16, 16),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+    );
+    const innerRing = new THREE.Mesh(
+      new THREE.RingGeometry(0.48, 0.72, 32),
+      new THREE.MeshBasicMaterial({ color: 0xfacc15, side: THREE.DoubleSide })
+    );
+    const outerRing = new THREE.Mesh(
+      new THREE.RingGeometry(0.86, 1.08, 32),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.75, side: THREE.DoubleSide })
+    );
+    outerRing.name = "pulseRing";
+    globeSelectionMarker.add(dot, innerRing, outerRing);
+    activeGroup.add(globeSelectionMarker);
+  }
+  const pos = latLonToVec3(lat, lon, GLOBE_R + 0.18);
+  globeSelectionMarker.position.copy(pos);
+  const normal = pos.clone().normalize();
+  globeSelectionMarker.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
+  globeSelectionMarker.visible = true;
+}
+
 async function inspectGlobeLocation(lat, lon, featureData = null) {
+  setGlobeSelectionHighlight(lat, lon);
   window.aresInspectSurface?.(lat, lon);
   infoCard.classList.remove("hidden");
   infoTitle.textContent = featureData?.name || "Mars Surface Point";
@@ -506,6 +536,7 @@ window.jumpGlobeTo = (lat, lon, label = "Quick Jump", zoom = 8) => {
   camera.position.copy(targetPos);
   controls.target.set(0, 0, 0);
   controls.update();
+  setGlobeSelectionHighlight(lat, lon);
   statsEl.textContent = `3D Mars Globe | Focused on ${label} (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
 };
 
@@ -623,6 +654,16 @@ function animate() {
       const d = camera.position.distanceTo(pin.position);
       const s = Math.max(0.14, Math.min(1.15, d / 54));
       pin.scale.setScalar(s);
+    }
+    if (globeSelectionMarker && globeSelectionMarker.visible) {
+      const d = camera.position.distanceTo(globeSelectionMarker.position);
+      const s = Math.max(0.22, Math.min(1.35, d / 48));
+      globeSelectionMarker.scale.setScalar(s);
+      const pulse = globeSelectionMarker.getObjectByName("pulseRing");
+      if (pulse) {
+        const t = 1.0 + 0.22 * Math.sin(performance.now() * 0.005);
+        pulse.scale.setScalar(t);
+      }
     }
   }
   if (mroSat) {
