@@ -66,6 +66,12 @@ def load_models():
 
 
 def build_features(minute, latitude, longitude, elevation):
+    """Encode diurnal LMST time as 2nd-order Fourier harmonics + spatial coords.
+
+    Maps minute-of-sol [0, 1440) onto periodic (sin, cos) pairs at 24h and 12h
+    periods so the RandomForest regressors (trained on Mars 2020 MEDA Sol 100
+    telemetry; Rodriguez-Manfredi et al., 2021) respect midnight wrap-around.
+    """
     theta1 = 2 * np.pi * minute / 1440
     theta2 = 4 * np.pi * minute / 1440
 
@@ -91,7 +97,14 @@ def compass_direction(degrees):
 
 
 def _apply_climate_adjustments(predictions, latitude, elevation_m):
-    """Apply elevation and latitude heuristic adjustments to raw predictions."""
+    """Apply elevation and latitude physics/heuristic adjustments to raw predictions.
+
+    Because the RandomForest models are anchored to Jezero Crater (REF_ELEV = -2569 m,
+    REF_LAT = 18.4447 deg), outputs are extrapolated to arbitrary Mars sites via:
+    - Hydrostatic barometric pressure scaling: P * exp(-delta_z / 11100 m)
+    - Empirical dry-adiabatic/topographic temperature lapse (-1.5 to -1.8 K/km)
+    - Cosine-latitude solar insolation scaling relative to cos(REF_LAT).
+    """
     delta_elev = elevation_m - REF_ELEV
     predictions["pressure_pa"] *= np.exp(-delta_elev / 11100.0)
     lat_factor = np.cos(np.deg2rad(latitude)) / np.cos(np.deg2rad(REF_LAT))

@@ -1,4 +1,15 @@
-"""Theta* any-angle path planner on 2D Mars terrain grids."""
+"""Theta* any-angle path planner on 2D Mars terrain grids.
+
+Reference:
+    Daniel, K., Nash, A., Koenig, S., & Felner, A. (2010). "Theta*: Any-Angle
+    Path Planning on Grids." Journal of Artificial Intelligence Research (JAIR),
+    39, 533-579.
+
+Extends A* with Line-of-Sight (LOS) parent shortcutting using a conservative
+grid supercover (`_line_cells`, cf. Amanatides & Woo, 1987) so paths are not
+constrained to 45-degree octilinear grid headings while still enforcing slope
+and obstacle constraints on every traversed cell.
+"""
 
 from dataclasses import dataclass
 import heapq

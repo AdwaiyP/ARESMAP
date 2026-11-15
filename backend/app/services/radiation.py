@@ -67,7 +67,19 @@ def _determine_radiation_safety(total_usv_hr, sep_active):
 
 
 def assess_surface_radiation(latitude, longitude, elevation_m=-4500.0):
-    """Estimate Mars surface GCR/SEP dose rate and EVA safety state."""
+    """Estimate Mars surface GCR/SEP dose rate and EVA safety state.
+
+    Scientific Basis:
+    - Calibrated to Curiosity MSL RAD quiet-Sun surface measurement at Gale
+      Crater (~0.67 mSv/day at -4500 m, 21.4 g/cm^2 CO2 column; Hassler et al.,
+      *Science* 343, 1244797, 2014).
+    - Atmospheric column depth scales hydrostatically with elevation using Mars
+      scale height H = 11.1 km: col(z) = col_ref * exp(-(z - z_ref) / H).
+    - Applies a 0.88x attenuation factor over the Southern Highlands crustal
+      magnetic anomaly (Terra Sirenum / Terra Cimmeria; Acuna et al., 1999)
+      and a slight polar latitude enhancement above |lat| > 55 deg.
+    - Polls NASA CCMC DONKI for recent Solar Energetic Particle (SEP) storms.
+    """
     lat = float(latitude)
     lon = float(longitude)
     elev = float(elevation_m)

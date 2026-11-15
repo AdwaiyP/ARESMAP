@@ -33,7 +33,17 @@ def _format_hms(hours: float) -> str:
 
 
 def _solar_longitude_and_eot(delta_t_j2000: float) -> tuple[float, float]:
-    """Return (Ls_deg, equation_of_time_hours) at days since J2000 TT."""
+    """Return (Ls_deg, equation_of_time_hours) at days since J2000 TT.
+
+    Implements the analytical Mars ephemeris from Allison & McEwen (2000),
+    *Planetary and Space Science* 48(2-3), Eqs. 16-20:
+    - Mean anomaly M and fictitious mean sun alpha_FMS advance linearly from J2000.
+    - True anomaly equation-of-center (v - M) uses a 5-harmonic Fourier series
+      in M plus 7 planetary perturbation cosines (Jupiter, Earth, Venus, etc.).
+    - Areocentric solar longitude Ls = alpha_FMS + (v - M).
+    - Equation of Time (EOT) converts mean solar time (LMST) to true solar time
+      (LTST) using the obliquity-induced 2*Ls/4*Ls/6*Ls terms minus (v - M).
+    """
     m_deg = (19.3871 + 0.52402073 * delta_t_j2000) % 360.0
     alpha_fms = (270.3871 + 0.524038496 * delta_t_j2000) % 360.0
     pbs = sum(
@@ -61,7 +71,12 @@ def _solar_longitude_and_eot(delta_t_j2000: float) -> tuple[float, float]:
 
 
 def _compute_owlt_sec(delta_t_j2000: float) -> int:
-    """Estimate Earth-Mars one-way light time in seconds using J2000 Keplerian elements."""
+    """Estimate Earth-Mars one-way light time in seconds using J2000 Keplerian elements.
+
+    Uses standard J2000 mean orbital elements (Standish / JPL) for Earth and Mars
+    to solve heliocentric Cartesian positions (x, y, z in AU), then multiplies
+    Euclidean separation by the IAU light-time constant (499.004783836 s/AU).
+    """
     # Earth orbital elements (J2000)
     m_e = math.radians((357.5291 + 0.98560028 * delta_t_j2000) % 360.0)
     l_e = math.radians((100.4664 + 0.98564736 * delta_t_j2000) % 360.0)

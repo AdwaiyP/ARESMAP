@@ -12,6 +12,9 @@ This directory defines the end-to-end engineering blueprint for the **ARES Plane
 | [06 — Handoff & API Gateway Guide](06_HANDOFF_AND_API_GATEWAY_GUIDE.md) | Summary of completed map/DB/EDAC work, integration guide for the Backend API Gateway teammate, and demo startup instructions. |
 | [07 — 3D Terrain, Street View & 5×5 Chunks](07_3D_TERRAIN_STREETVIEW_AND_CHUNKS.md) | 3D Mars Globe raycast picking, Minecraft-style `5×5` chunk streaming (`chunks3d.js`), Street View, regolith bump/rocks, and NASA Trek tile caching. |
 | [08 — Database Setup & Seeding Guide](08_DATABASE_SETUP_AND_SEEDING.md) | Step-by-step MongoDB (Atlas/local) & Supabase setup and idempotent data seeding via `push_to_mongo.py` and `push_to_supabase.py`. |
+| [09 — Local Hosting & Cloudflare Tunnel Guide](09_LOCAL_HOSTING_AND_CLOUDFLARE_TUNNEL.md) | Running the ARES backend locally on LAN and exposing it via a Cloudflare Quick Tunnel. |
+| [10 — Local Server Performance & Device Specs](10_BENCHMARK_AND_DEVICE_SPECS.md) | Host hardware specs, backend latency benchmarks, and ground-truth accuracy evaluation. |
+| [11 — Scientific Basis, Mathematical Formulas & Citations](11_SCIENTIFIC_REFERENCES_AND_CITATIONS.md) | Physics/math explanations, algorithmic foundations, and academic & NASA/JPL mission citations. |
 | [API Gateway Reference](API_GATEWAY.md) | Complete v1 endpoint catalog, request/response schemas, and Flutter/client integration reference. |
 
 ## Code Quality & Repository Hygiene

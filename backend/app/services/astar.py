@@ -1,4 +1,14 @@
-"""A* 8-connected path planner on 2D Mars terrain grids."""
+"""A* 8-connected path planner on 2D Mars terrain grids.
+
+Reference:
+    Hart, P. E., Nilsson, N. J., & Raphael, B. (1968). "A Formal Basis for the
+    Heuristic Determination of Minimum Cost Paths." IEEE Transactions on Systems
+    Science and Cybernetics, 4(2), 100-107.
+
+Cost Model:
+    Edge cost = Euclidean_dist_m + slope_weight * slope_deg + risk_weight * risk,
+    pruning edges whose grade exceeds `max_slope_deg` (rover/EVA traversability limit).
+"""
 
 from dataclasses import dataclass
 import heapq

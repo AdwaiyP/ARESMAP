@@ -1,4 +1,11 @@
-"""Space-link Error Detection and Correction (EDAC): CRC32 + Hamming(7,4)."""
+"""Space-link Error Detection and Correction (EDAC): CRC32 + Hamming(7,4).
+
+References:
+    - Hamming, R. W. (1950). "Error Detecting and Error Correcting Codes."
+      Bell System Technical Journal, 29(2), 147-160. (Single-error-correcting
+      Hamming(7,4) block code via 3-bit parity syndrome).
+    - IEEE 802.3 / ITU-T V.42 CRC-32 (`zlib.crc32`) for packet integrity checks.
+"""
 
 from __future__ import annotations
 

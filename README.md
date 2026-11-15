@@ -160,4 +160,5 @@ Full technical specifications live in **[docs/README.md](docs/README.md)**:
 - [08 — Database Setup & Seeding Guide](docs/08_DATABASE_SETUP_AND_SEEDING.md)
 - [09 — Local Hosting & Cloudflare Tunnel Guide](docs/09_LOCAL_HOSTING_AND_CLOUDFLARE_TUNNEL.md)
 - [10 — Local Server Performance & Device Specs](docs/10_BENCHMARK_AND_DEVICE_SPECS.md)
+- [11 — Scientific Basis, Mathematical Formulas & Citations](docs/11_SCIENTIFIC_REFERENCES_AND_CITATIONS.md)
 - [API Gateway Reference](docs/API_GATEWAY.md)
