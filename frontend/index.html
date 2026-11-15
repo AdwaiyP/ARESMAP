@@ -242,24 +242,37 @@
 
     <aside class="inspector" id="inspector">
       <div class="hud-card">
-        <div class="hud-title">PLSS Life Support (EVA-1) <span class="pill ok">NOMINAL</span></div>
+        <div class="hud-title">PLSS Life Support (EVA-1) <span id="hud-plss-status" class="pill ok">NOMINAL</span></div>
         <div class="hud-grid">
-          <div>O₂ Primary: <strong>82% (4h 12m)</strong></div>
-          <div>ppCO₂: <strong>1.8 mmHg</strong></div>
-          <div>Suit Press: <strong>29.6 kPa</strong></div>
-          <div>Battery: <strong>76% · 3.2L H₂O</strong></div>
-          <div>Metabolic: <strong>310 W</strong></div>
-          <div>Buddy EVA-2: <strong id="hud-buddy">180m @ 048°</strong></div>
+          <div>O₂ Primary: <strong id="hud-o2-readout">82.0% (5h 51m)</strong></div>
+          <div>ppCO₂: <strong id="hud-ppco2">1.8 mmHg</strong></div>
+          <div>Suit Press: <strong id="hud-press-readout">29.6 kPa</strong></div>
+          <div>Battery: <strong id="hud-bat-readout">76.0% · 3.20L</strong></div>
+          <div>Metabolic: <strong id="hud-metabolic-readout">310 W</strong></div>
+          <div>Route Est.: <strong id="hud-route-plss">Idle</strong></div>
+        </div>
+        <div class="eva-safety-inputs" style="margin-top:6px;">
+          <label>Init O₂ (%) <input type="number" id="plss-init-o2" value="82" min="10" max="100" step="1" /></label>
+          <label>Init Bat (%) <input type="number" id="plss-init-bat" value="76" min="10" max="100" step="1" /></label>
+          <label>H₂O (L) <input type="number" id="plss-init-h2o" value="3.2" min="0.2" max="6.0" step="0.1" /></label>
+          <label>Work (W) <input type="number" id="plss-metabolic" value="310" min="150" max="650" step="10" /></label>
+          <label>Press (kPa) <input type="number" id="plss-pressure" value="29.6" min="20" max="45" step="0.1" /></label>
+          <label style="justify-content:flex-end;"><button id="btn-plss-reset" type="button" style="padding:3px 6px;font-size:10px;width:100%;">Reset Sim</button></label>
         </div>
       </div>
 
       <div class="hud-card">
         <div class="hud-title">Comms &amp; Orbital Relay <span id="hud-edac" class="pill ok">CRC32 OK</span></div>
         <div class="hud-grid">
-          <div>Hab UHF: <strong>98% LOS Clear</strong></div>
-          <div>MRO Pass: <strong id="hud-relay">T-18m 40s</strong></div>
+          <div>Hab UHF: <strong id="hud-uhf">98% LOS Clear</strong></div>
+          <div>Relay Pass: <strong id="hud-relay">T-18m 40s</strong></div>
           <div>Cache: <strong id="hud-cache">--</strong></div>
           <div><button id="btn-test-edac" style="padding:2px 6px;font-size:10px;">Test Bit-Flip EDAC</button></div>
+        </div>
+        <div class="eva-safety-inputs" style="margin-top:6px;">
+          <label>Orbit (min) <input type="number" id="sat-orbit-min" value="112" min="10" max="1440" step="1" /></label>
+          <label>Offset (min) <input type="number" id="sat-offset-min" value="18.7" min="0" max="1440" step="0.5" /></label>
+          <button id="btn-sat-nearby" type="button" class="full-span" style="padding:3px 6px;font-size:10px;">Sat Nearby (Reset Pass)</button>
         </div>
       </div>
 

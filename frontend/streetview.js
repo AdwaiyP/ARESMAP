@@ -419,11 +419,14 @@ function updateVisorHud(wx, wz, lon, lat) {
     scaleLabelEl.textContent = `90px ≈ ${barLabel} · ALT ${altLabel} · 1 Chunk = 4.7 km`;
   }
 
-  const o2 = Math.max(5, 82 - walkedMeters * 0.012);
-  const bat = Math.max(5, 76 - walkedMeters * 0.01);
+  const plss = window.aresPlssState || { initO2: 82, initBat: 76, metabolicW: 310 };
+  const workFactor = Math.max(0.4, (plss.metabolicW || 310) / 310);
+  const o2 = Math.max(0, (plss.initO2 ?? 82) - walkedMeters * 0.012 * workFactor);
+  const bat = Math.max(0, (plss.initBat ?? 76) - walkedMeters * 0.01 * workFactor);
   visorPlssEl.textContent = `${o2.toFixed(0)}% · ${bat.toFixed(0)}%`;
   const pnrOk = o2 > 35 && bat > 30;
   visorPnrEl.textContent = `${Math.round(walkedMeters)} m · ${pnrOk ? "PNR OK" : "RETURN NOW"}`;
+  if (window.updatePlssWalked) window.updatePlssWalked(walkedMeters);
 
   if (visorLanderEl) {
     if (landingSite) {

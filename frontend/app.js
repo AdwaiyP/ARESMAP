@@ -553,6 +553,7 @@ async function init() {
 
   drawEvaTacticalOverlays();
   loadWeatherHud();
+  initPlssControls();
   startRelayCountdown();
 }
 
@@ -752,14 +753,138 @@ async function loadWeatherHud() {
 document.getElementById("weather-range")?.addEventListener("change", loadWeatherHud);
 document.getElementById("weather-apply")?.addEventListener("click", loadWeatherHud);
 
+window.aresPlssState = {
+  initO2: 82,
+  initBat: 76,
+  initH2O: 3.2,
+  metabolicW: 310,
+  pressureKpa: 29.6,
+  walkedMeters: 0,
+  plannedDistM: 0,
+};
+
+function updatePlssSimulation() {
+  const s = window.aresPlssState;
+  const reservePct = Math.min(80, Math.max(5, Number(document.getElementById("eva-reserve-pct")?.value || 25)));
+  const workFactor = Math.max(0.4, s.metabolicW / 310);
+  const o2UsedWalk = s.walkedMeters * 0.012 * workFactor;
+  const batUsedWalk = s.walkedMeters * 0.01 * workFactor;
+  const h2oUsedWalk = s.walkedMeters * 0.00025 * workFactor;
+
+  const curO2 = Math.max(0, s.initO2 - o2UsedWalk);
+  const curBat = Math.max(0, s.initBat - batUsedWalk);
+  const curH2O = Math.max(0, s.initH2O - h2oUsedWalk);
+  const o2RateHr = 14.0 * workFactor;
+  const remMin = Math.max(0, Math.round((curO2 / o2RateHr) * 60));
+  const remH = Math.floor(remMin / 60);
+  const remM = remMin % 60;
+  const ppco2 = (1.1 + 0.7 * workFactor + (curO2 < 30 ? 0.9 : 0)).toFixed(1);
+
+  const o2El = document.getElementById("hud-o2-readout");
+  const ppEl = document.getElementById("hud-ppco2");
+  const prEl = document.getElementById("hud-press-readout");
+  const batEl = document.getElementById("hud-bat-readout");
+  const metEl = document.getElementById("hud-metabolic-readout");
+  const routeEl = document.getElementById("hud-route-plss");
+  const pillEl = document.getElementById("hud-plss-status");
+
+  if (o2El) o2El.textContent = `${curO2.toFixed(1)}% (${remH}h ${String(remM).padStart(2, "0")}m)`;
+  if (ppEl) ppEl.textContent = `${ppco2} mmHg`;
+  if (prEl) prEl.textContent = `${s.pressureKpa.toFixed(1)} kPa`;
+  if (batEl) batEl.textContent = `${curBat.toFixed(1)}% · ${curH2O.toFixed(2)}L`;
+  if (metEl) metEl.textContent = `${Math.round(s.metabolicW)} W`;
+  if (routeEl) {
+    const estPct = (s.plannedDistM * 0.012 * workFactor).toFixed(1);
+    routeEl.textContent = s.plannedDistM > 0 ? `-${estPct}% O₂ (${Math.round(s.plannedDistM)}m)` : `${Math.round(s.walkedMeters)}m walked`;
+  }
+  if (pillEl) {
+    const hazard = curO2 <= 20 || curBat <= 15 || Number(ppco2) > 4.0;
+    const caution = !hazard && (curO2 <= reservePct || curBat <= 30);
+    pillEl.textContent = hazard ? "HAZARD" : caution ? "CAUTION" : "NOMINAL";
+    pillEl.className = `pill ${hazard ? "danger" : caution ? "warn" : "ok"}`;
+  }
+}
+
+window.updatePlssWalked = (meters) => {
+  window.aresPlssState.walkedMeters = Math.max(0, Number(meters) || 0);
+  updatePlssSimulation();
+};
+
+function initPlssControls() {
+  const evaO2Input = document.getElementById("eva-plss-o2");
+  const initO2Input = document.getElementById("plss-init-o2");
+  const initBatInput = document.getElementById("plss-init-bat");
+  const initH2OInput = document.getElementById("plss-init-h2o");
+  const metInput = document.getElementById("plss-metabolic");
+  const pressInput = document.getElementById("plss-pressure");
+
+  const syncFromInputs = () => {
+    const s = window.aresPlssState;
+    s.initO2 = Math.min(100, Math.max(10, Number(initO2Input?.value || 82)));
+    s.initBat = Math.min(100, Math.max(10, Number(initBatInput?.value || 76)));
+    s.initH2O = Math.min(6, Math.max(0.2, Number(initH2OInput?.value || 3.2)));
+    s.metabolicW = Math.min(650, Math.max(150, Number(metInput?.value || 310)));
+    s.pressureKpa = Math.min(45, Math.max(20, Number(pressInput?.value || 29.6)));
+    if (evaO2Input) evaO2Input.value = String(Math.round(s.initO2));
+    updatePlssSimulation();
+  };
+
+  initO2Input?.addEventListener("input", syncFromInputs);
+  initBatInput?.addEventListener("input", syncFromInputs);
+  initH2OInput?.addEventListener("input", syncFromInputs);
+  metInput?.addEventListener("input", syncFromInputs);
+  pressInput?.addEventListener("input", syncFromInputs);
+  evaO2Input?.addEventListener("input", () => {
+    if (initO2Input) initO2Input.value = evaO2Input.value;
+    syncFromInputs();
+  });
+  document.getElementById("btn-plss-reset")?.addEventListener("click", () => {
+    window.aresPlssState.walkedMeters = 0;
+    window.aresPlssState.plannedDistM = 0;
+    syncFromInputs();
+  });
+  syncFromInputs();
+}
+
 function startRelayCountdown() {
-  let secs = 18 * 60 + 40;
   const el = document.getElementById("hud-relay");
+  const orbitInput = document.getElementById("sat-orbit-min");
+  const offsetInput = document.getElementById("sat-offset-min");
+  const nearbyBtn = document.getElementById("btn-sat-nearby");
+  let phaseSecs = Math.round((Number(offsetInput?.value || 18.7)) * 60);
+
+  const renderRelay = () => {
+    const orbitSecs = Math.max(600, Math.round((Number(orbitInput?.value || 112)) * 60));
+    const passWindowSecs = Math.min(480, Math.round(orbitSecs * 0.08));
+    const modPhase = ((phaseSecs % orbitSecs) + orbitSecs) % orbitSecs;
+    if (modPhase < passWindowSecs) {
+      const rem = passWindowSecs - modPhase;
+      el.textContent = `IN PASS (${Math.floor(rem / 60)}m ${String(rem % 60).padStart(2, "0")}s)`;
+    } else {
+      const untilPass = orbitSecs - modPhase;
+      el.textContent = `T-${String(Math.floor(untilPass / 60)).padStart(2, "0")}m ${String(untilPass % 60).padStart(2, "0")}s`;
+    }
+  };
+
+  const applyOffset = () => {
+    const orbitSecs = Math.max(600, Math.round((Number(orbitInput?.value || 112)) * 60));
+    const offsetSecs = Math.max(0, Math.round((Number(offsetInput?.value || 0)) * 60));
+    phaseSecs = (orbitSecs - (offsetSecs % orbitSecs)) % orbitSecs;
+    renderRelay();
+  };
+
+  orbitInput?.addEventListener("change", applyOffset);
+  offsetInput?.addEventListener("change", applyOffset);
+  nearbyBtn?.addEventListener("click", () => {
+    phaseSecs = 0;
+    if (offsetInput) offsetInput.value = "0";
+    renderRelay();
+  });
+
+  applyOffset();
   setInterval(() => {
-    secs = secs > 0 ? secs - 1 : 22 * 60;
-    const m = Math.floor(secs / 60);
-    const s = secs % 60;
-    el.textContent = `T-${String(m).padStart(2, "0")}m ${String(s).padStart(2, "0")}s`;
+    phaseSecs += 1;
+    renderRelay();
   }, 1000);
 }
 
@@ -1018,7 +1143,12 @@ async function handleEvaPlanClick(lat, lng) {
 
   const distM = route.distance_m ?? route.total_distance_m ?? Math.round(latLngs.length * (grid.cell_size_m || 10));
   const walkMin = (distM / 1.2 / 60).toFixed(1);
-  const o2Used = (distM * 0.012).toFixed(1);
+  const workFactor = Math.max(0.4, (window.aresPlssState?.metabolicW || 310) / 310);
+  const o2Used = (distM * 0.012 * workFactor).toFixed(1);
+  if (window.aresPlssState) {
+    window.aresPlssState.plannedDistM = distM;
+    updatePlssSimulation();
+  }
   const routeStatus =
     hazardSegs > 0
       ? `HAZARD (${hazardSegs} steep segments ≥25°)`
