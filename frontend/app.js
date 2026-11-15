@@ -949,7 +949,15 @@ map.on("click", (e) => {
   }
 });
 
-function executeQuickJump(lat, lon, zoom, label) {
+function setActiveQuickJumpBtn(activeBtn) {
+  document.querySelectorAll("button[data-jump], #custom-jump-grid button").forEach((b) => {
+    b.classList.remove("accent");
+  });
+  activeBtn?.classList.add("accent");
+}
+
+function executeQuickJump(lat, lon, zoom, label, btn = null) {
+  setActiveQuickJumpBtn(btn);
   map.setView([lat, lon], zoom);
   window.jumpGlobeTo?.(lat, lon, zoom, label);
   window.jumpStreetViewTo?.(lat, lon, label);
@@ -999,7 +1007,7 @@ function renderCustomJumps() {
 
     btn.appendChild(span);
     btn.appendChild(del);
-    btn.addEventListener("click", () => executeQuickJump(item.lat, item.lon, item.zoom || 11, item.label));
+    btn.addEventListener("click", () => executeQuickJump(item.lat, item.lon, item.zoom || 11, item.label, btn));
     grid.appendChild(btn);
   });
 }
@@ -1023,7 +1031,7 @@ renderCustomJumps();
 document.querySelectorAll("button[data-jump]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const r = REGIONS[btn.dataset.jump];
-    if (r) executeQuickJump(r.center[0], r.center[1], r.zoom, btn.textContent.trim());
+    if (r) executeQuickJump(r.center[0], r.center[1], r.zoom, btn.textContent.trim(), btn);
   });
 });
 
