@@ -265,32 +265,60 @@ async function handleGlobeRouteClick(lat, lon) {
   infoCard.classList.remove("hidden");
 
   const pad = Math.max(0.06, Math.min(1.5, Math.max(Math.abs(goal.lat - start.lat), Math.abs(goal.lon - start.lon)) * 0.65));
-  const bbox = [
-    Math.max(-180, Math.min(start.lon, goal.lon) - pad),
-    Math.max(-90, Math.min(start.lat, goal.lat) - pad),
-    Math.min(180, Math.max(start.lon, goal.lon) + pad),
-    Math.min(90, Math.max(start.lat, goal.lat) + pad),
-  ];
+  const minLon = Math.max(-180, Math.min(start.lon, goal.lon) - pad);
+  const minLat = Math.max(-90, Math.min(start.lat, goal.lat) - pad);
+  const maxLon = Math.min(180, Math.max(start.lon, goal.lon) + pad);
+  const maxLat = Math.min(90, Math.max(start.lat, goal.lat) + pad);
+  const bboxStr = [minLon, minLat, maxLon, maxLat].map((v) => v.toFixed(5)).join(",");
 
   try {
+    const N = 48;
+    const gridRes = await fetch(`/api/v1/map/terrain-grid?bbox=${bboxStr}&rows=${N}&cols=${N}`);
+    const grid = await gridRes.json();
+    const toCol = (lo) => Math.min(N - 1, Math.max(0, Math.round(((lo - minLon) / Math.max(1e-6, maxLon - minLon)) * (N - 1))));
+    const toRow = (la) => Math.min(N - 1, Math.max(0, Math.round(((maxLat - la) / Math.max(1e-6, maxLat - minLat)) * (N - 1))));
+
+    const sx = toCol(start.lon);
+    const sy = toRow(start.lat);
+    const gx = toCol(goal.lon);
+    const gy = toRow(goal.lat);
+    const riskGrid = (grid.slope_deg || []).map((row) => row.map((s) => Math.min(1.0, s / 25.0)));
+
     const algo = document.getElementById("eva-algo")?.value || "theta_star";
-    const maxSlope = Number(document.getElementById("eva-max-slope")?.value || 25);
-    const budgetM = Number(document.getElementById("eva-budget-m")?.value || 50000);
+    const maxSlope = Math.min(45, Math.max(5, Number(document.getElementById("eva-max-slope")?.value || 25)));
+    const budgetM = Math.max(100, Number(document.getElementById("eva-budget-m")?.value || 2000));
+    const plssO2Pct = Math.min(100, Math.max(0, Number(document.getElementById("eva-plss-o2")?.value || 82)));
+    const minReservePct = Math.min(90, Math.max(0, Number(document.getElementById("eva-reserve-pct")?.value || 25)));
+    const envCondition = document.getElementById("eva-env-state")?.value || "nominal";
+
     const res = await fetch("/api/v1/routes/plan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        start: [start.lon, start.lat],
-        goal: [goal.lon, goal.lat],
-        bbox,
-        grid_size: 48,
-        algo,
+        start: { x: sx, y: sy },
+        goal: { x: gx, y: gy },
+        elevation: grid.elevation_m,
+        risk: riskGrid,
+        risk_weight: 10.0,
+        cell_size_m: grid.cell_size_m || 10.0,
         max_slope_deg: maxSlope,
-        max_distance_m: Math.max(budgetM, 25000),
+        algorithm: algo,
+        eva_budget_m: budgetM,
+        plss_o2_pct: plssO2Pct,
+        min_reserve_pct: minReservePct,
+        env_condition: envCondition,
       }),
     });
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
     const d = await res.json();
-    const coords = d.geojson?.geometry?.coordinates || [[start.lon, start.lat], [goal.lon, goal.lat]];
+    const coords = Array.isArray(d.route) && d.route.length
+      ? d.route.map((pt) => [
+          minLon + (pt.x / (N - 1)) * (maxLon - minLon),
+          maxLat - (pt.y / (N - 1)) * (maxLat - minLat),
+        ])
+      : [[start.lon, start.lat], [goal.lon, goal.lat]];
     const pts = coords.map(([lo, la]) => latLonToVec3(la, lo, GLOBE_R + 0.22));
     const routeLine = new THREE.Line(
       new THREE.BufferGeometry().setFromPoints(pts),
@@ -298,13 +326,16 @@ async function handleGlobeRouteClick(lat, lon) {
     );
     globeRouteGroup.add(routeLine);
 
-    const status = d.safety?.status || (d.reachable ? "NOMINAL" : "UNREACHABLE");
+    const reachable = d.status === "success" && Array.isArray(d.route) && d.route.length > 0;
+    const status = d.safety?.status || (reachable ? "NOMINAL" : "UNREACHABLE");
+    const distM = d.metrics?.total_distance_m ?? d.total_distance_m ?? 0;
+    const maxSlopeVal = d.metrics?.max_slope_deg ?? d.max_slope_deg ?? 0;
     infoTitle.textContent = `Globe EVA Route · ${status}`;
     infoBody.innerHTML =
-      `<div>Distance: <strong>${Math.round(d.total_distance_m || 0)} m</strong></div>` +
-      `<div>Max Slope: <strong>${(d.max_slope_deg || 0).toFixed(1)}°</strong></div>` +
+      `<div>Distance: <strong>${Math.round(distM)} m</strong></div>` +
+      `<div>Max Slope: <strong>${Number(maxSlopeVal).toFixed(1)}°</strong></div>` +
       `<div>Algo: <strong>${algo}</strong></div>`;
-    statsEl.textContent = `3D Mars Globe | EVA Route: ${Math.round(d.total_distance_m || 0)} m (${status})`;
+    statsEl.textContent = `3D Mars Globe | EVA Route: ${Math.round(distM)} m (${status})`;
   } catch (err) {
     infoTitle.textContent = "Globe EVA Route Error";
     infoBody.textContent = String(err);
