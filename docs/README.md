@@ -12,3 +12,8 @@ This directory defines the end-to-end engineering blueprint for the **ARES Plane
 | [06 — Handoff & API Gateway Guide](06_HANDOFF_AND_API_GATEWAY_GUIDE.md) | Summary of completed map/DB/EDAC work, integration guide for the Backend API Gateway teammate, and demo startup instructions. |
 | [07 — 3D Terrain, Street View & 5×5 Chunks](07_3D_TERRAIN_STREETVIEW_AND_CHUNKS.md) | 3D Mars Globe raycast picking, Minecraft-style `5×5` chunk streaming (`chunks3d.js`), Street View, regolith bump/rocks, and NASA Trek tile caching. |
 | [API Gateway Reference](API_GATEWAY.md) | Complete v1 endpoint catalog, request/response schemas, and Flutter/client integration reference. |
+
+## Code Quality & Repository Hygiene
+
+- **Local-only sample artifacts:** `sample_data/` is excluded from Git tracking and ignored via `.gitignore` to keep the repository lean. Run `backend/extract_samples.py` locally if you need to regenerate sample bundles.
+- **Modular & bounded core services:** Core backend path-planning and climate services (`backend/app/services/theta_star.py`, `backend/app/services/astar.py`, and `backend/app/services/climate_predictor.py`) are decomposed into single-purpose helper functions (≤ 60 lines each) with explicit iteration bounds on search and path-reconstruction loops.
