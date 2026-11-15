@@ -11,6 +11,7 @@ This directory defines the end-to-end engineering blueprint for the **ARES Plane
 | [05 — Live MongoDB Data Reference](05_LIVE_MONGODB_DATA_REFERENCE.md) | Developer reference for the live `ares_base` collections, exact document shapes, `pymongo` query snippets, and `/api/v1/map/*` endpoints. |
 | [06 — Handoff & API Gateway Guide](06_HANDOFF_AND_API_GATEWAY_GUIDE.md) | Summary of completed map/DB/EDAC work, integration guide for the Backend API Gateway teammate, and demo startup instructions. |
 | [07 — 3D Terrain, Street View & 5×5 Chunks](07_3D_TERRAIN_STREETVIEW_AND_CHUNKS.md) | 3D Mars Globe raycast picking, Minecraft-style `5×5` chunk streaming (`chunks3d.js`), Street View, regolith bump/rocks, and NASA Trek tile caching. |
+| [08 — Database Setup & Seeding Guide](08_DATABASE_SETUP_AND_SEEDING.md) | Step-by-step MongoDB (Atlas/local) & Supabase setup and idempotent data seeding via `push_to_mongo.py` and `push_to_supabase.py`. |
 | [API Gateway Reference](API_GATEWAY.md) | Complete v1 endpoint catalog, request/response schemas, and Flutter/client integration reference. |
 
 ## Code Quality & Repository Hygiene

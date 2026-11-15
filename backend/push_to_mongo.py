@@ -229,6 +229,9 @@ def build_map_layers() -> list[dict[str, Any]]:
 def build_themis_stamps() -> list[dict[str, Any]]:
     """Load Gale Crater THEMIS stamps from sample_data/themis_stamps.geojson."""
     path = SAMPLE_DIR / "themis_stamps.geojson"
+    if not path.exists():
+        print(f"[warn] {path} not found; skipping themis_stamps (run backend/extract_samples.py if you have raw data).")
+        return []
     data = json.loads(path.read_text(encoding="utf-8"))
     docs: list[dict[str, Any]] = []
     for feat in data.get("features", []):
@@ -253,6 +256,9 @@ def build_themis_stamps() -> list[dict[str, Any]]:
 def build_telemetry_rollups() -> list[dict[str, Any]]:
     """Load 15-min Sol 100 MEDA telemetry rollups from sample_data/telemetry_15min_sol100.json."""
     path = SAMPLE_DIR / "telemetry_15min_sol100.json"
+    if not path.exists():
+        print(f"[warn] {path} not found; skipping telemetry_rollups (run backend/extract_samples.py if you have raw data).")
+        return []
     data = json.loads(path.read_text(encoding="utf-8"))
     docs: list[dict[str, Any]] = []
     for rec in data.get("records", []):
