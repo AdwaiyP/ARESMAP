@@ -25,6 +25,7 @@
       <span class="dot"></span>
       <strong>ARES</strong>
       <span class="subtitle">MARS EVA TACTICAL MAP</span>
+      <button id="btn-start-guide" type="button" style="margin-left:10px;padding:3px 9px;font-size:11px;border-color:#38bdf8;color:#bae6fd;">? Guide</button>
     </div>
     <div class="telemetry-strip">
       <span>MARS: <strong id="clock-mars-date">--</strong></span>
@@ -324,6 +325,19 @@
       </div>
     </aside>
   </main>
+
+  <div id="tour-card" class="tour-card hidden" role="dialog" aria-label="ARES Interactive User Guide">
+    <div class="tour-header">
+      <span id="tour-step-badge" class="badge">STEP 1 / 7</span>
+      <button id="tour-close" type="button" style="padding:2px 7px;font-size:11px;">Skip</button>
+    </div>
+    <h4 id="tour-title" class="tour-title">Welcome to ARES</h4>
+    <p id="tour-desc" class="tour-desc"></p>
+    <div class="tour-actions">
+      <button id="tour-prev" type="button">Back</button>
+      <button id="tour-next" type="button" class="accent">Next</button>
+    </div>
+  </div>
 
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"

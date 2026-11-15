@@ -1366,4 +1366,106 @@ document.getElementById("btn-test-edac").addEventListener("click", async () => {
   });
 });
 
+function initInteractiveGuide() {
+  const card = document.getElementById("tour-card");
+  const badge = document.getElementById("tour-step-badge");
+  const titleEl = document.getElementById("tour-title");
+  const descEl = document.getElementById("tour-desc");
+  const prevBtn = document.getElementById("tour-prev");
+  const nextBtn = document.getElementById("tour-next");
+  const closeBtn = document.getElementById("tour-close");
+  const startBtn = document.getElementById("btn-start-guide");
+  if (!card) return;
+
+  const steps = [
+    {
+      sel: "[data-jump='mtsharp']",
+      title: "1. Quick Jump to Mars Sites",
+      desc: "Use Quick Jump to fly immediately to Mount Sharp, Gale Crater, Jezero, or Whole Mars. Works in both 2D Map and 3D Globe views.",
+    },
+    {
+      sel: "#btn-open-globe",
+      title: "2. 3D Globe, Terrain & 360° Street View",
+      desc: "Open the 3D Mars Globe, Regional 3D Terrain, or Mars 360° Street View (with Drone, Astronaut, and 6-Wheel Rover modes + photo-relief depth).",
+    },
+    {
+      sel: "#btn-plan-eva",
+      title: "3. Plan Safe EVA Routes (A* / Theta*)",
+      desc: "Choose A* or Theta*, set Budget, Max Slope, and Suit O₂, then click Plan Hyperlocal EVA (or Plan EVA Route inside the 3D Globe) and pick Start & Goal.",
+    },
+    {
+      sel: "#toggle-landmarks",
+      title: "4. Toggle Layers & Drop Waypoints",
+      desc: "Toggle NASA optical/MOLA base layers, rover tracks, THEMIS thermal stamps, and minerals (synced to 2D & 3D), or drop custom waypoints into MongoDB.",
+    },
+    {
+      sel: "#hud-plss-status",
+      title: "5. Configurable PLSS Life Support",
+      desc: "Pre-enter initial O₂ %, Battery %, H₂O, and Work (W). Endurance, ppCO₂, and suit depletion update dynamically as you plan routes or walk in Street View.",
+    },
+    {
+      sel: "#hud-rad-badge",
+      title: "6. Orbital Relay & Radiation HUD",
+      desc: "Set Satellite Orbit (min) / Offset or click Sat Nearby (Reset Pass), test Hamming(7,4) EDAC recovery, and monitor live MSL RAD / NASA DONKI radiation.",
+    },
+    {
+      sel: "#inspector-body",
+      title: "7. Inspect Any Surface Point",
+      desc: "Click any point on Mars, THEMIS stamp, or rover waypoint to inspect elevation, predicted climate, radiation, and real NASA rover imagery.",
+    },
+  ];
+
+  let idx = 0;
+  let activeEl = null;
+
+  const clearHighlight = () => {
+    activeEl?.classList.remove("tour-highlight");
+    activeEl = null;
+  };
+
+  const renderStep = () => {
+    clearHighlight();
+    const step = steps[idx];
+    badge.textContent = `STEP ${idx + 1} / ${steps.length}`;
+    titleEl.textContent = step.title;
+    descEl.textContent = step.desc;
+    prevBtn.disabled = idx === 0;
+    nextBtn.textContent = idx === steps.length - 1 ? "Finish" : "Next";
+    const target = document.querySelector(step.sel);
+    if (target) {
+      activeEl = target;
+      activeEl.classList.add("tour-highlight");
+      activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  const closeTour = () => {
+    clearHighlight();
+    card.classList.add("hidden");
+    try { localStorage.setItem("ares_tour_seen", "1"); } catch {}
+  };
+
+  startBtn?.addEventListener("click", () => {
+    idx = 0;
+    card.classList.remove("hidden");
+    renderStep();
+  });
+  prevBtn?.addEventListener("click", () => {
+    if (idx > 0) { idx--; renderStep(); }
+  });
+  nextBtn?.addEventListener("click", () => {
+    if (idx < steps.length - 1) { idx++; renderStep(); }
+    else closeTour();
+  });
+  closeBtn?.addEventListener("click", closeTour);
+
+  try {
+    if (!localStorage.getItem("ares_tour_seen")) {
+      card.classList.remove("hidden");
+      renderStep();
+    }
+  } catch {}
+}
+
+initInteractiveGuide();
 init();
