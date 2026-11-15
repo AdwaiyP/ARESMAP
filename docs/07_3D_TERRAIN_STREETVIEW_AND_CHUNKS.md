@@ -86,11 +86,14 @@ To address NASA's hyperlocal individual-spacewalk requirement:
 
 ---
 
-## 7. 3D Mars Globe Parity, Configurable PLSS & Radiation HUD
+## 7. Tablet UI, 3D Mars Globe Parity, Configurable PLSS & Radiation HUD
 
+- **Redesigned Dual-Drawer Tablet UI & 3D Waypoint Tracking (`frontend/index.html` + `frontend/styles.css` + `frontend/streetview.js`):**
+  - **Collapsible Tactical Drawers:** Left (`MAP CONTROLS & LAYERS`, `#btn-toggle-left`) and right (`TELEMETRY & INSPECTOR`, `#btn-toggle-right`) glassmorphic drawers with **Lucide** vector icons maximize the central 2D/3D viewport on tablet and desktop screens.
+  - **3D Waypoint Tracking:** Street View displays a live `#sv-wp-badge` (`WP X / Y · Z Left`), `#visor-wp-current`, `#visor-wp-remaining`, and `#visor-wp-progress` bar as the explorer advances through EVA stops.
 - **3D Mars Globe Feature Parity (`frontend/terrain3d.js` + `frontend/app.js`):**
-  - **Globe EVA Route Planning:** Users can plan A\*/Theta\* routes directly on the 3D Mars Globe via the **`Plan EVA Route`** toolbar button (2-click Start → Goal) or via **`Set as EVA Route Start`** / **`Plan EVA Route to Here`** in the Globe inspector card. Computed routes render on both the 3D Globe and the 2D map and can launch directly into 3D Street View.
-  - **Quick Jump & Layer Sync:** Sidebar **Quick Jump** buttons (`window.jumpGlobeTo`), **Global Base Layer** radios (`window.setGlobeTextureStyle`), **`+ Drop Planned Waypoint`** (`window.openDropWaypointForm`), and all **MongoDB Vector Layer** checkboxes (`window.syncGlobeLayers`) operate seamlessly on the 3D Globe.
+  - **Globe EVA Route Planning:** Users can plan A\*/Theta\* routes directly on the 3D Mars Globe via the **`Plan EVA Route`** toolbar button (`#btn-plan-globe-eva`, 2-click Start → Goal).
+  - **Layer Sync:** All **MongoDB Vector Layer** checkboxes (`window.syncGlobeLayers`) toggle visibility on both the 2D map and the 3D Globe.
 - **Configurable PLSS Life Support & Orbital Relay (`frontend/index.html` + `frontend/app.js`):**
   - **PLSS Life Support (EVA-1):** Users can pre-enter `Init O₂ (%)`, `Init Bat (%)`, `H₂O (L)`, `Work (W)` (metabolic rate), and `Press (kPa)`; remaining endurance, `ppCO₂`, walked depletion, and planned route O₂ estimates update dynamically and sync with the 3D Street View visor HUD.
   - **Satellite Orbital Relay:** Users can configure **Orbit (min)** (default `112` min) and **Offset (min)**, or click **`Sat Nearby (Reset Pass)`** to mark the relay overhead and reset the pass countdown.
@@ -98,7 +101,8 @@ To address NASA's hyperlocal individual-spacewalk requirement:
   - Computes elevation-adjusted MSL RAD GCR dose rate (`µSv/hr`, `mSv/day`), atmospheric CO₂ column shielding (`g/cm²`), 4-hour EVA dose, and live/cached NASA DONKI Solar Energetic Particle (`SEP`) storm alerts in both the sidebar HUD and the 3D Globe inspector.
 - **Street View Photo-Clinometry Micro-Relief & Route Re-Draping (`frontend/chunks3d.js` + `frontend/streetview.js`):**
   - `_applyPhotoRelief()` derives high-frequency terrain micro-relief from NASA orbital imagery (tapered to `0.0 m` at chunk borders) with orbital bump mapping (`bumpScale = 3.2`) and raking afternoon sunlight, while `ares-chunk-relief` automatically re-drapes 3D EVA route tubes onto the updated surface.
-- **Interactive `? Guide` & Custom Quick Jump Bookmarks (`frontend/index.html` + `frontend/app.js`):**
-  - Header **`? Guide`** launches a 7-step spotlight-blurred walkthrough (`#tour-backdrop` + `#tour-card`).
-  - **Quick Jump** syncs across 2D Map, 3D Globe, and Street View (`window.jumpStreetViewTo`), and users can save/remove custom Quick Jump bookmarks (`localStorage.ares_custom_jumps`).
+- **Detailed 11-Step `? Guide`, Progress Loader & Quick Jump (`frontend/index.html` + `frontend/app.js` + `frontend/streetview.js`):**
+  - Header **`? Guide`** (`#btn-start-guide`) launches an **11-step** spotlight-blurred walkthrough (`#tour-backdrop` + `#tour-card`) that auto-opens the relevant left/right drawer and supports `←` / `→` / `Esc` keyboard navigation.
+  - **Global Progress Loader (`#ares-loader`):** Displays a top progress bar and rotating Mars mission facts during slow terrain-grid, route-planning, globe-texture, and climate requests.
+  - **Quick Jump & Custom Bookmarks:** Quick Jump highlights only the active selection, syncs between 2D Map and Street View (`#sv-jump`, `window.jumpStreetViewTo`), and lets users save/remove custom bookmarks via **`+ Mark Quick Jump Here`** (`#btn-mark-jump`) or **`+ Mark`** (`#sv-mark-jump`, persisted in `localStorage.ares_custom_jumps`).
 
