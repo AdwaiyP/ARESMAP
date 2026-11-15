@@ -701,6 +701,12 @@ window.openStreetView = async function (lon, lat, label = "EVA Site", routeStops
   if (!animId) animate();
 };
 
+window.jumpStreetViewTo = (lat, lon, label = "Quick Jump") => {
+  if (modal.classList.contains("hidden")) return false;
+  window.openStreetView(lon, lat, label, null);
+  return true;
+};
+
 document.getElementById("sv-prev").addEventListener("click", () => loadStop(activeStopIdx - 1));
 document.getElementById("sv-next").addEventListener("click", () => loadStop(activeStopIdx + 1));
 

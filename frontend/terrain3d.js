@@ -213,10 +213,15 @@ async function inspectGlobeLocation(lat, lon, featureData = null) {
     (featureData?.description ? `<div style="margin-top:3px;">${featureData.description}</div>` : "") +
     `<div id="globe-env-extra" style="margin-top:5px;">Querying elevation, thermal &amp; radiation...</div>` +
     `<button id="btn-globe-route-pt" style="margin-top:6px;width:100%;border-color:#22c55e;color:#bbf7d0;">${routeBtnLabel}</button>` +
+    `<button id="btn-globe-mark-jump" style="margin-top:4px;width:100%;border-color:#eab308;color:#fef08a;">+ Mark Quick Jump</button>` +
     `<button id="btn-globe-zoom-local" style="margin-top:4px;width:100%;border-color:#38bdf8;color:#bae6fd;">Open 3D Local Terrain Here</button>`;
 
   document.getElementById("btn-globe-route-pt").addEventListener("click", () => {
     handleGlobeRoutePoint(lat, lon);
+  });
+
+  document.getElementById("btn-globe-mark-jump").addEventListener("click", () => {
+    window.addCustomQuickJump?.(lat, lon, featureData?.name || "");
   });
 
   document.getElementById("btn-globe-zoom-local").addEventListener("click", () => {

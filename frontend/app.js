@@ -949,13 +949,81 @@ map.on("click", (e) => {
   }
 });
 
+function executeQuickJump(lat, lon, zoom, label) {
+  map.setView([lat, lon], zoom);
+  window.jumpGlobeTo?.(lat, lon, zoom, label);
+  window.jumpStreetViewTo?.(lat, lon, label);
+}
+
+const CUSTOM_JUMPS_KEY = "ares_custom_jumps";
+
+function loadCustomJumps() {
+  try {
+    const raw = localStorage.getItem(CUSTOM_JUMPS_KEY);
+    return Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function renderCustomJumps() {
+  const grid = document.getElementById("custom-jump-grid");
+  if (!grid) return;
+  const items = loadCustomJumps();
+  grid.innerHTML = "";
+  items.forEach((item, idx) => {
+    const btn = document.createElement("button");
+    btn.style.display = "flex";
+    btn.style.justifyContent = "space-between";
+    btn.style.alignItems = "center";
+    btn.style.borderColor = "#eab308";
+    btn.title = `${item.lat.toFixed(4)}°, ${item.lon.toFixed(4)}°`;
+
+    const span = document.createElement("span");
+    span.textContent = item.label;
+    span.style.overflow = "hidden";
+    span.style.textOverflow = "ellipsis";
+    span.style.whiteSpace = "nowrap";
+
+    const del = document.createElement("span");
+    del.textContent = "×";
+    del.style.marginLeft = "6px";
+    del.style.color = "#f87171";
+    del.title = "Remove Quick Jump";
+    del.addEventListener("click", (ev) => {
+      ev.stopPropagation();
+      const updated = loadCustomJumps().filter((_, i) => i !== idx);
+      localStorage.setItem(CUSTOM_JUMPS_KEY, JSON.stringify(updated));
+      renderCustomJumps();
+    });
+
+    btn.appendChild(span);
+    btn.appendChild(del);
+    btn.addEventListener("click", () => executeQuickJump(item.lat, item.lon, item.zoom || 11, item.label));
+    grid.appendChild(btn);
+  });
+}
+
+window.addCustomQuickJump = (lat, lon, defaultLabel = "") => {
+  const label = prompt("Name this Quick Jump location:", defaultLabel || `Site ${lat.toFixed(2)}°, ${lon.toFixed(2)}°`);
+  if (!label || !label.trim()) return;
+  const items = loadCustomJumps();
+  items.push({ label: label.trim(), lat: Number(lat), lon: Number(lon), zoom: Math.max(10, map.getZoom()) });
+  localStorage.setItem(CUSTOM_JUMPS_KEY, JSON.stringify(items));
+  renderCustomJumps();
+};
+
+document.getElementById("btn-mark-jump")?.addEventListener("click", () => {
+  const pt = selectedMapPoint || { lat: map.getCenter().lat, lng: map.getCenter().lng, label: "" };
+  window.addCustomQuickJump(pt.lat, pt.lon ?? pt.lng, pt.label || "");
+});
+
+renderCustomJumps();
+
 document.querySelectorAll("button[data-jump]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const r = REGIONS[btn.dataset.jump];
-    if (r) {
-      map.setView(r.center, r.zoom);
-      window.jumpGlobeTo?.(r.center[0], r.center[1], r.zoom, btn.textContent.trim());
-    }
+    if (r) executeQuickJump(r.center[0], r.center[1], r.zoom, btn.textContent.trim());
   });
 });
 
