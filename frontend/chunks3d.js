@@ -67,10 +67,12 @@ export class MarsChunkManager {
     this.exag = opts.exag ?? 3.0;
     this.chunks = new Map();  // key "cx,cy" -> { cx, cy, grid, texture, mesh }
     this.loading = new Set(); // keys currently fetching
+    this._gen = 0;
     this.onStats = opts.onStats || null;
   }
 
   reset(centerLon, centerLat) {
+    this._gen++;
     this.clear();
     this.originCx = Math.floor(centerLon / CHUNK_DEG);
     this.originCy = Math.floor(centerLat / CHUNK_DEG);
@@ -111,6 +113,7 @@ export class MarsChunkManager {
   }
 
   async updateAround(wx, wz) {
+    const gen = this._gen;
     const { cx: curCx, cy: curCy } = this.worldToChunk(wx, wz);
 
     // Unload chunks outside 5x5 window (radius = 2)
@@ -124,8 +127,17 @@ export class MarsChunkManager {
       }
     }
 
-    const innerJobs = [];
-    const outerJobs = [];
+    const emitStats = () => {
+      if (this._gen !== gen) return;
+      if (this.onStats) {
+        const { lon, lat } = this.worldToLonLat(wx, wz);
+        this.onStats({ loaded: this.chunks.size, centerLon: lon, centerLat: lat });
+      }
+    };
+
+    // Build ring-ordered queue: center (ring 0) first, then ring 1, then ring 2
+    const centerTasks = [];
+    const bgTasks = [];
     for (let ring = 0; ring <= CHUNK_RADIUS; ring++) {
       for (let dx = -ring; dx <= ring; dx++) {
         for (let dy = -ring; dy <= ring; dy++) {
@@ -134,43 +146,51 @@ export class MarsChunkManager {
           const cy = curCy + dy;
           const key = `${cx},${cy}`;
           if (!this.chunks.has(key) && !this.loading.has(key)) {
-            const p = this._loadChunk(cx, cy, key);
-            if (ring <= 1) innerJobs.push(p);
-            else outerJobs.push(p);
+            const texSize = ring <= 1 ? 512 : 256;
+            const job = () => this._loadChunk(cx, cy, key, gen, texSize).then(emitStats);
+            if (ring === 0) centerTasks.push(job);
+            else bgTasks.push(job);
           }
         }
       }
     }
 
-    const emitStats = () => {
-      if (this.onStats) {
-        const { lon, lat } = this.worldToLonLat(wx, wz);
-        this.onStats({ loaded: this.chunks.size, centerLon: lon, centerLat: lat });
-      }
-    };
-
-    if (innerJobs.length) {
-      await Promise.all(innerJobs);
+    // Await ONLY the center chunk so Street View / 3D Terrain opens immediately
+    if (centerTasks.length) {
+      await Promise.all(centerTasks.map((fn) => fn()));
     }
     emitStats();
 
-    if (outerJobs.length) {
-      Promise.all(outerJobs).then(emitStats);
+    // Stream remaining chunks with bounded concurrency (4) so single-worker hosts stay responsive
+    if (bgTasks.length) {
+      let idx = 0;
+      const workerCount = Math.min(4, bgTasks.length);
+      const runWorker = async () => {
+        while (idx < bgTasks.length && this._gen === gen) {
+          const job = bgTasks[idx++];
+          await job();
+        }
+      };
+      for (let w = 0; w < workerCount; w++) {
+        runWorker();
+      }
     }
   }
 
-  async _loadChunk(cx, cy, key) {
+  async _loadChunk(cx, cy, key, gen, texSize = 512) {
+    if (gen !== this._gen) return;
     this.loading.add(key);
-    const minLon = cx * CHUNK_DEG;
-    const maxLon = (cx + 1) * CHUNK_DEG;
-    const minLat = cy * CHUNK_DEG;
-    const maxLat = (cy + 1) * CHUNK_DEG;
+    const minLon = Math.max(-180.0, Math.min(179.99, cx * CHUNK_DEG));
+    const maxLon = Math.max(minLon + 0.001, Math.min(180.0, (cx + 1) * CHUNK_DEG));
+    const minLat = Math.max(-89.9, Math.min(89.89, cy * CHUNK_DEG));
+    const maxLat = Math.max(minLat + 0.001, Math.min(89.9, (cy + 1) * CHUNK_DEG));
     const bbox = `${minLon.toFixed(5)},${minLat.toFixed(5)},${maxLon.toFixed(5)},${maxLat.toFixed(5)}`;
 
     try {
       const gridRes = await fetch(`/api/v1/map/terrain-grid?bbox=${bbox}&rows=${this.gridN}&cols=${this.gridN}`);
-      if (!gridRes.ok) return;
+      if (!gridRes.ok || gen !== this._gen) return;
       const grid = await gridRes.json();
+      if (gen !== this._gen) return;
 
       if (this.baseElev === null) {
         this.baseElev = grid.elevation_m[Math.floor(this.gridN / 2)][Math.floor(this.gridN / 2)];
@@ -184,13 +204,13 @@ export class MarsChunkManager {
 
       const texLoader = new THREE.TextureLoader();
       texLoader.load(
-        `/api/v1/map/regional-texture?bbox=${bbox}`,
+        `/api/v1/map/regional-texture?bbox=${bbox}&size=${texSize}`,
         (t) => {
           t.colorSpace = THREE.SRGBColorSpace;
           t.wrapS = THREE.ClampToEdgeWrapping;
           t.wrapT = THREE.ClampToEdgeWrapping;
           t.anisotropy = 16;
-          if (!this.chunks.has(key)) {
+          if (!this.chunks.has(key) || gen !== this._gen) {
             t.dispose();
             return;
           }
