@@ -127,6 +127,7 @@ function vec3ToLatLon(pt) {
 }
 
 async function inspectGlobeLocation(lat, lon, featureData = null) {
+  window.aresInspectSurface?.(lat, lon);
   infoCard.classList.remove("hidden");
   infoTitle.textContent = featureData?.name || "Mars Surface Point";
   infoBody.innerHTML =
@@ -134,12 +135,18 @@ async function inspectGlobeLocation(lat, lon, featureData = null) {
     (featureData?.elevation_m != null ? `<div><strong>Elevation:</strong> ${featureData.elevation_m} m</div>` : "") +
     (featureData?.description ? `<div style="margin-top:3px;">${featureData.description}</div>` : "") +
     `<div id="globe-env-extra" style="margin-top:5px;">Querying elevation, thermal &amp; radiation...</div>` +
-    `<button id="btn-globe-zoom-local" style="margin-top:6px;width:100%;border-color:#38bdf8;color:#bae6fd;">Open 3D Local Terrain Here</button>`;
+    `<div style="display:flex;gap:6px;margin-top:6px;">` +
+    `<button id="btn-globe-zoom-local" style="flex:1;border-color:#38bdf8;color:#bae6fd;">3D Terrain</button>` +
+    `<button id="btn-globe-open-sv" style="flex:1;border-color:#22c55e;color:#bbf7d0;">360° Street View</button>` +
+    `</div>`;
 
   document.getElementById("btn-globe-zoom-local").addEventListener("click", () => {
     const pad = 0.2;
     modeSelect.value = "terrain";
     loadLocalTerrain([lon - pad, lat - pad, lon + pad, lat + pad], featureData?.name || "Selected Site");
+  });
+  document.getElementById("btn-globe-open-sv").addEventListener("click", () => {
+    window.openStreetView?.(lon, lat, featureData?.name || "Globe Selected Site");
   });
 
   const extraEl = document.getElementById("globe-env-extra");
@@ -272,11 +279,28 @@ function handleGlobeClick(e) {
   pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointerNDC, camera);
 
-  if (globePlanMode && globeSphere) {
+  const mapMode = window.aresGetClickMode?.();
+  if ((globePlanMode || mapMode === "eva") && globeSphere) {
     const sphereHits = raycaster.intersectObject(globeSphere, false);
     if (sphereHits.length > 0) {
       const { lat, lon } = vec3ToLatLon(sphereHits[0].point);
       handleGlobeRouteClick(lat, lon);
+      return;
+    }
+  }
+  if (mapMode === "drop_wp" && globeSphere) {
+    const sphereHits = raycaster.intersectObject(globeSphere, false);
+    if (sphereHits.length > 0) {
+      const { lat, lon } = vec3ToLatLon(sphereHits[0].point);
+      window.aresOpenDropWaypointForm?.(lat, lon);
+      return;
+    }
+  }
+  if (mapMode === "mark_jump" && globeSphere) {
+    const sphereHits = raycaster.intersectObject(globeSphere, false);
+    if (sphereHits.length > 0) {
+      const { lat, lon } = vec3ToLatLon(sphereHits[0].point);
+      window.aresMarkCustomJumpAt?.(lat, lon);
       return;
     }
   }
@@ -363,8 +387,25 @@ async function buildGlobe() {
     planned: new THREE.Group(),
     msl: new THREE.Group(),
     waypoints: new THREE.Group(),
+    themis: new THREE.Group(),
+    aoi: new THREE.Group(),
   };
   Object.values(globeLayers).forEach((g) => activeGroup.add(g));
+
+  // Mount Sharp & Gale AOI bounding outline on 3D Globe
+  const aoiCorners = [
+    [-5.0, 137.25],
+    [-5.0, 137.65],
+    [-4.5, 137.65],
+    [-4.5, 137.25],
+    [-5.0, 137.25],
+  ].map(([la, lo]) => latLonToVec3(la, lo, GLOBE_R + 0.16));
+  globeLayers.aoi.add(
+    new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(aoiCorners),
+      new THREE.LineBasicMaterial({ color: 0xf97316 })
+    )
+  );
 
   window.aresLoader?.show("Loading 3D Mars Globe & NASA orbital vectors...", 45);
   try {
@@ -383,6 +424,22 @@ async function buildGlobe() {
       if (ft === "rover_waypoint") {
         const mid = props.mission_id || "mars2020_jezero";
         if (roverTracks[mid]) roverTracks[mid].push(latLonToVec3(lat, lon, GLOBE_R + 0.12));
+        continue;
+      }
+      if (ft === "themis_stamp") {
+        const coords = feat.geometry?.coordinates?.[0];
+        if (Array.isArray(coords) && coords.length > 0) {
+          const avgLon = coords.reduce((s, c) => s + c[0], 0) / coords.length;
+          const avgLat = coords.reduce((s, c) => s + c[1], 0) / coords.length;
+          const dot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.14, 8, 8),
+            new THREE.MeshBasicMaterial({ color: props.temp_kelvin ? 0xef4444 : 0x38bdf8 })
+          );
+          dot.position.copy(latLonToVec3(avgLat, avgLon, GLOBE_R + 0.18));
+          dot.userData = { name: props.file_id || "THEMIS Stamp", lat: avgLat, lon: avgLon, description: props.temp_kelvin ? `Temp: ${props.temp_kelvin} K` : "Temp Unknown" };
+          globeLayers.themis.add(dot);
+          pickables.push(dot);
+        }
         continue;
       }
       if (!["mars_landmark", "mineral_signature", "planned_waypoint"].includes(ft)) continue;
@@ -437,7 +494,33 @@ window.syncGlobeLayers = () => {
   if (globeLayers.planned) globeLayers.planned.visible = checked("toggle-planned");
   if (globeLayers.msl) globeLayers.msl.visible = checked("toggle-msl");
   if (globeLayers.waypoints) globeLayers.waypoints.visible = checked("toggle-waypoints");
+  if (globeLayers.themis) globeLayers.themis.visible = checked("toggle-themis");
+  if (globeLayers.aoi) globeLayers.aoi.visible = checked("toggle-aoi");
   if (globeRouteGroup) globeRouteGroup.visible = checked("toggle-eva") || globeRouteGroup.children.length > 0;
+};
+
+window.jumpGlobeTo = (lat, lon, label = "Quick Jump", zoom = 8) => {
+  if (!camera || !controls || modeSelect.value !== "globe") return;
+  const dist = zoom <= 2 ? 64 : zoom <= 6 ? 40 : 30;
+  const targetPos = latLonToVec3(lat, lon, dist);
+  camera.position.copy(targetPos);
+  controls.target.set(0, 0, 0);
+  controls.update();
+  statsEl.textContent = `3D Mars Globe | Focused on ${label} (${lat.toFixed(2)}°, ${lon.toFixed(2)}°)`;
+};
+
+window.setGlobeTextureStyle = (layerId) => {
+  const mapped = layerId === "mola_global_color" ? "mola" : "viking_red";
+  if (globeTexSelect) globeTexSelect.value = mapped;
+  if (!modal.classList.contains("hidden") && modeSelect.value === "globe") {
+    buildGlobe();
+  }
+};
+
+window.setGlobePlanMode = (enabled) => {
+  globePlanMode = Boolean(enabled);
+  globeRouteStart = null;
+  btnPlanGlobeEva?.classList.toggle("active", globePlanMode);
 };
 
 async function loadLocalTerrain(bbox, label = "3D Local Terrain") {

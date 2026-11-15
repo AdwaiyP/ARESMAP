@@ -1002,6 +1002,10 @@ function setActiveJumpBtn(activeBtn) {
 function jumpToLocation(lat, lon, zoom, label, btnEl) {
   setActiveJumpBtn(btnEl);
   map.setView([lat, lon], zoom);
+  const t3dModal = document.getElementById("terrain-3d-modal");
+  if (t3dModal && !t3dModal.classList.contains("hidden") && window.jumpGlobeTo) {
+    window.jumpGlobeTo(lat, lon, label, zoom);
+  }
   const svModal = document.getElementById("streetview-modal");
   if (svModal && !svModal.classList.contains("hidden") && window.jumpStreetViewTo) {
     window.jumpStreetViewTo(lat, lon, label);
@@ -1093,8 +1097,28 @@ document.querySelectorAll("input[name='baselayer']").forEach((radio) => {
     if (baseLayers[activeBaseId]) map.removeLayer(baseLayers[activeBaseId]);
     activeBaseId = radio.value;
     if (baseLayers[activeBaseId]) baseLayers[activeBaseId].addTo(map);
+    window.setGlobeTextureStyle?.(radio.value);
   });
 });
+
+window.aresInspectSurface = (lat, lon) => inspectSurfacePoint(lat, lon);
+window.aresOpenDropWaypointForm = (lat, lon) => {
+  document.getElementById("inspector")?.classList.remove("collapsed");
+  openDropWaypointForm(lat, lon);
+};
+window.aresMarkCustomJumpAt = (lat, lon) => {
+  markJumpMode = false;
+  document.getElementById("btn-mark-jump")?.classList.remove("active");
+  const label = window.prompt(
+    `Name Quick Jump at ${lat.toFixed(3)}°, ${lon.toFixed(3)}°:`,
+    `Site ${loadCustomJumps().length + 1}`
+  );
+  if (label && label.trim()) {
+    window.saveCustomJumpAt(lat, lon, label.trim());
+  }
+};
+window.aresGetClickMode = () =>
+  evaPlanMode ? "eva" : dropWaypointMode ? "drop_wp" : markJumpMode ? "mark_jump" : null;
 
 document.querySelectorAll("input[data-overlay]").forEach((cb) => {
   cb.addEventListener("change", () => {
@@ -1356,9 +1380,10 @@ document.getElementById("btn-plan-eva").addEventListener("click", (e) => {
   dropWaypointMode = false;
   document.getElementById("btn-drop-wp").classList.remove("active");
   e.currentTarget.classList.toggle("active", evaPlanMode);
+  window.setGlobePlanMode?.(evaPlanMode);
   inspectorBadge.textContent = evaPlanMode ? "EVA START" : "READY";
   if (evaPlanMode) {
-    inspectorBody.innerHTML = `<p class="muted">Click <strong>Start</strong> point on the Mars map to plan a 500 m hyperlocal slope-aware A* EVA spacewalk.</p>`;
+    inspectorBody.innerHTML = `<p class="muted">Click <strong>Start</strong> point on the 2D Mars map or 3D Mars Globe to plan a slope-aware EVA route.</p>`;
   }
 });
 
