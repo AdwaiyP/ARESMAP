@@ -260,6 +260,8 @@ button.accent { border-color: var(--accent); color: #ffd4c4; }
   position: absolute;
   bottom: 12px;
   left: 12px;
+  max-width: calc(50% - 110px);
+  line-height: 1.45;
   background: rgba(8, 15, 28, 0.78);
   border: 1px solid rgba(148, 163, 184, 0.35);
   border-radius: 6px;
