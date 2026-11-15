@@ -1,0 +1,114 @@
+{
+  "project": "ARES \u2014 Astronaut Route & Exploration System",
+  "study_region": "Mount Sharp lower foothills / Curiosity traverse zone, Gale Crater, Mars",
+  "source_datasets": {
+    "elevation_dem": {
+      "path": "Mars_MOLA_blend200ppx_HRSC_DEM_clon0dd_200mpp_lzw.tif",
+      "width": 106694,
+      "height": 53347,
+      "bands": 1,
+      "dtype": "int16",
+      "res": [
+        0.00337412083064107,
+        0.00337412083064107
+      ],
+      "nodata": -32768.0,
+      "crs_string": "ESRI:104971",
+      "crs_wkt": "GEOGCS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere_IAU_IAG\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST]]",
+      "bounds": [
+        -180.0,
+        -89.99922395220915,
+        179.9984479044183,
+        90.0
+      ]
+    },
+    "optical_imagery": {
+      "path": "curiosity_hirise_mosaic.tif",
+      "width": 144001,
+      "height": 160401,
+      "bands": 1,
+      "dtype": "uint8",
+      "res": [
+        4.217651214528874e-06,
+        4.217651214528841e-06
+      ],
+      "nodata": null,
+      "crs_string": "ESRI:104905",
+      "crs_wkt": "GEOGCS[\"GCS_Mars_2000\",DATUM[\"D_Mars_2000\",SPHEROID[\"Mars_2000_IAU_IAG\",3396190,169.894447223612,AUTHORITY[\"ESRI\",\"107905\"]],AUTHORITY[\"ESRI\",\"106905\"]],PRIMEM[\"Reference_Meridian\",0,AUTHORITY[\"ESRI\",\"108900\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"ESRI\",\"104905\"]]",
+      "bounds": [
+        137.12246691438963,
+        -4.925474311955909,
+        137.729812906933,
+        -4.248958839494268
+      ]
+    }
+  },
+  "coordinate_system": {
+    "mars_convention": "IAU Mars 2000 Sphere (R = 3,396,190 m), Planetocentric Latitude, East Longitude (0-360 / -180 to 180)",
+    "projected_crs_wkt": "PROJCS[\"unknown\",GEOGCS[\"unknown\",DATUM[\"unknown\",SPHEROID[\"unknown\",3396190,0]],PRIMEM[\"Reference meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",-4.775],PARAMETER[\"central_meridian\",137.425],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+    "projected_crs_proj4": "+proj=eqc +lat_ts=-4.775 +lat_0=0 +lon_0=137.425 +x_0=0 +y_0=0 +R=3396190 +units=m +no_defs=True"
+  },
+  "geographic_bounds_deg": {
+    "lon_min": 137.3,
+    "lat_min": -4.9,
+    "lon_max": 137.55,
+    "lat_max": -4.65
+  },
+  "projected_bounds_m": {
+    "left": -7400.0,
+    "bottom": -290600.0,
+    "right": 7400.0,
+    "top": -275600.0
+  },
+  "elevation_grid": {
+    "width": 74,
+    "height": 75,
+    "total_cells": 5550,
+    "cell_size_m": 200.0,
+    "elevation_units": "meters",
+    "elevation_min_m": -4492.9912109375,
+    "elevation_max_m": -1809.992431640625,
+    "nodata_mask_convention": "True = unavailable/invalid terrain, False = valid terrain",
+    "affine_transform": [
+      200.0,
+      0.0,
+      -7400.0,
+      0.0,
+      -200.0,
+      -275600.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "map_imagery": {
+    "width": 2960,
+    "height": 3000,
+    "cell_size_m": 5.0,
+    "affine_transform": [
+      5.0,
+      0.0,
+      -7400.0,
+      0.0,
+      -5.0,
+      -275600.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "demo_endpoints": {
+    "start": {
+      "x": 18,
+      "y": 18
+    },
+    "goal": {
+      "x": 73,
+      "y": 74
+    }
+  },
+  "limitations": [
+    "DEM spatial resolution is 200 m/pixel (MOLA/HRSC blend); sub-pixel boulders, scarps, and rover-scale hazards are not resolved.",
+    "Obstacles mask strictly reflects DEM NoData/invalid cells and does not classify surface rocks or sand traps."
+  ]
+}

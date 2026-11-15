@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARES — Interactive Mars EVA Tablet Map</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="status-bar">
+    <div class="brand">
+      <span class="dot"></span>
+      <strong>ARES</strong>
+      <span class="subtitle">MARS EVA TACTICAL MAP</span>
+    </div>
+    <div class="telemetry-strip">
+      <span>MARS: <strong id="clock-mars-date">--</strong></span>
+      <span>MSD: <strong id="clock-msd">--</strong></span>
+      <span>MTC: <strong id="clock-mtc">--</strong></span>
+      <span id="clock-lmst-wrap" title="Local Mean Solar Time at map center">LMST: <strong id="clock-lmst">--</strong></span>
+      <span>UTC: <strong id="clock-utc">--</strong></span>
+      <span>OWLT: <strong id="clock-owlt">3m–22m</strong></span>
+      <span class="coords-pill">IAU:49900 <strong id="cursor-coords">0.0000°, 0.0000°</strong></span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <section class="panel">
+        <h3>Quick Jump</h3>
+        <div class="btn-grid">
+          <button data-jump="mars">Whole Mars</button>
+          <button data-jump="mtsharp" class="accent">Mount Sharp</button>
+          <button data-jump="gale">Gale Crater</button>
+          <button data-jump="jezero">Jezero (M20)</button>
+          <button data-jump="ares_vallis">Ares Vallis</button>
+          <button data-jump="gusev">Gusev Crater</button>
+          <button data-jump="meridiani">Meridiani Planum</button>
+          <button data-jump="valles_marineris">Valles Marineris</button>
+        </div>
+        <button id="btn-open-globe" class="btn-full" style="border-color:#f97316;color:#fed7aa;">3D Mars Globe (Whole Planet)</button>
+        <button id="btn-open-3d" class="btn-full">Launch 3D Terrain (Regional)</button>
+        <button id="btn-open-sv" class="btn-full" style="border-color:#22c55e;color:#bbf7d0;">Launch Mars Street View</button>
+        <div class="eva-algo-row">
+          <label for="eva-algo">Planner:</label>
+          <select id="eva-algo" class="weather-select">
+            <option value="astar" selected>A* (Grid)</option>
+            <option value="theta_star">Theta* (Any-Angle)</option>
+          </select>
+        </div>
+        <div class="eva-safety-inputs">
+          <label>Budget (m) <input type="number" id="eva-budget-m" value="2000" min="100" step="100" /></label>
+          <label>Max Slope (°) <input type="number" id="eva-max-slope" value="25" min="5" max="45" /></label>
+          <label>Suit O₂ (%) <input type="number" id="eva-plss-o2" value="82" min="10" max="100" /></label>
+          <label>Reserve (%) <input type="number" id="eva-reserve-pct" value="25" min="5" max="80" /></label>
+          <label class="full-span">Environment
+            <select id="eva-env-state" class="weather-select">
+              <option value="nominal" selected>Nominal / Clear</option>
+              <option value="caution">Dusty / Caution</option>
+              <option value="storm">Dust Storm / Hold</option>
+              <option value="unknown">Unverified</option>
+            </select>
+          </label>
+        </div>
+        <button id="btn-plan-eva" class="btn-full" style="border-color:#38bdf8;color:#bae6fd;">Plan Hyperlocal EVA (A* / Theta*)</button>
+        <button id="btn-drop-wp" class="btn-full btn-wp">+ Drop Planned Waypoint</button>
+      </section>
+
+      <section class="panel">
+        <h3>Global Base Layer</h3>
+        <label><input type="radio" name="baselayer" value="mars_viking_red" checked /> Mars Trek Viking Red (232 m)</label>
+        <label><input type="radio" name="baselayer" value="mola_global_color" /> MOLA Elevation Heatmap (463 m)</label>
+        <label><input type="radio" name="baselayer" value="usgs_mola_themis_blend" /> USGS MOLA + THEMIS Blend</label>
+        <label><input type="radio" name="baselayer" value="usgs_themis_day_ir" /> USGS THEMIS Day IR</label>
+      </section>
+
+      <section class="panel">
+        <h3>High-Res Regional Overlays</h3>
+        <label><input type="checkbox" data-overlay="gale_ctx_optical" checked /> Gale CTX Optical (5.5 m)</label>
+        <label><input type="checkbox" data-overlay="gale_dem_1m" /> Gale 1 m DEM</label>
+        <label><input type="checkbox" data-overlay="jezero_hirise_25cm" checked /> Jezero HiRISE (25 cm)</label>
+        <label><input type="checkbox" data-overlay="jezero_dem_mosaic" /> Jezero DEM Mosaic</label>
+      </section>
+
+      <section class="panel">
+        <h3>MongoDB Vector Layers</h3>
+        <label><input type="checkbox" id="toggle-minerals" /> Mineral Signatures (<span id="count-minerals">0</span>)</label>
+        <label><input type="checkbox" id="toggle-planned" /> Planned Waypoints (<span id="count-planned">0</span>)</label>
+        <label><input type="checkbox" id="toggle-eva" /> EVA Tactical (PNR / Buddy / Breadcrumb)</label>
+        <label><input type="checkbox" id="toggle-landmarks" checked /> Global Mars Landmarks (<span id="count-landmarks">0</span>)</label>
+        <label><input type="checkbox" id="toggle-msl" /> Curiosity Gale Waypoints (<span id="count-msl">0</span>)</label>
+        <label><input type="checkbox" id="toggle-themis" /> THEMIS Stamps (<span id="count-themis">0</span>)</label>
+        <label><input type="checkbox" id="toggle-waypoints" /> Perseverance Waypoints (<span id="count-wp">0</span>)</label>
+        <label><input type="checkbox" id="toggle-aoi" /> Mount Sharp &amp; Gale AOI</label>
+      </section>
+
+      <section class="panel legend">
+        <h3>Legend</h3>
+        <div><span class="swatch min-dot"></span> Mineral Signature Target</div>
+        <div><span class="swatch plan-dot"></span> Planned EVA Waypoint</div>
+        <div><span class="swatch eva-dot"></span> EVA-1 / EVA-2 Buddy &amp; PNR</div>
+        <div><span class="swatch lm-dot"></span> Global Mars Landmark / Landing Site</div>
+        <div><span class="swatch msl-dot"></span> Curiosity (MSL) Waypoint</div>
+        <div><span class="swatch temp-ok"></span> THEMIS Thermal OK</div>
+        <div><span class="swatch temp-unk"></span> THEMIS Temp Unknown (0 K sentinel)</div>
+        <div><span class="swatch wp-dot"></span> Perseverance Waypoint / 360° POV</div>
+        <div><span class="swatch aoi-box"></span> Mount Sharp Boxwork AOI</div>
+      </section>
+    </aside>
+
+    <section class="map-wrap">
+      <div id="map"></div>
+
+      <div id="terrain-3d-modal" class="modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <strong>3D Mars Planet &amp; Terrain</strong>
+              <span id="terrain-3d-stats" class="muted" style="margin-left:10px;"></span>
+            </div>
+            <div class="modal-controls">
+              <select id="terrain-3d-mode">
+                <option value="globe">3D Mars Globe</option>
+                <option value="terrain">3D Local Terrain</option>
+              </select>
+              <select id="terrain-3d-globe-tex">
+                <option value="viking_red">Viking Red</option>
+                <option value="mola">MOLA Elevation</option>
+              </select>
+              <label id="exag-wrap">Exag <input id="terrain-3d-exag" type="range" min="1" max="8" step="0.5" value="3" /></label>
+              <select id="terrain-3d-color">
+                <option value="orbital" selected>NASA Orbital Photo (CTX/HiRISE)</option>
+                <option value="elevation">Elevation Heatmap</option>
+                <option value="slope">Slope Hazard</option>
+              </select>
+              <button id="btn-fullscreen-3d" title="Toggle Fullscreen">⛶ Fullscreen</button>
+              <button id="btn-close-3d">Close 3D</button>
+            </div>
+          </div>
+          <div class="modal-canvas-wrap">
+            <canvas id="terrain-3d-canvas"></canvas>
+            <div class="controls-guide">
+              <strong>Controls:</strong> Drag = Rotate · Scroll = Zoom · <code>W A S D</code> / Arrows = Move · <code>E</code>/<code>Q</code> = Up/Down · Click Globe = Inspect
+            </div>
+            <div id="t3d-scale-bar" class="scale-bar hidden">
+              <div class="scale-line"></div>
+              <span id="t3d-scale-label">Scale: -- · 1 Chunk = 4.7 km</span>
+            </div>
+            <div id="globe-info-card" class="sv-photo-box hidden">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <strong id="globe-info-title" style="color:#38bdf8;font-size:12px;">Mars Surface Point</strong>
+                <button id="globe-info-close" style="padding:2px 6px;font-size:10px;">×</button>
+              </div>
+              <div id="globe-info-body" class="muted" style="font-size:11px;line-height:1.45;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="streetview-modal" class="modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div>
+              <strong>Mars 360° Street View</strong>
+              <span id="sv-heading" class="badge" style="margin-left:8px;">HDG 000° N</span>
+              <span id="sv-meta" class="muted" style="margin-left:10px;"></span>
+            </div>
+            <div class="modal-controls">
+              <button id="sv-toggle-fog" class="active" style="border-color:#fb923c;color:#fed7aa;" title="Toggle Martian dust haze / fog">🌫️ Dust Fog: ON</button>
+              <button id="sv-view-drone" class="active" style="border-color:#38bdf8;color:#bae6fd;">🛸 Drone</button>
+              <button id="sv-view-astro" style="border-color:#4ade80;color:#bbf7d0;">🧑‍🚀 Astronaut</button>
+              <button id="sv-view-rover" style="border-color:#facc15;color:#fef08a;">🚙 Rover</button>
+              <button id="sv-view-path" style="border-color:#c084fc;color:#e9d5ff;">🗺️ Overview</button>
+              <button id="sv-set-lander" style="border-color:#f87171;color:#fecaca;" title="Set Rocket Landing Site at current position">🚀 Set Landing Site</button>
+              <button id="sv-prev">◀ Prev</button>
+              <button id="sv-next">Next ▶</button>
+              <button id="sv-fullscreen" title="Toggle Fullscreen">⛶ Fullscreen</button>
+              <button id="btn-close-sv">Close</button>
+            </div>
+          </div>
+          <div class="modal-canvas-wrap" style="position:relative;">
+            <canvas id="sv-canvas"></canvas>
+            <div class="controls-guide">
+              <strong>Controls:</strong> Drag = Look Around · <code>W A S D</code> / Arrows = Move · <code>E</code>/<code>Q</code> = Up/Down
+            </div>
+            <div id="sv-nav-arrow" class="sv-nav-arrow">
+              <div id="sv-nav-pointer" class="sv-nav-pointer">▲</div>
+              <div id="sv-nav-label" class="sv-nav-label">ON COURSE</div>
+            </div>
+            <div id="sv-scale-bar" class="scale-bar">
+              <div class="scale-line"></div>
+              <span id="sv-scale-label">ALT: -- · 1 Chunk = 4.7 km</span>
+            </div>
+            <div id="sv-visor-hud" class="sv-visor-hud">
+              <div class="visor-row">
+                <span class="visor-label">EVA SAFETY</span>
+                <span id="visor-safety" class="pill ok">NOMINAL · 0.0°</span>
+              </div>
+              <div class="visor-row">
+                <span class="visor-label">NEXT STOP</span>
+                <strong id="visor-next">--</strong>
+              </div>
+              <div class="visor-row">
+                <span class="visor-label">PLSS O₂ / BAT</span>
+                <strong id="visor-plss">82% · 76%</strong>
+              </div>
+              <div class="visor-row">
+                <span class="visor-label">WALKED / PNR</span>
+                <strong id="visor-pnr">0 m · PNR OK</strong>
+              </div>
+              <div class="visor-row">
+                <span class="visor-label">ROCKET LANDER</span>
+                <strong id="visor-lander">0 m @ 000°</strong>
+              </div>
+              <div id="sv-nearby-list" class="visor-nearby"></div>
+            </div>
+            <div id="sv-photo-preview" class="sv-photo-box hidden">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <span id="sv-photo-label" class="muted"></span>
+                <button id="sv-close-photo" style="padding:2px 6px;font-size:10px;">Hide</button>
+              </div>
+              <img id="sv-photo-img" alt="Rover Camera Frame" />
+            </div>
+          </div>
+          <div id="sv-filmstrip" class="sv-filmstrip"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="inspector" id="inspector">
+      <div class="hud-card">
+        <div class="hud-title">PLSS Life Support (EVA-1) <span class="pill ok">NOMINAL</span></div>
+        <div class="hud-grid">
+          <div>O₂ Primary: <strong>82% (4h 12m)</strong></div>
+          <div>ppCO₂: <strong>1.8 mmHg</strong></div>
+          <div>Suit Press: <strong>29.6 kPa</strong></div>
+          <div>Battery: <strong>76% · 3.2L H₂O</strong></div>
+          <div>Metabolic: <strong>310 W</strong></div>
+          <div>Buddy EVA-2: <strong id="hud-buddy">180m @ 048°</strong></div>
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-title">Comms &amp; Orbital Relay <span id="hud-edac" class="pill ok">CRC32 OK</span></div>
+        <div class="hud-grid">
+          <div>Hab UHF: <strong>98% LOS Clear</strong></div>
+          <div>MRO Pass: <strong id="hud-relay">T-18m 40s</strong></div>
+          <div>Cache: <strong id="hud-cache">--</strong></div>
+          <div><button id="btn-test-edac" style="padding:2px 6px;font-size:10px;">Test Bit-Flip EDAC</button></div>
+        </div>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-title">
+          <span id="hud-weather-title">Space Weather / MEDA</span>
+          <select id="weather-range" class="weather-select" title="Select climate duration">
+            <option value="sol100" selected>MEDA Sol 100</option>
+            <option value="30">REMS 30 Sols</option>
+            <option value="90">REMS 90 Sols</option>
+            <option value="365">REMS 1 Earth Yr</option>
+            <option value="668">REMS 1 Mars Yr</option>
+            <option value="5000">REMS All (14 Yrs)</option>
+            <option value="custom">Custom Dates</option>
+          </select>
+        </div>
+        <div id="weather-dates" class="weather-dates hidden">
+          <input type="date" id="weather-start" value="2024-01-01" />
+          <input type="date" id="weather-end" value="2026-08-25" />
+          <button id="weather-apply">Go</button>
+        </div>
+        <div class="hud-grid" id="hud-weather">
+          <div>Loading telemetry...</div>
+        </div>
+        <div id="hud-weather-chart" class="weather-chart hidden"></div>
+      </div>
+
+      <div class="inspector-header">
+        <h3>Feature &amp; Site Inspector</h3>
+        <span id="inspector-badge" class="badge">READY</span>
+      </div>
+      <div id="inspector-body" class="inspector-body">
+        <p class="muted">
+          Pan &amp; zoom across all of Mars. Click any <strong>THEMIS stamp</strong>,
+          <strong>Perseverance waypoint</strong> (for 360° panorama + nearby raw photos),
+          or anywhere on the surface to inspect coordinates &amp; predicted climate.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+  <script src="/app.js"></script>
+  <script type="module" src="/terrain3d.js"></script>
+  <script type="module" src="/streetview.js"></script>
+</body>
+</html>

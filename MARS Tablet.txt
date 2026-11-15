@@ -1,0 +1,51 @@
+# MARS Tablet required information
+
+- Surface PNT (Positioning, Navigation, Timing). Will need some maths equations to calculate exact locations, as cannot completely rely on satellite and compass.
+- Date Time. Show for both Earth and Mars (Sol Number, Local Mean Solar Time).
+- Geo Tagging. Putting coordinates at the captured photo and equipment readings.
+- Mineral Signatures
+- Route Planning, Satellite orbit path, previous missions route.
+- Key exploration Land Marks.
+- Teammate location (Buddy tracking, rule of 2)
+- Reverse Breadcrumb tracking (Backtracking)
+
+
+- Orbital Relay Window. Countdown time to the next overhead satellite pass.
+- Estimated time till receiving message from ground base. (distinguish between Local Surface Base and Earth Mission Control)
+- Life Support Details:
+	- Primary & Reserve O2: Tank Pressure, mass flow rate, remaining endurance time
+	- CO2 Srubber Capacity: Saturation percentage, Partial pressure of CO2
+	- Suit Battery & Thermal Control Water: Remaining kWh, remaining L
+	- Metabolic Rate: Heart rate, respiratory rate, calories burn
+- Point of No Return. Spatial boundary calculation
+-  Micro-Topology & Slope Heatmap
+- Solar Azimuth Compass. Derived from local time, latitude and sun sensors
+- RF Line-of-Sight & Terrain Masking
+- Regolith Trafficability & Slip Index. Granular soil risk layers derived from THEMIS
+- Rock Abundance & Obstacle Density. Boulder where size exceed suit step over clearance
+- Drop-Off Alerts. Alarms when approaching cliff edge, crater rim or unstable land.
+- Atmospheric & Space Weather:
+	- Surface Pressure
+	- Wind Vectors (Directions)
+	- Dust Optical Depth
+	- Solar Flux
+	- Ionizing Radiation Rate
+
+# Sample Information Architecture
+
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ [STATUS BAR]  MET: 02:41:10  |  SOL: 184  |  LMST: 11:24  |  EARTH OWLT: 14m 20s │
+├──────────────────────────────────────┬──────────────────────────────────────────┤
+│ PRIMARY 3D TRAVERSE & HAZARDS        │ LIFE SUPPORT & BIOMETRICS (PLSS)        │
+│                                      │                                          │
+│ • Local ENU / IAU Coordinates        │ • Primary O2: 82% (4h 12m remaining)     │
+│ • Dead-Reckoning Position (1σ Error) │ • ppCO2: 1.8 mmHg [NOMINAL]              │
+│ • Solar Azimuth Heading (Sun Compass)│ • Battery: 76% | Cooling H2O: 3.2 L      │
+│ • 1m DTM Slope Contours              │ • Metabolic Output: 310 W (Margaria burn)│
+│ • Low-Inertia Slip Zones (THEMIS)    ├──────────────────────────────────────────┤
+│ • Dynamic PNR Isochrone Loop         │ COMMS & RELAY STATUS                     │
+│ • Direct Habitat RF Line-of-Sight    │ • Habitat Direct UHF: 98% (LOS Clear)    │
+│ • EVA 2 Partner Vector: 14m @ 042°   │ • MRO Relay Window: T-minus 18m 40s      │
+├──────────────────────────────────────┴──────────────────────────────────────────┤
+│ [LOWER DOCK]  Waypoints & Science | Sample Logger (RFID) | Space Weather / Dust │
+└─────────────────────────────────────────────────────────────────────────────────┘

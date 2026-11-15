@@ -1,0 +1,44 @@
+{
+  "site": "Jezero Crater",
+  "source": "HiRISE orthomosaic",
+  "grid_width": 100,
+  "grid_height": 100,
+  "source_window": {
+    "col_off": 41800,
+    "row_off": 41976,
+    "width": 2000,
+    "height": 2000
+  },
+  "projected_center": {
+    "x": 4588065.999999999,
+    "y": 1095873.9999999998
+  },
+  "projected_crs": "PROJCS[\"Equirectangular Mars 2000 Sphere IAU\",GEOGCS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere_IAU\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",0],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+  "hazard_source": "experimental_image_heuristics",
+  "slope_assessment_available": false,
+  "validated_for_eva_safety": false,
+  "limitations": [
+    "Imagery-derived candidate hazards are not verified obstacles",
+    "No elevation model is included",
+    "No slope-based safety assessment is available"
+  ],
+  "cell_width_m": 4.7418,
+  "cell_height_m": 5.0,
+  "coverage_width_m": 474.18,
+  "coverage_height_m": 500.0,
+  "geographic_affine_transform": [
+    8.435302429057537e-05,
+    0.0,
+    77.3992308977387,
+    0.0,
+    -8.435302429057537e-05,
+    18.492274879496684
+  ],
+  "geographic_crs": "GEOGCS[\"unnamed ellipse\",DATUM[\"unknown\",SPHEROID[\"unnamed\",3396190,0]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST]]",
+  "geographic_bounds": {
+    "west": 77.3992308977387,
+    "north": 18.492274879496684,
+    "east": 77.40766620016777,
+    "south": 18.483839577067627
+  }
+}

@@ -1,0 +1,7526 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.48294,
+          -4.654057
+        ]
+      },
+      "properties": {
+        "file_id": "I01350002",
+        "frame_type": "IR",
+        "lon_deg": 137.48294,
+        "lat_deg": -4.654057,
+        "surf_temp_k": 188.968,
+        "surf_temp_c": -84.18,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.69438,
+          -5.373851
+        ]
+      },
+      "properties": {
+        "file_id": "I14999001",
+        "frame_type": "IR",
+        "lon_deg": 137.69438,
+        "lat_deg": -5.373851,
+        "surf_temp_k": 233.347,
+        "surf_temp_c": -39.8,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.43636,
+          -5.468131
+        ]
+      },
+      "properties": {
+        "file_id": "I22986001",
+        "frame_type": "IR",
+        "lon_deg": 137.43636,
+        "lat_deg": -5.468131,
+        "surf_temp_k": 228.026,
+        "surf_temp_c": -45.12,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.82251,
+          -4.76397
+        ]
+      },
+      "properties": {
+        "file_id": "I27372009",
+        "frame_type": "IR",
+        "lon_deg": 137.82251,
+        "lat_deg": -4.76397,
+        "surf_temp_k": 179.755,
+        "surf_temp_c": -93.39,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.18506,
+          -4.623694
+        ]
+      },
+      "properties": {
+        "file_id": "I28233006",
+        "frame_type": "IR",
+        "lon_deg": 138.18506,
+        "lat_deg": -4.623694,
+        "surf_temp_k": 169.243,
+        "surf_temp_c": -103.91,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.13521,
+          -5.167823
+        ]
+      },
+      "properties": {
+        "file_id": "I29668002",
+        "frame_type": "IR",
+        "lon_deg": 138.13521,
+        "lat_deg": -5.167823,
+        "surf_temp_k": 187.84,
+        "surf_temp_c": -85.31,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.22264,
+          -5.417002
+        ]
+      },
+      "properties": {
+        "file_id": "I31945001",
+        "frame_type": "IR",
+        "lon_deg": 137.22264,
+        "lat_deg": -5.417002,
+        "surf_temp_k": 248.327,
+        "surf_temp_c": -24.82,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5631,
+          -4.965319
+        ]
+      },
+      "properties": {
+        "file_id": "I32325004",
+        "frame_type": "IR",
+        "lon_deg": 137.5631,
+        "lat_deg": -4.965319,
+        "surf_temp_k": 197.047,
+        "surf_temp_c": -76.1,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7189,
+          -5.393623
+        ]
+      },
+      "properties": {
+        "file_id": "I32893001",
+        "frame_type": "IR",
+        "lon_deg": 137.7189,
+        "lat_deg": -5.393623,
+        "surf_temp_k": 261.983,
+        "surf_temp_c": -11.17,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.35309,
+          -5.336639
+        ]
+      },
+      "properties": {
+        "file_id": "I33392001",
+        "frame_type": "IR",
+        "lon_deg": 137.35309,
+        "lat_deg": -5.336639,
+        "surf_temp_k": 271.55,
+        "surf_temp_c": -1.6,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.04085,
+          -5.325157
+        ]
+      },
+      "properties": {
+        "file_id": "I34540001",
+        "frame_type": "IR",
+        "lon_deg": 138.04085,
+        "lat_deg": -5.325157,
+        "surf_temp_k": 266.069,
+        "surf_temp_c": -7.08,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.33636,
+          -4.712147
+        ]
+      },
+      "properties": {
+        "file_id": "I34571007",
+        "frame_type": "IR",
+        "lon_deg": 137.33636,
+        "lat_deg": -4.712147,
+        "surf_temp_k": 195.527,
+        "surf_temp_c": -77.62,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60503,
+          -4.872173
+        ]
+      },
+      "properties": {
+        "file_id": "I34883005",
+        "frame_type": "IR",
+        "lon_deg": 137.60503,
+        "lat_deg": -4.872173,
+        "surf_temp_k": 190.722,
+        "surf_temp_c": -82.43,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.36954,
+          -5.385898
+        ]
+      },
+      "properties": {
+        "file_id": "I35551001",
+        "frame_type": "IR",
+        "lon_deg": 137.36954,
+        "lat_deg": -5.385898,
+        "surf_temp_k": 249.967,
+        "surf_temp_c": -23.18,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.24417,
+          -4.982292
+        ]
+      },
+      "properties": {
+        "file_id": "I37373001",
+        "frame_type": "IR",
+        "lon_deg": 137.24417,
+        "lat_deg": -4.982292,
+        "surf_temp_k": 230.386,
+        "surf_temp_c": -42.76,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.63303,
+          -4.885686
+        ]
+      },
+      "properties": {
+        "file_id": "I37660001",
+        "frame_type": "IR",
+        "lon_deg": 137.63303,
+        "lat_deg": -4.885686,
+        "surf_temp_k": 231.75,
+        "surf_temp_c": -41.4,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.78242,
+          -5.230014
+        ]
+      },
+      "properties": {
+        "file_id": "I39981001",
+        "frame_type": "IR",
+        "lon_deg": 137.78242,
+        "lat_deg": -5.230014,
+        "surf_temp_k": 252.39,
+        "surf_temp_c": -20.76,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.09747,
+          -5.090906
+        ]
+      },
+      "properties": {
+        "file_id": "I40867001",
+        "frame_type": "IR",
+        "lon_deg": 138.09747,
+        "lat_deg": -5.090906,
+        "surf_temp_k": 257.018,
+        "surf_temp_c": -16.13,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.35466,
+          -5.121497
+        ]
+      },
+      "properties": {
+        "file_id": "I42664001",
+        "frame_type": "IR",
+        "lon_deg": 138.35466,
+        "lat_deg": -5.121497,
+        "surf_temp_k": 270.137,
+        "surf_temp_c": -3.01,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.06677,
+          -5.279087
+        ]
+      },
+      "properties": {
+        "file_id": "I42932006",
+        "frame_type": "IR",
+        "lon_deg": 138.06677,
+        "lat_deg": -5.279087,
+        "surf_temp_k": 192.561,
+        "surf_temp_c": -80.59,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.96696,
+          -5.577756
+        ]
+      },
+      "properties": {
+        "file_id": "I46796001",
+        "frame_type": "IR",
+        "lon_deg": 137.96696,
+        "lat_deg": -5.577756,
+        "surf_temp_k": 236.798,
+        "surf_temp_c": -36.35,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.9895,
+          -5.54828
+        ]
+      },
+      "properties": {
+        "file_id": "I47570001",
+        "frame_type": "IR",
+        "lon_deg": 137.9895,
+        "lat_deg": -5.54828,
+        "surf_temp_k": 243.459,
+        "surf_temp_c": -29.69,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.82303,
+          -5.190765
+        ]
+      },
+      "properties": {
+        "file_id": "I47838004",
+        "frame_type": "IR",
+        "lon_deg": 137.82303,
+        "lat_deg": -5.190765,
+        "surf_temp_k": 186.422,
+        "surf_temp_c": -86.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "Gale and MSL Flyover",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.84402,
+          -5.447281
+        ]
+      },
+      "properties": {
+        "file_id": "I48007001",
+        "frame_type": "IR",
+        "lon_deg": 137.84402,
+        "lat_deg": -5.447281,
+        "surf_temp_k": 247.902,
+        "surf_temp_c": -25.25,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7001,
+          -4.857899
+        ]
+      },
+      "properties": {
+        "file_id": "I48275006",
+        "frame_type": "IR",
+        "lon_deg": 137.7001,
+        "lat_deg": -4.857899,
+        "surf_temp_k": 189.108,
+        "surf_temp_c": -84.04,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.13826,
+          -5.580329
+        ]
+      },
+      "properties": {
+        "file_id": "I48881001",
+        "frame_type": "IR",
+        "lon_deg": 138.13826,
+        "lat_deg": -5.580329,
+        "surf_temp_k": 250.047,
+        "surf_temp_c": -23.1,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.37248,
+          -4.885804
+        ]
+      },
+      "properties": {
+        "file_id": "I49149002",
+        "frame_type": "IR",
+        "lon_deg": 138.37248,
+        "lat_deg": -4.885804,
+        "surf_temp_k": 197.511,
+        "surf_temp_c": -75.64,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5834,
+          -5.053951
+        ]
+      },
+      "properties": {
+        "file_id": "I49174003",
+        "frame_type": "IR",
+        "lon_deg": 137.5834,
+        "lat_deg": -5.053951,
+        "surf_temp_k": 195.542,
+        "surf_temp_c": -77.61,
+        "alb_avg": null,
+        "bands": "(4, 7, 8, 9, 10)",
+        "description": "5 band IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.0261,
+          -4.970246
+        ]
+      },
+      "properties": {
+        "file_id": "I49611007",
+        "frame_type": "IR",
+        "lon_deg": 138.0261,
+        "lat_deg": -4.970246,
+        "surf_temp_k": 195.592,
+        "surf_temp_c": -77.56,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.23944,
+          -5.118593
+        ]
+      },
+      "properties": {
+        "file_id": "I49636006",
+        "frame_type": "IR",
+        "lon_deg": 137.23944,
+        "lat_deg": -5.118593,
+        "surf_temp_k": 195.072,
+        "surf_temp_c": -78.08,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.58667,
+          -5.539559
+        ]
+      },
+      "properties": {
+        "file_id": "I49805001",
+        "frame_type": "IR",
+        "lon_deg": 137.58667,
+        "lat_deg": -5.539559,
+        "surf_temp_k": 259.204,
+        "surf_temp_c": -13.95,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.08032,
+          -4.774521
+        ]
+      },
+      "properties": {
+        "file_id": "I50073003",
+        "frame_type": "IR",
+        "lon_deg": 138.08032,
+        "lat_deg": -4.774521,
+        "surf_temp_k": 193.25,
+        "surf_temp_c": -79.9,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2812,
+          -4.631582
+        ]
+      },
+      "properties": {
+        "file_id": "I50098003",
+        "frame_type": "IR",
+        "lon_deg": 137.2812,
+        "lat_deg": -4.631582,
+        "surf_temp_k": 193.1,
+        "surf_temp_c": -80.05,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.88153,
+          -5.581771
+        ]
+      },
+      "properties": {
+        "file_id": "I50267001",
+        "frame_type": "IR",
+        "lon_deg": 137.88153,
+        "lat_deg": -5.581771,
+        "surf_temp_k": 264.791,
+        "surf_temp_c": -8.36,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.36993,
+          -4.937062
+        ]
+      },
+      "properties": {
+        "file_id": "I50779001",
+        "frame_type": "IR",
+        "lon_deg": 137.36993,
+        "lat_deg": -4.937062,
+        "surf_temp_k": 260.521,
+        "surf_temp_c": -12.63,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.75308,
+          -5.13571
+        ]
+      },
+      "properties": {
+        "file_id": "I51072006",
+        "frame_type": "IR",
+        "lon_deg": 137.75308,
+        "lat_deg": -5.13571,
+        "surf_temp_k": 192.12,
+        "surf_temp_c": -81.03,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.00833,
+          -5.192043
+        ]
+      },
+      "properties": {
+        "file_id": "I51803001",
+        "frame_type": "IR",
+        "lon_deg": 138.00833,
+        "lat_deg": -5.192043,
+        "surf_temp_k": 242.422,
+        "surf_temp_c": -30.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.35822,
+          -5.287216
+        ]
+      },
+      "properties": {
+        "file_id": "I51828001",
+        "frame_type": "IR",
+        "lon_deg": 137.35822,
+        "lat_deg": -5.287216,
+        "surf_temp_k": 243.181,
+        "surf_temp_c": -29.97,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.59882,
+          -5.344487
+        ]
+      },
+      "properties": {
+        "file_id": "I52146010",
+        "frame_type": "IR",
+        "lon_deg": 137.59882,
+        "lat_deg": -5.344487,
+        "surf_temp_k": 186.323,
+        "surf_temp_c": -86.83,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.31122,
+          -5.29156
+        ]
+      },
+      "properties": {
+        "file_id": "I52340001",
+        "frame_type": "IR",
+        "lon_deg": 137.31122,
+        "lat_deg": -5.29156,
+        "surf_temp_k": 233.826,
+        "surf_temp_c": -39.32,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "THEMIS/MSL ROTO (-5deg) Overflight - 100 m/pix 10-Band Day IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.25809,
+          -5.240092
+        ]
+      },
+      "properties": {
+        "file_id": "I52365001",
+        "frame_type": "IR",
+        "lon_deg": 137.25809,
+        "lat_deg": -5.240092,
+        "surf_temp_k": 234.143,
+        "surf_temp_c": -39.01,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "THEMIS/MSL ROTO (0deg) Overflight - 100 m/pix 10-Band Day IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32564,
+          -5.188467
+        ]
+      },
+      "properties": {
+        "file_id": "I52390001",
+        "frame_type": "IR",
+        "lon_deg": 137.32564,
+        "lat_deg": -5.188467,
+        "surf_temp_k": 230.44,
+        "surf_temp_c": -42.71,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "THEMIS/MSL ROTO (6deg) Overflight - 100 m/pix 10-Band Day IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.23607,
+          -5.586543
+        ]
+      },
+      "properties": {
+        "file_id": "I52877001",
+        "frame_type": "IR",
+        "lon_deg": 137.23607,
+        "lat_deg": -5.586543,
+        "surf_temp_k": 223.42,
+        "surf_temp_c": -49.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.66728,
+          -4.965076
+        ]
+      },
+      "properties": {
+        "file_id": "I53364001",
+        "frame_type": "IR",
+        "lon_deg": 137.66728,
+        "lat_deg": -4.965076,
+        "surf_temp_k": 214.592,
+        "surf_temp_c": -58.56,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.6052,
+          -5.277279
+        ]
+      },
+      "properties": {
+        "file_id": "I54144002",
+        "frame_type": "IR",
+        "lon_deg": 137.6052,
+        "lat_deg": -5.277279,
+        "surf_temp_k": 176.719,
+        "surf_temp_c": -96.43,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.06816,
+          -5.27364
+        ]
+      },
+      "properties": {
+        "file_id": "I54313001",
+        "frame_type": "IR",
+        "lon_deg": 138.06816,
+        "lat_deg": -5.27364,
+        "surf_temp_k": 209.419,
+        "surf_temp_c": -63.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.33165,
+          -5.430145
+        ]
+      },
+      "properties": {
+        "file_id": "I54800001",
+        "frame_type": "IR",
+        "lon_deg": 137.33165,
+        "lat_deg": -5.430145,
+        "surf_temp_k": 210.177,
+        "surf_temp_c": -62.97,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.67207,
+          -5.147349
+        ]
+      },
+      "properties": {
+        "file_id": "I55068002",
+        "frame_type": "IR",
+        "lon_deg": 137.67207,
+        "lat_deg": -5.147349,
+        "surf_temp_k": 184.81,
+        "surf_temp_c": -88.34,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.94095,
+          -5.478817
+        ]
+      },
+      "properties": {
+        "file_id": "I55237001",
+        "frame_type": "IR",
+        "lon_deg": 137.94095,
+        "lat_deg": -5.478817,
+        "surf_temp_k": 208.925,
+        "surf_temp_c": -64.22,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2077,
+          -5.208722
+        ]
+      },
+      "properties": {
+        "file_id": "I55262001",
+        "frame_type": "IR",
+        "lon_deg": 137.2077,
+        "lat_deg": -5.208722,
+        "surf_temp_k": 210.161,
+        "surf_temp_c": -62.99,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51218,
+          -4.647071
+        ]
+      },
+      "properties": {
+        "file_id": "I56136001",
+        "frame_type": "IR",
+        "lon_deg": 137.51218,
+        "lat_deg": -4.647071,
+        "surf_temp_k": 212.876,
+        "surf_temp_c": -60.27,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.48225,
+          -4.82753
+        ]
+      },
+      "properties": {
+        "file_id": "I56473001",
+        "frame_type": "IR",
+        "lon_deg": 137.48225,
+        "lat_deg": -4.82753,
+        "surf_temp_k": 216.522,
+        "surf_temp_c": -56.63,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.22734,
+          -5.518493
+        ]
+      },
+      "properties": {
+        "file_id": "I56785001",
+        "frame_type": "IR",
+        "lon_deg": 138.22734,
+        "lat_deg": -5.518493,
+        "surf_temp_k": 219.923,
+        "surf_temp_c": -53.23,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.45256,
+          -5.144084
+        ]
+      },
+      "properties": {
+        "file_id": "I57003016",
+        "frame_type": "IR",
+        "lon_deg": 137.45256,
+        "lat_deg": -5.144084,
+        "surf_temp_k": 193.262,
+        "surf_temp_c": -79.89,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.0534,
+          -4.82388
+        ]
+      },
+      "properties": {
+        "file_id": "I57122001",
+        "frame_type": "IR",
+        "lon_deg": 138.0534,
+        "lat_deg": -4.82388,
+        "surf_temp_k": 222.687,
+        "surf_temp_c": -50.46,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.31937,
+          -5.019993
+        ]
+      },
+      "properties": {
+        "file_id": "I57340002",
+        "frame_type": "IR",
+        "lon_deg": 137.31937,
+        "lat_deg": -5.019993,
+        "surf_temp_k": 194.288,
+        "surf_temp_c": -78.86,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.77408,
+          -5.508883
+        ]
+      },
+      "properties": {
+        "file_id": "I57459001",
+        "frame_type": "IR",
+        "lon_deg": 137.77408,
+        "lat_deg": -5.508883,
+        "surf_temp_k": 223.838,
+        "surf_temp_c": -49.31,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.29544,
+          -5.456095
+        ]
+      },
+      "properties": {
+        "file_id": "I57796001",
+        "frame_type": "IR",
+        "lon_deg": 137.29544,
+        "lat_deg": -5.456095,
+        "surf_temp_k": 225.883,
+        "surf_temp_c": -47.27,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.41293,
+          -5.099151
+        ]
+      },
+      "properties": {
+        "file_id": "I57989004",
+        "frame_type": "IR",
+        "lon_deg": 137.41293,
+        "lat_deg": -5.099151,
+        "surf_temp_k": 193.056,
+        "surf_temp_c": -80.09,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.63365,
+          -5.181305
+        ]
+      },
+      "properties": {
+        "file_id": "I58301023",
+        "frame_type": "IR",
+        "lon_deg": 137.63365,
+        "lat_deg": -5.181305,
+        "surf_temp_k": 189.382,
+        "surf_temp_c": -83.77,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.66072,
+          -5.298504
+        ]
+      },
+      "properties": {
+        "file_id": "I58613002",
+        "frame_type": "IR",
+        "lon_deg": 137.66072,
+        "lat_deg": -5.298504,
+        "surf_temp_k": 188.524,
+        "surf_temp_c": -84.63,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.70692,
+          -5.529332
+        ]
+      },
+      "properties": {
+        "file_id": "I58732001",
+        "frame_type": "IR",
+        "lon_deg": 137.70692,
+        "lat_deg": -5.529332,
+        "surf_temp_k": 229.213,
+        "surf_temp_c": -43.94,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.24658,
+          -5.296342
+        ]
+      },
+      "properties": {
+        "file_id": "I59044001",
+        "frame_type": "IR",
+        "lon_deg": 137.24658,
+        "lat_deg": -5.296342,
+        "surf_temp_k": 231.162,
+        "surf_temp_c": -41.99,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "cm193b ROTO 2 - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.24687,
+          -4.97336
+        ]
+      },
+      "properties": {
+        "file_id": "I59212011",
+        "frame_type": "IR",
+        "lon_deg": 138.24687,
+        "lat_deg": -4.97336,
+        "surf_temp_k": 190.012,
+        "surf_temp_c": -83.14,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.24171,
+          -5.383931
+        ]
+      },
+      "properties": {
+        "file_id": "I59331001",
+        "frame_type": "IR",
+        "lon_deg": 138.24171,
+        "lat_deg": -5.383931,
+        "surf_temp_k": 227.972,
+        "surf_temp_c": -45.18,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.78928,
+          -4.905794
+        ]
+      },
+      "properties": {
+        "file_id": "I59643001",
+        "frame_type": "IR",
+        "lon_deg": 137.78928,
+        "lat_deg": -4.905794,
+        "surf_temp_k": 220.081,
+        "surf_temp_c": -53.07,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.82753,
+          -5.065289
+        ]
+      },
+      "properties": {
+        "file_id": "I60123023",
+        "frame_type": "IR",
+        "lon_deg": 137.82753,
+        "lat_deg": -5.065289,
+        "surf_temp_k": 186.784,
+        "surf_temp_c": -86.37,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-10 deg night atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.21948,
+          -5.419704
+        ]
+      },
+      "properties": {
+        "file_id": "I60529001",
+        "frame_type": "IR",
+        "lon_deg": 137.21948,
+        "lat_deg": -5.419704,
+        "surf_temp_k": 210.464,
+        "surf_temp_c": -62.69,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL ROTO Triplet - ROTO 1",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.72571,
+          -4.794467
+        ]
+      },
+      "properties": {
+        "file_id": "I60722023",
+        "frame_type": "IR",
+        "lon_deg": 137.72571,
+        "lat_deg": -4.794467,
+        "surf_temp_k": 181.729,
+        "surf_temp_c": -91.42,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51622,
+          -5.250042
+        ]
+      },
+      "properties": {
+        "file_id": "I61009005",
+        "frame_type": "IR",
+        "lon_deg": 137.51622,
+        "lat_deg": -5.250042,
+        "surf_temp_k": 175.089,
+        "surf_temp_c": -98.06,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Cloud ROTO Pair - ROTO 1",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5053,
+          -5.349667
+        ]
+      },
+      "properties": {
+        "file_id": "I61034002",
+        "frame_type": "IR",
+        "lon_deg": 137.5053,
+        "lat_deg": -5.349667,
+        "surf_temp_k": 175.729,
+        "surf_temp_c": -97.42,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Cloud ROTO Pair - ROTO 2",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.02411,
+          -5.467398
+        ]
+      },
+      "properties": {
+        "file_id": "I61128001",
+        "frame_type": "IR",
+        "lon_deg": 138.02411,
+        "lat_deg": -5.467398,
+        "surf_temp_k": 199.334,
+        "surf_temp_c": -73.82,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.23843,
+          -4.681577
+        ]
+      },
+      "properties": {
+        "file_id": "I61346002",
+        "frame_type": "IR",
+        "lon_deg": 137.23843,
+        "lat_deg": -4.681577,
+        "surf_temp_k": 180.125,
+        "surf_temp_c": -93.02,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Cloud Triplet - ROTO 2",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5292,
+          -5.316778
+        ]
+      },
+      "properties": {
+        "file_id": "I61583003",
+        "frame_type": "IR",
+        "lon_deg": 137.5292,
+        "lat_deg": -5.316778,
+        "surf_temp_k": 178.536,
+        "surf_temp_c": -94.61,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Cloud Pair - ROTO 1",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51259,
+          -5.441297
+        ]
+      },
+      "properties": {
+        "file_id": "I61608002",
+        "frame_type": "IR",
+        "lon_deg": 137.51259,
+        "lat_deg": -5.441297,
+        "surf_temp_k": 183.09,
+        "surf_temp_c": -90.06,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Cloud Pair - NADIR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.92891,
+          -4.92102
+        ]
+      },
+      "properties": {
+        "file_id": "I62132002",
+        "frame_type": "IR",
+        "lon_deg": 137.92891,
+        "lat_deg": -4.92102,
+        "surf_temp_k": 180.569,
+        "surf_temp_c": -92.58,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.75323,
+          -4.834542
+        ]
+      },
+      "properties": {
+        "file_id": "I62394002",
+        "frame_type": "IR",
+        "lon_deg": 137.75323,
+        "lat_deg": -4.834542,
+        "surf_temp_k": 186.022,
+        "surf_temp_c": -87.13,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51245,
+          -4.953809
+        ]
+      },
+      "properties": {
+        "file_id": "I62631002",
+        "frame_type": "IR",
+        "lon_deg": 137.51245,
+        "lat_deg": -4.953809,
+        "surf_temp_k": 182.707,
+        "surf_temp_c": -90.44,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "Gale Cloud Triplet - ROTO 1",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.45235,
+          -5.074097
+        ]
+      },
+      "properties": {
+        "file_id": "I62656005",
+        "frame_type": "IR",
+        "lon_deg": 137.45235,
+        "lat_deg": -5.074097,
+        "surf_temp_k": 183.174,
+        "surf_temp_c": -89.98,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "Gale Cloud Triplet - NADIR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.39078,
+          -5.1621
+        ]
+      },
+      "properties": {
+        "file_id": "I62681002",
+        "frame_type": "IR",
+        "lon_deg": 137.39078,
+        "lat_deg": -5.1621,
+        "surf_temp_k": 186.419,
+        "surf_temp_c": -86.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "Gale Cloud Triplet - ROTO 2",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.86983,
+          -5.487782
+        ]
+      },
+      "properties": {
+        "file_id": "I63155006",
+        "frame_type": "IR",
+        "lon_deg": 137.86983,
+        "lat_deg": -5.487782,
+        "surf_temp_k": 190.312,
+        "surf_temp_c": -82.84,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.3432,
+          -5.181879
+        ]
+      },
+      "properties": {
+        "file_id": "I63510021",
+        "frame_type": "IR",
+        "lon_deg": 137.3432,
+        "lat_deg": -5.181879,
+        "surf_temp_k": 196.647,
+        "surf_temp_c": -76.5,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.63057,
+          -5.375079
+        ]
+      },
+      "properties": {
+        "file_id": "I64390008",
+        "frame_type": "IR",
+        "lon_deg": 137.63057,
+        "lat_deg": -5.375079,
+        "surf_temp_k": 206.081,
+        "surf_temp_c": -67.07,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.78363,
+          -4.655602
+        ]
+      },
+      "properties": {
+        "file_id": "I64483014",
+        "frame_type": "IR",
+        "lon_deg": 137.78363,
+        "lat_deg": -4.655602,
+        "surf_temp_k": 204.606,
+        "surf_temp_c": -68.54,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.88321,
+          -5.227148
+        ]
+      },
+      "properties": {
+        "file_id": "I65101023",
+        "frame_type": "IR",
+        "lon_deg": 137.88321,
+        "lat_deg": -5.227148,
+        "surf_temp_k": 215.296,
+        "surf_temp_c": -57.85,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-10 deg night atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7524,
+          -5.477725
+        ]
+      },
+      "properties": {
+        "file_id": "I65313006",
+        "frame_type": "IR",
+        "lon_deg": 137.7524,
+        "lat_deg": -5.477725,
+        "surf_temp_k": 208.418,
+        "surf_temp_c": -64.73,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Gale Crater: ROTO - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.226,
+          -5.338615
+        ]
+      },
+      "properties": {
+        "file_id": "I65575023",
+        "frame_type": "IR",
+        "lon_deg": 137.226,
+        "lat_deg": -5.338615,
+        "surf_temp_k": 206.687,
+        "surf_temp_c": -66.46,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.2354,
+          -5.482122
+        ]
+      },
+      "properties": {
+        "file_id": "I65787006",
+        "frame_type": "IR",
+        "lon_deg": 138.2354,
+        "lat_deg": -5.482122,
+        "surf_temp_k": 205.153,
+        "surf_temp_c": -68.0,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.20198,
+          -5.163814
+        ]
+      },
+      "properties": {
+        "file_id": "I66685006",
+        "frame_type": "IR",
+        "lon_deg": 137.20198,
+        "lat_deg": -5.163814,
+        "surf_temp_k": 192.815,
+        "surf_temp_c": -80.33,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5529,
+          -5.544555
+        ]
+      },
+      "properties": {
+        "file_id": "I66897002",
+        "frame_type": "IR",
+        "lon_deg": 137.5529,
+        "lat_deg": -5.544555,
+        "surf_temp_k": 190.259,
+        "surf_temp_c": -82.89,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.70105,
+          -5.033532
+        ]
+      },
+      "properties": {
+        "file_id": "I67720006",
+        "frame_type": "IR",
+        "lon_deg": 137.70105,
+        "lat_deg": -5.033532,
+        "surf_temp_k": 187.082,
+        "surf_temp_c": -86.07,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "TI MSL: ROTO 1 - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.59505,
+          -5.180261
+        ]
+      },
+      "properties": {
+        "file_id": "I67745003",
+        "frame_type": "IR",
+        "lon_deg": 137.59505,
+        "lat_deg": -5.180261,
+        "surf_temp_k": 186.538,
+        "surf_temp_c": -86.61,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "TI MSL: NADIR - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.50294,
+          -5.312698
+        ]
+      },
+      "properties": {
+        "file_id": "I67770010",
+        "frame_type": "IR",
+        "lon_deg": 137.50294,
+        "lat_deg": -5.312698,
+        "surf_temp_k": 186.434,
+        "surf_temp_c": -86.72,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "TI MSL: ROTO 2 - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.23016,
+          -5.231248
+        ]
+      },
+      "properties": {
+        "file_id": "I68169006",
+        "frame_type": "IR",
+        "lon_deg": 137.23016,
+        "lat_deg": -5.231248,
+        "surf_temp_k": 185.359,
+        "surf_temp_c": -87.79,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.02441,
+          -5.209403
+        ]
+      },
+      "properties": {
+        "file_id": "I68662001",
+        "frame_type": "IR",
+        "lon_deg": 138.02441,
+        "lat_deg": -5.209403,
+        "surf_temp_k": 205.1,
+        "surf_temp_c": -68.05,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.96855,
+          -5.3334
+        ]
+      },
+      "properties": {
+        "file_id": "I68874001",
+        "frame_type": "IR",
+        "lon_deg": 137.96855,
+        "lat_deg": -5.3334,
+        "surf_temp_k": 204.115,
+        "surf_temp_c": -69.03,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.98422,
+          -5.050832
+        ]
+      },
+      "properties": {
+        "file_id": "I69086001",
+        "frame_type": "IR",
+        "lon_deg": 137.98422,
+        "lat_deg": -5.050832,
+        "surf_temp_k": 206.09,
+        "surf_temp_c": -67.06,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.04398,
+          -5.277217
+        ]
+      },
+      "properties": {
+        "file_id": "I69510001",
+        "frame_type": "IR",
+        "lon_deg": 138.04398,
+        "lat_deg": -5.277217,
+        "surf_temp_k": 197.388,
+        "surf_temp_c": -75.76,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.3485,
+          -5.084462
+        ]
+      },
+      "properties": {
+        "file_id": "I70383001",
+        "frame_type": "IR",
+        "lon_deg": 137.3485,
+        "lat_deg": -5.084462,
+        "surf_temp_k": 194.407,
+        "surf_temp_c": -78.74,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.3363,
+          -5.341536
+        ]
+      },
+      "properties": {
+        "file_id": "I71162002",
+        "frame_type": "IR",
+        "lon_deg": 138.3363,
+        "lat_deg": -5.341536,
+        "surf_temp_k": 185.677,
+        "surf_temp_c": -87.47,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.42613,
+          -5.066524
+        ]
+      },
+      "properties": {
+        "file_id": "I71374005",
+        "frame_type": "IR",
+        "lon_deg": 137.42613,
+        "lat_deg": -5.066524,
+        "surf_temp_k": 186.433,
+        "surf_temp_c": -86.72,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Landing Site: ROTO 1 - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.4367,
+          -5.197382
+        ]
+      },
+      "properties": {
+        "file_id": "I71399003",
+        "frame_type": "IR",
+        "lon_deg": 137.4367,
+        "lat_deg": -5.197382,
+        "surf_temp_k": 187.743,
+        "surf_temp_c": -85.41,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Landing Site: NADIR - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.45222,
+          -5.317458
+        ]
+      },
+      "properties": {
+        "file_id": "I71424002",
+        "frame_type": "IR",
+        "lon_deg": 137.45222,
+        "lat_deg": -5.317458,
+        "surf_temp_k": 191.072,
+        "surf_temp_c": -82.08,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "MSL Landing Site: ROTO 2 - IR",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60017,
+          -5.145677
+        ]
+      },
+      "properties": {
+        "file_id": "I71848006",
+        "frame_type": "IR",
+        "lon_deg": 137.60017,
+        "lat_deg": -5.145677,
+        "surf_temp_k": 195.126,
+        "surf_temp_c": -78.02,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.10225,
+          -5.258124
+        ]
+      },
+      "properties": {
+        "file_id": "I73551001",
+        "frame_type": "IR",
+        "lon_deg": 138.10225,
+        "lat_deg": -5.258124,
+        "surf_temp_k": 221.052,
+        "surf_temp_c": -52.1,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-20 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.01912,
+          -5.151735
+        ]
+      },
+      "properties": {
+        "file_id": "I73694015",
+        "frame_type": "IR",
+        "lon_deg": 138.01912,
+        "lat_deg": -5.151735,
+        "surf_temp_k": 212.859,
+        "surf_temp_c": -60.29,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "10 deg night atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.83328,
+          -5.116113
+        ]
+      },
+      "properties": {
+        "file_id": "I74904018",
+        "frame_type": "IR",
+        "lon_deg": 137.83328,
+        "lat_deg": -5.116113,
+        "surf_temp_k": 195.817,
+        "surf_temp_c": -77.33,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.55188,
+          -5.28223
+        ]
+      },
+      "properties": {
+        "file_id": "I75522001",
+        "frame_type": "IR",
+        "lon_deg": 137.55188,
+        "lat_deg": -5.28223,
+        "surf_temp_k": 220.374,
+        "surf_temp_c": -52.78,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.56938,
+          -5.418127
+        ]
+      },
+      "properties": {
+        "file_id": "I76214015",
+        "frame_type": "IR",
+        "lon_deg": 137.56938,
+        "lat_deg": -5.418127,
+        "surf_temp_k": 187.291,
+        "surf_temp_c": -85.86,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.23831,
+          -5.032324
+        ]
+      },
+      "properties": {
+        "file_id": "I76308001",
+        "frame_type": "IR",
+        "lon_deg": 138.23831,
+        "lat_deg": -5.032324,
+        "surf_temp_k": 216.686,
+        "surf_temp_c": -56.46,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.39919,
+          -5.569651
+        ]
+      },
+      "properties": {
+        "file_id": "I76595001",
+        "frame_type": "IR",
+        "lon_deg": 137.39919,
+        "lat_deg": -5.569651,
+        "surf_temp_k": 212.868,
+        "surf_temp_c": -60.28,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.78778,
+          -5.131584
+        ]
+      },
+      "properties": {
+        "file_id": "I77025005",
+        "frame_type": "IR",
+        "lon_deg": 137.78778,
+        "lat_deg": -5.131584,
+        "surf_temp_k": 181.869,
+        "surf_temp_c": -91.28,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.31013,
+          -4.922849
+        ]
+      },
+      "properties": {
+        "file_id": "I77287005",
+        "frame_type": "IR",
+        "lon_deg": 138.31013,
+        "lat_deg": -4.922849,
+        "surf_temp_k": 182.348,
+        "surf_temp_c": -90.8,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.30739,
+          -5.44972
+        ]
+      },
+      "properties": {
+        "file_id": "I77836005",
+        "frame_type": "IR",
+        "lon_deg": 138.30739,
+        "lat_deg": -5.44972,
+        "surf_temp_k": 180.456,
+        "surf_temp_c": -92.69,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.68399,
+          -5.592709
+        ]
+      },
+      "properties": {
+        "file_id": "I77955001",
+        "frame_type": "IR",
+        "lon_deg": 137.68399,
+        "lat_deg": -5.592709,
+        "surf_temp_k": 197.865,
+        "surf_temp_c": -75.28,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.71724,
+          -5.336073
+        ]
+      },
+      "properties": {
+        "file_id": "I78123002",
+        "frame_type": "IR",
+        "lon_deg": 137.71724,
+        "lat_deg": -5.336073,
+        "surf_temp_k": 181.587,
+        "surf_temp_c": -91.56,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.23746,
+          -4.911837
+        ]
+      },
+      "properties": {
+        "file_id": "I78242001",
+        "frame_type": "IR",
+        "lon_deg": 137.23746,
+        "lat_deg": -4.911837,
+        "surf_temp_k": 202.147,
+        "surf_temp_c": -71.0,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.05968,
+          -5.156943
+        ]
+      },
+      "properties": {
+        "file_id": "I78504001",
+        "frame_type": "IR",
+        "lon_deg": 138.05968,
+        "lat_deg": -5.156943,
+        "surf_temp_k": 194.93,
+        "surf_temp_c": -78.22,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.15964,
+          -5.368467
+        ]
+      },
+      "properties": {
+        "file_id": "I78672002",
+        "frame_type": "IR",
+        "lon_deg": 138.15964,
+        "lat_deg": -5.368467,
+        "surf_temp_k": 182.789,
+        "surf_temp_c": -90.36,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.73753,
+          -5.233163
+        ]
+      },
+      "properties": {
+        "file_id": "I78791001",
+        "frame_type": "IR",
+        "lon_deg": 137.73753,
+        "lat_deg": -5.233163,
+        "surf_temp_k": 192.519,
+        "surf_temp_c": -80.63,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.55928,
+          -5.067397
+        ]
+      },
+      "properties": {
+        "file_id": "I79078001",
+        "frame_type": "IR",
+        "lon_deg": 137.55928,
+        "lat_deg": -5.067397,
+        "surf_temp_k": 196.282,
+        "surf_temp_c": -76.87,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.72679,
+          -4.752762
+        ]
+      },
+      "properties": {
+        "file_id": "I79246002",
+        "frame_type": "IR",
+        "lon_deg": 137.72679,
+        "lat_deg": -4.752762,
+        "surf_temp_k": 186.35,
+        "surf_temp_c": -86.8,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.52191,
+          -5.107888
+        ]
+      },
+      "properties": {
+        "file_id": "I79365001",
+        "frame_type": "IR",
+        "lon_deg": 137.52191,
+        "lat_deg": -5.107888,
+        "surf_temp_k": 193.375,
+        "surf_temp_c": -79.77,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.8609,
+          -5.547973
+        ]
+      },
+      "properties": {
+        "file_id": "I79533014",
+        "frame_type": "IR",
+        "lon_deg": 137.8609,
+        "lat_deg": -5.547973,
+        "surf_temp_k": 185.876,
+        "surf_temp_c": -87.27,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.63159,
+          -4.951551
+        ]
+      },
+      "properties": {
+        "file_id": "I79652001",
+        "frame_type": "IR",
+        "lon_deg": 137.63159,
+        "lat_deg": -4.951551,
+        "surf_temp_k": 193.055,
+        "surf_temp_c": -80.09,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.21802,
+          -4.913567
+        ]
+      },
+      "properties": {
+        "file_id": "I80107006",
+        "frame_type": "IR",
+        "lon_deg": 138.21802,
+        "lat_deg": -4.913567,
+        "surf_temp_k": 189.543,
+        "surf_temp_c": -83.61,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.125,
+          -5.134262
+        ]
+      },
+      "properties": {
+        "file_id": "I80226001",
+        "frame_type": "IR",
+        "lon_deg": 138.125,
+        "lat_deg": -5.134262,
+        "surf_temp_k": 202.168,
+        "surf_temp_c": -70.98,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.75774,
+          -5.36188
+        ]
+      },
+      "properties": {
+        "file_id": "I80706006",
+        "frame_type": "IR",
+        "lon_deg": 137.75774,
+        "lat_deg": -5.36188,
+        "surf_temp_k": 200.905,
+        "surf_temp_c": -72.24,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.53084,
+          -5.416208
+        ]
+      },
+      "properties": {
+        "file_id": "I80825001",
+        "frame_type": "IR",
+        "lon_deg": 137.53084,
+        "lat_deg": -5.416208,
+        "surf_temp_k": 206.576,
+        "surf_temp_c": -66.57,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.88116,
+          -5.037061
+        ]
+      },
+      "properties": {
+        "file_id": "I81112001",
+        "frame_type": "IR",
+        "lon_deg": 137.88116,
+        "lat_deg": -5.037061,
+        "surf_temp_k": 178.014,
+        "surf_temp_c": -95.14,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.1416,
+          -5.267472
+        ]
+      },
+      "properties": {
+        "file_id": "I81398010",
+        "frame_type": "IR",
+        "lon_deg": 138.1416,
+        "lat_deg": -5.267472,
+        "surf_temp_k": 208.078,
+        "surf_temp_c": -65.07,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.35016,
+          -5.113408
+        ]
+      },
+      "properties": {
+        "file_id": "I81592024",
+        "frame_type": "IR",
+        "lon_deg": 137.35016,
+        "lat_deg": -5.113408,
+        "surf_temp_k": 209.389,
+        "surf_temp_c": -63.76,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60468,
+          -4.965227
+        ]
+      },
+      "properties": {
+        "file_id": "I81879005",
+        "frame_type": "IR",
+        "lon_deg": 137.60468,
+        "lat_deg": -4.965227,
+        "surf_temp_k": 210.482,
+        "surf_temp_c": -62.67,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.29791,
+          -5.066872
+        ]
+      },
+      "properties": {
+        "file_id": "I83171001",
+        "frame_type": "IR",
+        "lon_deg": 137.29791,
+        "lat_deg": -5.066872,
+        "surf_temp_k": 216.254,
+        "surf_temp_c": -56.9,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.43005,
+          -5.164044
+        ]
+      },
+      "properties": {
+        "file_id": "I83938006",
+        "frame_type": "IR",
+        "lon_deg": 137.43005,
+        "lat_deg": -5.164044,
+        "surf_temp_k": 186.844,
+        "surf_temp_c": -86.31,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.03314,
+          -5.21003
+        ]
+      },
+      "properties": {
+        "file_id": "I84344001",
+        "frame_type": "IR",
+        "lon_deg": 138.03314,
+        "lat_deg": -5.21003,
+        "surf_temp_k": 220.656,
+        "surf_temp_c": -52.49,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.41704,
+          -5.022833
+        ]
+      },
+      "properties": {
+        "file_id": "I84656001",
+        "frame_type": "IR",
+        "lon_deg": 137.41704,
+        "lat_deg": -5.022833,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32573,
+          -5.119098
+        ]
+      },
+      "properties": {
+        "file_id": "I85254010",
+        "frame_type": "IR",
+        "lon_deg": 137.32573,
+        "lat_deg": -5.119098,
+        "surf_temp_k": 207.188,
+        "surf_temp_c": -65.96,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.65933,
+          -5.510007
+        ]
+      },
+      "properties": {
+        "file_id": "I85542001",
+        "frame_type": "IR",
+        "lon_deg": 137.65933,
+        "lat_deg": -5.510007,
+        "surf_temp_k": 207.047,
+        "surf_temp_c": -66.1,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.10942,
+          -5.094575
+        ]
+      },
+      "properties": {
+        "file_id": "I85829001",
+        "frame_type": "IR",
+        "lon_deg": 138.10942,
+        "lat_deg": -5.094575,
+        "surf_temp_k": 201.289,
+        "surf_temp_c": -71.86,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.41768,
+          -5.499194
+        ]
+      },
+      "properties": {
+        "file_id": "I86022007",
+        "frame_type": "IR",
+        "lon_deg": 137.41768,
+        "lat_deg": -5.499194,
+        "surf_temp_k": 179.337,
+        "surf_temp_c": -93.81,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2372,
+          -5.404738
+        ]
+      },
+      "properties": {
+        "file_id": "I86141001",
+        "frame_type": "IR",
+        "lon_deg": 137.2372,
+        "lat_deg": -5.404738,
+        "surf_temp_k": 201.159,
+        "surf_temp_c": -71.99,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7267,
+          -5.255431
+        ]
+      },
+      "properties": {
+        "file_id": "I86428001",
+        "frame_type": "IR",
+        "lon_deg": 137.7267,
+        "lat_deg": -5.255431,
+        "surf_temp_k": 194.527,
+        "surf_temp_c": -78.62,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.13066,
+          -5.339824
+        ]
+      },
+      "properties": {
+        "file_id": "I86715001",
+        "frame_type": "IR",
+        "lon_deg": 138.13066,
+        "lat_deg": -5.339824,
+        "surf_temp_k": 195.755,
+        "surf_temp_c": -77.39,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.36661,
+          -4.696367
+        ]
+      },
+      "properties": {
+        "file_id": "I86908002",
+        "frame_type": "IR",
+        "lon_deg": 137.36661,
+        "lat_deg": -4.696367,
+        "surf_temp_k": 179.134,
+        "surf_temp_c": -94.02,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32497,
+          -5.147541
+        ]
+      },
+      "properties": {
+        "file_id": "I87027001",
+        "frame_type": "IR",
+        "lon_deg": 137.32497,
+        "lat_deg": -5.147541,
+        "surf_temp_k": 198.249,
+        "surf_temp_c": -74.9,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.70674,
+          -5.291996
+        ]
+      },
+      "properties": {
+        "file_id": "I87314001",
+        "frame_type": "IR",
+        "lon_deg": 137.70674,
+        "lat_deg": -5.291996,
+        "surf_temp_k": 163.152,
+        "surf_temp_c": -110.0,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.25029,
+          -5.322535
+        ]
+      },
+      "properties": {
+        "file_id": "I87794002",
+        "frame_type": "IR",
+        "lon_deg": 137.25029,
+        "lat_deg": -5.322535,
+        "surf_temp_k": 185.77,
+        "surf_temp_c": -87.38,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.35257,
+          -4.870757
+        ]
+      },
+      "properties": {
+        "file_id": "I88200001",
+        "frame_type": "IR",
+        "lon_deg": 137.35257,
+        "lat_deg": -4.870757,
+        "surf_temp_k": 196.15,
+        "surf_temp_c": -77.0,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.4464,
+          -5.180069
+        ]
+      },
+      "properties": {
+        "file_id": "I88774001",
+        "frame_type": "IR",
+        "lon_deg": 137.4464,
+        "lat_deg": -5.180069,
+        "surf_temp_k": 201.631,
+        "surf_temp_c": -71.52,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.57149,
+          -4.914783
+        ]
+      },
+      "properties": {
+        "file_id": "I89348001",
+        "frame_type": "IR",
+        "lon_deg": 137.57149,
+        "lat_deg": -4.914783,
+        "surf_temp_k": 209.008,
+        "surf_temp_c": -64.14,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.57701,
+          -5.290844
+        ]
+      },
+      "properties": {
+        "file_id": "I89635001",
+        "frame_type": "IR",
+        "lon_deg": 137.57701,
+        "lat_deg": -5.290844,
+        "surf_temp_k": 202.24,
+        "surf_temp_c": -70.91,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.77039,
+          -5.553544
+        ]
+      },
+      "properties": {
+        "file_id": "I90209001",
+        "frame_type": "IR",
+        "lon_deg": 137.77039,
+        "lat_deg": -5.553544,
+        "surf_temp_k": 215.778,
+        "surf_temp_c": -57.37,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.1224,
+          -4.83414
+        ]
+      },
+      "properties": {
+        "file_id": "I90377009",
+        "frame_type": "IR",
+        "lon_deg": 138.1224,
+        "lat_deg": -4.83414,
+        "surf_temp_k": 206.223,
+        "surf_temp_c": -66.93,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.29367,
+          -5.302898
+        ]
+      },
+      "properties": {
+        "file_id": "I90664009",
+        "frame_type": "IR",
+        "lon_deg": 138.29367,
+        "lat_deg": -5.302898,
+        "surf_temp_k": 205.75,
+        "surf_temp_c": -67.4,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.70267,
+          -5.537744
+        ]
+      },
+      "properties": {
+        "file_id": "I91837022",
+        "frame_type": "IR",
+        "lon_deg": 137.70267,
+        "lat_deg": -5.537744,
+        "surf_temp_k": 191.273,
+        "surf_temp_c": -81.88,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.89458,
+          -5.523274
+        ]
+      },
+      "properties": {
+        "file_id": "I92124022",
+        "frame_type": "IR",
+        "lon_deg": 137.89458,
+        "lat_deg": -5.523274,
+        "surf_temp_k": 189.845,
+        "surf_temp_c": -83.3,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.00955,
+          -5.268854
+        ]
+      },
+      "properties": {
+        "file_id": "I92817001",
+        "frame_type": "IR",
+        "lon_deg": 138.00955,
+        "lat_deg": -5.268854,
+        "surf_temp_k": 213.969,
+        "surf_temp_c": -59.18,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12236,
+          -5.40543
+        ]
+      },
+      "properties": {
+        "file_id": "I93871005",
+        "frame_type": "IR",
+        "lon_deg": 138.12236,
+        "lat_deg": -5.40543,
+        "surf_temp_k": 180.467,
+        "surf_temp_c": -92.68,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.97223,
+          -5.271103
+        ]
+      },
+      "properties": {
+        "file_id": "I93990001",
+        "frame_type": "IR",
+        "lon_deg": 137.97223,
+        "lat_deg": -5.271103,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.26486,
+          -4.830273
+        ]
+      },
+      "properties": {
+        "file_id": "I95044002",
+        "frame_type": "IR",
+        "lon_deg": 138.26486,
+        "lat_deg": -4.830273,
+        "surf_temp_k": 183.009,
+        "surf_temp_c": -90.14,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.13052,
+          -5.390968
+        ]
+      },
+      "properties": {
+        "file_id": "I95163001",
+        "frame_type": "IR",
+        "lon_deg": 138.13052,
+        "lat_deg": -5.390968,
+        "surf_temp_k": 197.625,
+        "surf_temp_c": -75.52,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "-5 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2939,
+          -5.165197
+        ]
+      },
+      "properties": {
+        "file_id": "I95475001",
+        "frame_type": "IR",
+        "lon_deg": 137.2939,
+        "lat_deg": -5.165197,
+        "surf_temp_k": 197.107,
+        "surf_temp_c": -76.04,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.90976,
+          -5.504678
+        ]
+      },
+      "properties": {
+        "file_id": "I96049001",
+        "frame_type": "IR",
+        "lon_deg": 137.90976,
+        "lat_deg": -5.504678,
+        "surf_temp_k": 188.043,
+        "surf_temp_c": -85.11,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.33554,
+          -4.61882
+        ]
+      },
+      "properties": {
+        "file_id": "I96217002",
+        "frame_type": "IR",
+        "lon_deg": 138.33554,
+        "lat_deg": -4.61882,
+        "surf_temp_k": 185.133,
+        "surf_temp_c": -88.02,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51547,
+          -5.001276
+        ]
+      },
+      "properties": {
+        "file_id": "I96529002",
+        "frame_type": "IR",
+        "lon_deg": 137.51547,
+        "lat_deg": -5.001276,
+        "surf_temp_k": 188.259,
+        "surf_temp_c": -84.89,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.34076,
+          -5.344896
+        ]
+      },
+      "properties": {
+        "file_id": "I96648001",
+        "frame_type": "IR",
+        "lon_deg": 137.34076,
+        "lat_deg": -5.344896,
+        "surf_temp_k": 199.291,
+        "surf_temp_c": -73.86,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.62053,
+          -5.186156
+        ]
+      },
+      "properties": {
+        "file_id": "I96935001",
+        "frame_type": "IR",
+        "lon_deg": 137.62053,
+        "lat_deg": -5.186156,
+        "surf_temp_k": 199.201,
+        "surf_temp_c": -73.95,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.91821,
+          -5.589054
+        ]
+      },
+      "properties": {
+        "file_id": "I97222001",
+        "frame_type": "IR",
+        "lon_deg": 137.91821,
+        "lat_deg": -5.589054,
+        "surf_temp_k": 199.009,
+        "surf_temp_c": -74.14,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2383,
+          -4.889404
+        ]
+      },
+      "properties": {
+        "file_id": "I97415002",
+        "frame_type": "IR",
+        "lon_deg": 137.2383,
+        "lat_deg": -4.889404,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.37521,
+          -5.221165
+        ]
+      },
+      "properties": {
+        "file_id": "I97509001",
+        "frame_type": "IR",
+        "lon_deg": 138.37521,
+        "lat_deg": -5.221165,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.20546,
+          -4.93895
+        ]
+      },
+      "properties": {
+        "file_id": "I97534001",
+        "frame_type": "IR",
+        "lon_deg": 137.20546,
+        "lat_deg": -4.93895,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.38515,
+          -4.770098
+        ]
+      },
+      "properties": {
+        "file_id": "I98276005",
+        "frame_type": "IR",
+        "lon_deg": 138.38515,
+        "lat_deg": -4.770098,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.84108,
+          -4.750983
+        ]
+      },
+      "properties": {
+        "file_id": "I98875005",
+        "frame_type": "IR",
+        "lon_deg": 137.84108,
+        "lat_deg": -4.750983,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7185,
+          -5.472566
+        ]
+      },
+      "properties": {
+        "file_id": "I98994001",
+        "frame_type": "IR",
+        "lon_deg": 137.7185,
+        "lat_deg": -5.472566,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.06264,
+          -5.229744
+        ]
+      },
+      "properties": {
+        "file_id": "I99281001",
+        "frame_type": "IR",
+        "lon_deg": 138.06264,
+        "lat_deg": -5.229744,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.29588,
+          -4.899779
+        ]
+      },
+      "properties": {
+        "file_id": "I99474009",
+        "frame_type": "IR",
+        "lon_deg": 137.29588,
+        "lat_deg": -4.899779,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5629,
+          -4.679398
+        ]
+      },
+      "properties": {
+        "file_id": "I99761014",
+        "frame_type": "IR",
+        "lon_deg": 137.5629,
+        "lat_deg": -4.679398,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.47525,
+          -5.33992
+        ]
+      },
+      "properties": {
+        "file_id": "I99880001",
+        "frame_type": "IR",
+        "lon_deg": 137.47525,
+        "lat_deg": -5.33992,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.99751,
+          -5.339572
+        ]
+      },
+      "properties": {
+        "file_id": "IA0048011",
+        "frame_type": "IR",
+        "lon_deg": 137.99751,
+        "lat_deg": -5.339572,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.2845,
+          -4.705248
+        ]
+      },
+      "properties": {
+        "file_id": "IA0335022",
+        "frame_type": "IR",
+        "lon_deg": 138.2845,
+        "lat_deg": -4.705248,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.40315,
+          -4.688037
+        ]
+      },
+      "properties": {
+        "file_id": "IA0647002",
+        "frame_type": "IR",
+        "lon_deg": 137.40315,
+        "lat_deg": -4.688037,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.86412,
+          -5.057589
+        ]
+      },
+      "properties": {
+        "file_id": "IA0934010",
+        "frame_type": "IR",
+        "lon_deg": 137.86412,
+        "lat_deg": -5.057589,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.7991,
+          -5.089971
+        ]
+      },
+      "properties": {
+        "file_id": "IA1053001",
+        "frame_type": "IR",
+        "lon_deg": 137.7991,
+        "lat_deg": -5.089971,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.24515,
+          -4.861471
+        ]
+      },
+      "properties": {
+        "file_id": "IA1340001",
+        "frame_type": "IR",
+        "lon_deg": 138.24515,
+        "lat_deg": -4.861471,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.3627,
+          -4.894955
+        ]
+      },
+      "properties": {
+        "file_id": "IA1533017",
+        "frame_type": "IR",
+        "lon_deg": 137.3627,
+        "lat_deg": -4.894955,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(4, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.25488,
+          -5.145135
+        ]
+      },
+      "properties": {
+        "file_id": "IA1652001",
+        "frame_type": "IR",
+        "lon_deg": 137.25488,
+        "lat_deg": -5.145135,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.89987,
+          -4.740327
+        ]
+      },
+      "properties": {
+        "file_id": "IA2993002",
+        "frame_type": "IR",
+        "lon_deg": 137.89987,
+        "lat_deg": -4.740327,
+        "surf_temp_k": 180.364,
+        "surf_temp_c": -92.79,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.88222,
+          -5.048112
+        ]
+      },
+      "properties": {
+        "file_id": "IA3112001",
+        "frame_type": "IR",
+        "lon_deg": 137.88222,
+        "lat_deg": -5.048112,
+        "surf_temp_k": 197.694,
+        "surf_temp_c": -75.46,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.87903,
+          -5.347622
+        ]
+      },
+      "properties": {
+        "file_id": "IA4285001",
+        "frame_type": "IR",
+        "lon_deg": 137.87903,
+        "lat_deg": -5.347622,
+        "surf_temp_k": 199.227,
+        "surf_temp_c": -73.92,
+        "alb_avg": null,
+        "bands": "(3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "0 deg day atmos",
+        "has_description": true,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.05453,
+          -5.173273
+        ]
+      },
+      "properties": {
+        "file_id": "IA5339002",
+        "frame_type": "IR",
+        "lon_deg": 138.05453,
+        "lat_deg": -5.173273,
+        "surf_temp_k": 187.013,
+        "surf_temp_c": -86.14,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.1903,
+          -5.185381
+        ]
+      },
+      "properties": {
+        "file_id": "IA5745001",
+        "frame_type": "IR",
+        "lon_deg": 138.1903,
+        "lat_deg": -5.185381,
+        "surf_temp_k": 203.943,
+        "surf_temp_c": -69.21,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.9594,
+          -5.526094
+        ]
+      },
+      "properties": {
+        "file_id": "IA6225005",
+        "frame_type": "IR",
+        "lon_deg": 137.9594,
+        "lat_deg": -5.526094,
+        "surf_temp_k": 196.146,
+        "surf_temp_c": -77.0,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.80284,
+          -5.173089
+        ]
+      },
+      "properties": {
+        "file_id": "IA6344001",
+        "frame_type": "IR",
+        "lon_deg": 137.80284,
+        "lat_deg": -5.173089,
+        "surf_temp_k": 208.671,
+        "surf_temp_c": -64.48,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.31792,
+          -5.456305
+        ]
+      },
+      "properties": {
+        "file_id": "IA6512002",
+        "frame_type": "IR",
+        "lon_deg": 138.31792,
+        "lat_deg": -5.456305,
+        "surf_temp_k": 199.868,
+        "surf_temp_c": -73.28,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.85083,
+          -5.521678
+        ]
+      },
+      "properties": {
+        "file_id": "IA7111005",
+        "frame_type": "IR",
+        "lon_deg": 137.85083,
+        "lat_deg": -5.521678,
+        "surf_temp_k": 200.65,
+        "surf_temp_c": -72.5,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.20407,
+          -4.970844
+        ]
+      },
+      "properties": {
+        "file_id": "IA7398004",
+        "frame_type": "IR",
+        "lon_deg": 138.20407,
+        "lat_deg": -4.970844,
+        "surf_temp_k": 201.621,
+        "surf_temp_c": -71.53,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "OK"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.8403,
+          -5.293811
+        ]
+      },
+      "properties": {
+        "file_id": "V01132001",
+        "frame_type": "VIS",
+        "lon_deg": 137.8403,
+        "lat_deg": -5.293811,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.321,
+        "bands": "(3)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.33795,
+          -5.050726
+        ]
+      },
+      "properties": {
+        "file_id": "V01469002",
+        "frame_type": "VIS",
+        "lon_deg": 138.33795,
+        "lat_deg": -5.050726,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.3,
+        "bands": "(1, 2, 3, 4, 5)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32565,
+          -5.032205
+        ]
+      },
+      "properties": {
+        "file_id": "V01494002",
+        "frame_type": "VIS",
+        "lon_deg": 137.32565,
+        "lat_deg": -5.032205,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.32,
+        "bands": "(3)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.04811,
+          -5.182009
+        ]
+      },
+      "properties": {
+        "file_id": "V01831001",
+        "frame_type": "VIS",
+        "lon_deg": 138.04811,
+        "lat_deg": -5.182009,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.312,
+        "bands": "(3)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.49167,
+          -5.070026
+        ]
+      },
+      "properties": {
+        "file_id": "V05214001",
+        "frame_type": "VIS",
+        "lon_deg": 137.49167,
+        "lat_deg": -5.070026,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "Gale Crater",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.3027,
+          -5.490178
+        ]
+      },
+      "properties": {
+        "file_id": "V07411001",
+        "frame_type": "VIS",
+        "lon_deg": 138.3027,
+        "lat_deg": -5.490178,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "sys vis",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.65,
+          -5.43792
+        ]
+      },
+      "properties": {
+        "file_id": "V10394002",
+        "frame_type": "VIS",
+        "lon_deg": 137.65,
+        "lat_deg": -5.43792,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.85509,
+          -5.406334
+        ]
+      },
+      "properties": {
+        "file_id": "V13152001",
+        "frame_type": "VIS",
+        "lon_deg": 137.85509,
+        "lat_deg": -5.406334,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60818,
+          -5.062961
+        ]
+      },
+      "properties": {
+        "file_id": "V13464001",
+        "frame_type": "VIS",
+        "lon_deg": 137.60818,
+        "lat_deg": -5.062961,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.29764,
+          -5.150055
+        ]
+      },
+      "properties": {
+        "file_id": "V14063001",
+        "frame_type": "VIS",
+        "lon_deg": 138.29764,
+        "lat_deg": -5.150055,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.19266,
+          -5.268224
+        ]
+      },
+      "properties": {
+        "file_id": "V15910001",
+        "frame_type": "VIS",
+        "lon_deg": 138.19266,
+        "lat_deg": -5.268224,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.20776,
+          -5.58322
+        ]
+      },
+      "properties": {
+        "file_id": "V19603003",
+        "frame_type": "VIS",
+        "lon_deg": 138.20776,
+        "lat_deg": -5.58322,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.10164,
+          -5.22693
+        ]
+      },
+      "properties": {
+        "file_id": "V23273001",
+        "frame_type": "VIS",
+        "lon_deg": 138.10164,
+        "lat_deg": -5.22693,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.37344,
+          -5.147772
+        ]
+      },
+      "properties": {
+        "file_id": "V33392002",
+        "frame_type": "VIS",
+        "lon_deg": 137.37344,
+        "lat_deg": -5.147772,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.09915,
+          -4.856347
+        ]
+      },
+      "properties": {
+        "file_id": "V34540002",
+        "frame_type": "VIS",
+        "lon_deg": 138.09915,
+        "lat_deg": -4.856347,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.25784,
+          -5.106725
+        ]
+      },
+      "properties": {
+        "file_id": "V34852001",
+        "frame_type": "VIS",
+        "lon_deg": 138.25784,
+        "lat_deg": -5.106725,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.47179,
+          -5.153933
+        ]
+      },
+      "properties": {
+        "file_id": "V35214002",
+        "frame_type": "VIS",
+        "lon_deg": 137.47179,
+        "lat_deg": -5.153933,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.39368,
+          -5.164071
+        ]
+      },
+      "properties": {
+        "file_id": "V35551002",
+        "frame_type": "VIS",
+        "lon_deg": 137.39368,
+        "lat_deg": -5.164071,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.72775,
+          -5.597149
+        ]
+      },
+      "properties": {
+        "file_id": "V39981002",
+        "frame_type": "VIS",
+        "lon_deg": 137.72775,
+        "lat_deg": -5.597149,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.39098,
+          -5.391722
+        ]
+      },
+      "properties": {
+        "file_id": "V41753001",
+        "frame_type": "VIS",
+        "lon_deg": 138.39098,
+        "lat_deg": -5.391722,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.32043,
+          -5.336977
+        ]
+      },
+      "properties": {
+        "file_id": "V42664002",
+        "frame_type": "VIS",
+        "lon_deg": 138.32043,
+        "lat_deg": -5.336977,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.37549,
+          -5.574286
+        ]
+      },
+      "properties": {
+        "file_id": "V43026002",
+        "frame_type": "VIS",
+        "lon_deg": 137.37549,
+        "lat_deg": -5.574286,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2879,
+          -4.658754
+        ]
+      },
+      "properties": {
+        "file_id": "V43750002",
+        "frame_type": "VIS",
+        "lon_deg": 137.2879,
+        "lat_deg": -4.658754,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.43513,
+          -5.099336
+        ]
+      },
+      "properties": {
+        "file_id": "V44137002",
+        "frame_type": "VIS",
+        "lon_deg": 137.43513,
+        "lat_deg": -5.099336,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.6846,
+          -4.640122
+        ]
+      },
+      "properties": {
+        "file_id": "V44524001",
+        "frame_type": "VIS",
+        "lon_deg": 137.6846,
+        "lat_deg": -4.640122,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.98235,
+          -5.455977
+        ]
+      },
+      "properties": {
+        "file_id": "V46796002",
+        "frame_type": "VIS",
+        "lon_deg": 137.98235,
+        "lat_deg": -5.455977,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.21077,
+          -4.618972
+        ]
+      },
+      "properties": {
+        "file_id": "V47183002",
+        "frame_type": "VIS",
+        "lon_deg": 137.21077,
+        "lat_deg": -4.618972,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2568,
+          -4.608647
+        ]
+      },
+      "properties": {
+        "file_id": "V47595002",
+        "frame_type": "VIS",
+        "lon_deg": 137.2568,
+        "lat_deg": -4.608647,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.91887,
+          -4.888753
+        ]
+      },
+      "properties": {
+        "file_id": "V48007002",
+        "frame_type": "VIS",
+        "lon_deg": 137.91887,
+        "lat_deg": -4.888753,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.24467,
+          -4.62408
+        ]
+      },
+      "properties": {
+        "file_id": "V48469002",
+        "frame_type": "VIS",
+        "lon_deg": 137.24467,
+        "lat_deg": -4.62408,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.19794,
+          -5.135
+        ]
+      },
+      "properties": {
+        "file_id": "V48881002",
+        "frame_type": "VIS",
+        "lon_deg": 138.19794,
+        "lat_deg": -5.135,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.39825,
+          -5.153308
+        ]
+      },
+      "properties": {
+        "file_id": "V49780002",
+        "frame_type": "VIS",
+        "lon_deg": 138.39825,
+        "lat_deg": -5.153308,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.41437,
+          -4.606804
+        ]
+      },
+      "properties": {
+        "file_id": "V50779002",
+        "frame_type": "VIS",
+        "lon_deg": 137.41437,
+        "lat_deg": -4.606804,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.357,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.08644,
+          -4.86002
+        ]
+      },
+      "properties": {
+        "file_id": "V51266002",
+        "frame_type": "VIS",
+        "lon_deg": 138.08644,
+        "lat_deg": -4.86002,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.321,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.4576,
+          -4.621019
+        ]
+      },
+      "properties": {
+        "file_id": "V51291001",
+        "frame_type": "VIS",
+        "lon_deg": 137.4576,
+        "lat_deg": -4.621019,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.349,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.25171,
+          -5.46836
+        ]
+      },
+      "properties": {
+        "file_id": "V52877002",
+        "frame_type": "VIS",
+        "lon_deg": 137.25171,
+        "lat_deg": -5.46836,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.287,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5988,
+          -5.463041
+        ]
+      },
+      "properties": {
+        "file_id": "V53364002",
+        "frame_type": "VIS",
+        "lon_deg": 137.5988,
+        "lat_deg": -5.463041,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.345,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.9018,
+          -4.886867
+        ]
+      },
+      "properties": {
+        "file_id": "V56329006",
+        "frame_type": "VIS",
+        "lon_deg": 137.9018,
+        "lat_deg": -4.886867,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.75485,
+          -4.875746
+        ]
+      },
+      "properties": {
+        "file_id": "V56666005",
+        "frame_type": "VIS",
+        "lon_deg": 137.75485,
+        "lat_deg": -4.875746,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.44629,
+          -5.211591
+        ]
+      },
+      "properties": {
+        "file_id": "V57003017",
+        "frame_type": "VIS",
+        "lon_deg": 137.44629,
+        "lat_deg": -5.211591,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32649,
+          -5.186366
+        ]
+      },
+      "properties": {
+        "file_id": "V57340003",
+        "frame_type": "VIS",
+        "lon_deg": 137.32649,
+        "lat_deg": -5.186366,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32541,
+          -5.231121
+        ]
+      },
+      "properties": {
+        "file_id": "V57796002",
+        "frame_type": "VIS",
+        "lon_deg": 137.32541,
+        "lat_deg": -5.231121,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.77982,
+          -5.553619
+        ]
+      },
+      "properties": {
+        "file_id": "V58420002",
+        "frame_type": "VIS",
+        "lon_deg": 137.77982,
+        "lat_deg": -5.553619,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.72606,
+          -5.386449
+        ]
+      },
+      "properties": {
+        "file_id": "V58732002",
+        "frame_type": "VIS",
+        "lon_deg": 137.72606,
+        "lat_deg": -5.386449,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.379,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.33461,
+          -4.640905
+        ]
+      },
+      "properties": {
+        "file_id": "V59044002",
+        "frame_type": "VIS",
+        "lon_deg": 137.33461,
+        "lat_deg": -4.640905,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.398,
+        "bands": "(1, 2, 3, 4)",
+        "description": "cm193b ROTO 2 - VIS",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.79906,
+          -5.445194
+        ]
+      },
+      "properties": {
+        "file_id": "V60722024",
+        "frame_type": "VIS",
+        "lon_deg": 137.79906,
+        "lat_deg": -5.445194,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.50984,
+          -5.325656
+        ]
+      },
+      "properties": {
+        "file_id": "V61009006",
+        "frame_type": "VIS",
+        "lon_deg": 137.50984,
+        "lat_deg": -5.325656,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "MSL Cloud ROTO Pair - ROTO 1",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.50093,
+          -5.429807
+        ]
+      },
+      "properties": {
+        "file_id": "V61034003",
+        "frame_type": "VIS",
+        "lon_deg": 137.50093,
+        "lat_deg": -5.429807,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "MSL Cloud ROTO Pair - ROTO 2",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.22328,
+          -4.68682
+        ]
+      },
+      "properties": {
+        "file_id": "V61346003",
+        "frame_type": "VIS",
+        "lon_deg": 137.22328,
+        "lat_deg": -4.68682,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "MSL Cloud Triplet - ROTO 2",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5268,
+          -5.408226
+        ]
+      },
+      "properties": {
+        "file_id": "V61583004",
+        "frame_type": "VIS",
+        "lon_deg": 137.5268,
+        "lat_deg": -5.408226,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 4)",
+        "description": "MSL Cloud Pair - ROTO 1, Bands 1, 2 and 4",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.51073,
+          -5.526367
+        ]
+      },
+      "properties": {
+        "file_id": "V61608003",
+        "frame_type": "VIS",
+        "lon_deg": 137.51073,
+        "lat_deg": -5.526367,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 4)",
+        "description": "MSL Cloud Pair - NADIR, Bands 1, 2 and 4",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.93092,
+          -5.052098
+        ]
+      },
+      "properties": {
+        "file_id": "V62132003",
+        "frame_type": "VIS",
+        "lon_deg": 137.93092,
+        "lat_deg": -5.052098,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.373,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.76527,
+          -5.042263
+        ]
+      },
+      "properties": {
+        "file_id": "V62394003",
+        "frame_type": "VIS",
+        "lon_deg": 137.76527,
+        "lat_deg": -5.042263,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.37,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.52347,
+          -5.164062
+        ]
+      },
+      "properties": {
+        "file_id": "V62631003",
+        "frame_type": "VIS",
+        "lon_deg": 137.52347,
+        "lat_deg": -5.164062,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.365,
+        "bands": "(1, 4)",
+        "description": "Gale Cloud Triplet - ROTO 1",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.46439,
+          -5.282154
+        ]
+      },
+      "properties": {
+        "file_id": "V62656006",
+        "frame_type": "VIS",
+        "lon_deg": 137.46439,
+        "lat_deg": -5.282154,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.353,
+        "bands": "(1, 4)",
+        "description": "Gale Cloud Triplet - NADIR",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.40375,
+          -5.371979
+        ]
+      },
+      "properties": {
+        "file_id": "V62681003",
+        "frame_type": "VIS",
+        "lon_deg": 137.40375,
+        "lat_deg": -5.371979,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.367,
+        "bands": "(1, 4)",
+        "description": "Gale Cloud Triplet - ROTO 2",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.84581,
+          -5.423517
+        ]
+      },
+      "properties": {
+        "file_id": "V63155007",
+        "frame_type": "VIS",
+        "lon_deg": 137.84581,
+        "lat_deg": -5.423517,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.297,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.73515,
+          -5.503728
+        ]
+      },
+      "properties": {
+        "file_id": "V63654008",
+        "frame_type": "VIS",
+        "lon_deg": 137.73515,
+        "lat_deg": -5.503728,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.331,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.8344,
+          -5.186305
+        ]
+      },
+      "properties": {
+        "file_id": "V64627008",
+        "frame_type": "VIS",
+        "lon_deg": 137.8344,
+        "lat_deg": -5.186305,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.285,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.86282,
+          -4.643977
+        ]
+      },
+      "properties": {
+        "file_id": "V64864023",
+        "frame_type": "VIS",
+        "lon_deg": 137.86282,
+        "lat_deg": -4.643977,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.39,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.73978,
+          -5.511281
+        ]
+      },
+      "properties": {
+        "file_id": "V65313007",
+        "frame_type": "VIS",
+        "lon_deg": 137.73978,
+        "lat_deg": -5.511281,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.397,
+        "bands": "(1, 4)",
+        "description": "MSL Gale Crater: ROTO - VIS",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.22661,
+          -5.533216
+        ]
+      },
+      "properties": {
+        "file_id": "V65787007",
+        "frame_type": "VIS",
+        "lon_deg": 138.22661,
+        "lat_deg": -5.533216,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.412,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.31364,
+          -4.669234
+        ]
+      },
+      "properties": {
+        "file_id": "V66024007",
+        "frame_type": "VIS",
+        "lon_deg": 137.31364,
+        "lat_deg": -4.669234,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.524,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.05829,
+          -5.47334
+        ]
+      },
+      "properties": {
+        "file_id": "V66236003",
+        "frame_type": "VIS",
+        "lon_deg": 138.05829,
+        "lat_deg": -5.47334,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.397,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.21356,
+          -5.368854
+        ]
+      },
+      "properties": {
+        "file_id": "V66685007",
+        "frame_type": "VIS",
+        "lon_deg": 137.21356,
+        "lat_deg": -5.368854,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.33644,
+          -4.892436
+        ]
+      },
+      "properties": {
+        "file_id": "V67957011",
+        "frame_type": "VIS",
+        "lon_deg": 137.33644,
+        "lat_deg": -4.892436,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.32817,
+          -5.397778
+        ]
+      },
+      "properties": {
+        "file_id": "V71162003",
+        "frame_type": "VIS",
+        "lon_deg": 138.32817,
+        "lat_deg": -5.397778,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.297,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.35623,
+          -4.663227
+        ]
+      },
+      "properties": {
+        "file_id": "V71424003",
+        "frame_type": "VIS",
+        "lon_deg": 137.35623,
+        "lat_deg": -4.663227,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.391,
+        "bands": "(1, 4)",
+        "description": "MSL Landing Site: ROTO 2 - VIS",
+        "has_description": true,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.61705,
+          -5.391794
+        ]
+      },
+      "properties": {
+        "file_id": "V71848007",
+        "frame_type": "VIS",
+        "lon_deg": 137.61705,
+        "lat_deg": -5.391794,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.253,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12625,
+          -5.202261
+        ]
+      },
+      "properties": {
+        "file_id": "V72297012",
+        "frame_type": "VIS",
+        "lon_deg": 138.12625,
+        "lat_deg": -5.202261,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.369,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.38986,
+          -4.770833
+        ]
+      },
+      "properties": {
+        "file_id": "V72771010",
+        "frame_type": "VIS",
+        "lon_deg": 137.38986,
+        "lat_deg": -4.770833,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.34,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.84828,
+          -5.382732
+        ]
+      },
+      "properties": {
+        "file_id": "V74904019",
+        "frame_type": "VIS",
+        "lon_deg": 137.84828,
+        "lat_deg": -5.382732,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.54964,
+          -5.293736
+        ]
+      },
+      "properties": {
+        "file_id": "V75522002",
+        "frame_type": "VIS",
+        "lon_deg": 137.54964,
+        "lat_deg": -5.293736,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.5746,
+          -5.426958
+        ]
+      },
+      "properties": {
+        "file_id": "V75784002",
+        "frame_type": "VIS",
+        "lon_deg": 137.5746,
+        "lat_deg": -5.426958,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.80763,
+          -5.394188
+        ]
+      },
+      "properties": {
+        "file_id": "V76046002",
+        "frame_type": "VIS",
+        "lon_deg": 137.80763,
+        "lat_deg": -5.394188,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.80437,
+          -5.372652
+        ]
+      },
+      "properties": {
+        "file_id": "V77025006",
+        "frame_type": "VIS",
+        "lon_deg": 137.80437,
+        "lat_deg": -5.372652,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.37535,
+          -5.534032
+        ]
+      },
+      "properties": {
+        "file_id": "V77287006",
+        "frame_type": "VIS",
+        "lon_deg": 138.37535,
+        "lat_deg": -5.534032,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.52852,
+          -4.673457
+        ]
+      },
+      "properties": {
+        "file_id": "V77574006",
+        "frame_type": "VIS",
+        "lon_deg": 137.52852,
+        "lat_deg": -4.673457,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.27081,
+          -5.292242
+        ]
+      },
+      "properties": {
+        "file_id": "V77836006",
+        "frame_type": "VIS",
+        "lon_deg": 138.27081,
+        "lat_deg": -5.292242,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.13928,
+          -5.332003
+        ]
+      },
+      "properties": {
+        "file_id": "V78672003",
+        "frame_type": "VIS",
+        "lon_deg": 138.13928,
+        "lat_deg": -5.332003,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.91148,
+          -5.418414
+        ]
+      },
+      "properties": {
+        "file_id": "V78959003",
+        "frame_type": "VIS",
+        "lon_deg": 137.91148,
+        "lat_deg": -5.418414,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.373,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.74509,
+          -5.044861
+        ]
+      },
+      "properties": {
+        "file_id": "V79246003",
+        "frame_type": "VIS",
+        "lon_deg": 137.74509,
+        "lat_deg": -5.044861,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.341,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.25041,
+          -5.312609
+        ]
+      },
+      "properties": {
+        "file_id": "V80107007",
+        "frame_type": "VIS",
+        "lon_deg": 138.25041,
+        "lat_deg": -5.312609,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.335,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.32002,
+          -4.659152
+        ]
+      },
+      "properties": {
+        "file_id": "V80419006",
+        "frame_type": "VIS",
+        "lon_deg": 137.32002,
+        "lat_deg": -4.659152,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.4,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.74548,
+          -5.385234
+        ]
+      },
+      "properties": {
+        "file_id": "V80706007",
+        "frame_type": "VIS",
+        "lon_deg": 137.74548,
+        "lat_deg": -5.385234,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.33,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.03777,
+          -5.499466
+        ]
+      },
+      "properties": {
+        "file_id": "V80993010",
+        "frame_type": "VIS",
+        "lon_deg": 138.03777,
+        "lat_deg": -5.499466,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.376,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.34406,
+          -5.532699
+        ]
+      },
+      "properties": {
+        "file_id": "V81280010",
+        "frame_type": "VIS",
+        "lon_deg": 138.34406,
+        "lat_deg": -5.532699,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.333,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.29762,
+          -4.833225
+        ]
+      },
+      "properties": {
+        "file_id": "V81592025",
+        "frame_type": "VIS",
+        "lon_deg": 137.29762,
+        "lat_deg": -4.833225,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.325,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.56358,
+          -4.771897
+        ]
+      },
+      "properties": {
+        "file_id": "V81879006",
+        "frame_type": "VIS",
+        "lon_deg": 137.56358,
+        "lat_deg": -4.771897,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.371,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.01561,
+          -4.696618
+        ]
+      },
+      "properties": {
+        "file_id": "V82453010",
+        "frame_type": "VIS",
+        "lon_deg": 138.01561,
+        "lat_deg": -4.696618,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.452,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.30394,
+          -5.3275
+        ]
+      },
+      "properties": {
+        "file_id": "V82740018",
+        "frame_type": "VIS",
+        "lon_deg": 138.30394,
+        "lat_deg": -5.3275,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.414,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.48573,
+          -4.800864
+        ]
+      },
+      "properties": {
+        "file_id": "V84057002",
+        "frame_type": "VIS",
+        "lon_deg": 137.48573,
+        "lat_deg": -4.800864,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.98639,
+          -5.554882
+        ]
+      },
+      "properties": {
+        "file_id": "V84344002",
+        "frame_type": "VIS",
+        "lon_deg": 137.98639,
+        "lat_deg": -5.554882,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.76096,
+          -4.86445
+        ]
+      },
+      "properties": {
+        "file_id": "V85423003",
+        "frame_type": "VIS",
+        "lon_deg": 137.76096,
+        "lat_deg": -4.86445,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.20244,
+          -5.284494
+        ]
+      },
+      "properties": {
+        "file_id": "V85710003",
+        "frame_type": "VIS",
+        "lon_deg": 138.20244,
+        "lat_deg": -5.284494,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.29326,
+          -4.677105
+        ]
+      },
+      "properties": {
+        "file_id": "V86022008",
+        "frame_type": "VIS",
+        "lon_deg": 137.29326,
+        "lat_deg": -4.677105,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.72415,
+          -4.67471
+        ]
+      },
+      "properties": {
+        "file_id": "V86309023",
+        "frame_type": "VIS",
+        "lon_deg": 137.72415,
+        "lat_deg": -4.67471,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.34308,
+          -4.638844
+        ]
+      },
+      "properties": {
+        "file_id": "V86908003",
+        "frame_type": "VIS",
+        "lon_deg": 137.34308,
+        "lat_deg": -4.638844,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.74216,
+          -4.605851
+        ]
+      },
+      "properties": {
+        "file_id": "V87195003",
+        "frame_type": "VIS",
+        "lon_deg": 137.74216,
+        "lat_deg": -4.605851,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.09859,
+          -4.856012
+        ]
+      },
+      "properties": {
+        "file_id": "V87482003",
+        "frame_type": "VIS",
+        "lon_deg": 138.09859,
+        "lat_deg": -4.856012,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.79407,
+          -4.951558
+        ]
+      },
+      "properties": {
+        "file_id": "V89516014",
+        "frame_type": "VIS",
+        "lon_deg": 137.79407,
+        "lat_deg": -4.951558,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.395,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.85898,
+          -4.8465
+        ]
+      },
+      "properties": {
+        "file_id": "V89803013",
+        "frame_type": "VIS",
+        "lon_deg": 137.85898,
+        "lat_deg": -4.8465,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.403,
+        "bands": "(3)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12492,
+          -4.974682
+        ]
+      },
+      "properties": {
+        "file_id": "V90377010",
+        "frame_type": "VIS",
+        "lon_deg": 138.12492,
+        "lat_deg": -4.974682,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.415,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.30338,
+          -5.496924
+        ]
+      },
+      "properties": {
+        "file_id": "V90664010",
+        "frame_type": "VIS",
+        "lon_deg": 138.30338,
+        "lat_deg": -5.496924,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.376,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.229,
+          -4.755261
+        ]
+      },
+      "properties": {
+        "file_id": "V91263010",
+        "frame_type": "VIS",
+        "lon_deg": 137.229,
+        "lat_deg": -4.755261,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.4698,
+          -5.176616
+        ]
+      },
+      "properties": {
+        "file_id": "V91956002",
+        "frame_type": "VIS",
+        "lon_deg": 137.4698,
+        "lat_deg": -5.176616,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.67792,
+          -4.915427
+        ]
+      },
+      "properties": {
+        "file_id": "V92243002",
+        "frame_type": "VIS",
+        "lon_deg": 137.67792,
+        "lat_deg": -4.915427,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.83032,
+          -5.209127
+        ]
+      },
+      "properties": {
+        "file_id": "V92530002",
+        "frame_type": "VIS",
+        "lon_deg": 137.83032,
+        "lat_deg": -5.209127,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.18735,
+          -5.400347
+        ]
+      },
+      "properties": {
+        "file_id": "V93104001",
+        "frame_type": "VIS",
+        "lon_deg": 138.18735,
+        "lat_deg": -5.400347,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.3141,
+          -4.729433
+        ]
+      },
+      "properties": {
+        "file_id": "V93416001",
+        "frame_type": "VIS",
+        "lon_deg": 137.3141,
+        "lat_deg": -4.729433,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.58815,
+          -5.033185
+        ]
+      },
+      "properties": {
+        "file_id": "V94470003",
+        "frame_type": "VIS",
+        "lon_deg": 137.58815,
+        "lat_deg": -5.033185,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.30954,
+          -5.285114
+        ]
+      },
+      "properties": {
+        "file_id": "V95044003",
+        "frame_type": "VIS",
+        "lon_deg": 138.30954,
+        "lat_deg": -5.285114,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.46213,
+          -4.715195
+        ]
+      },
+      "properties": {
+        "file_id": "V96529003",
+        "frame_type": "VIS",
+        "lon_deg": 137.46213,
+        "lat_deg": -4.715195,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.30289,
+          -5.499151
+        ]
+      },
+      "properties": {
+        "file_id": "V97415003",
+        "frame_type": "VIS",
+        "lon_deg": 137.30289,
+        "lat_deg": -5.499151,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.316,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60696,
+          -4.86165
+        ]
+      },
+      "properties": {
+        "file_id": "V97702003",
+        "frame_type": "VIS",
+        "lon_deg": 137.60696,
+        "lat_deg": -4.86165,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.36,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.3863,
+          -4.90002
+        ]
+      },
+      "properties": {
+        "file_id": "V98276006",
+        "frame_type": "VIS",
+        "lon_deg": 138.3863,
+        "lat_deg": -4.90002,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.326,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.45824,
+          -4.727792
+        ]
+      },
+      "properties": {
+        "file_id": "V98588006",
+        "frame_type": "VIS",
+        "lon_deg": 137.45824,
+        "lat_deg": -4.727792,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.402,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.90019,
+          -5.303943
+        ]
+      },
+      "properties": {
+        "file_id": "V98875006",
+        "frame_type": "VIS",
+        "lon_deg": 137.90019,
+        "lat_deg": -5.303943,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.365,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.12813,
+          -4.623634
+        ]
+      },
+      "properties": {
+        "file_id": "V99162006",
+        "frame_type": "VIS",
+        "lon_deg": 138.12813,
+        "lat_deg": -4.623634,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.425,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.31946,
+          -5.197767
+        ]
+      },
+      "properties": {
+        "file_id": "V99474010",
+        "frame_type": "VIS",
+        "lon_deg": 137.31946,
+        "lat_deg": -5.197767,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.60344,
+          -5.104275
+        ]
+      },
+      "properties": {
+        "file_id": "V99761015",
+        "frame_type": "VIS",
+        "lon_deg": 137.60344,
+        "lat_deg": -5.104275,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.82985,
+          -5.416686
+        ]
+      },
+      "properties": {
+        "file_id": "VA0167002",
+        "frame_type": "VIS",
+        "lon_deg": 137.82985,
+        "lat_deg": -5.416686,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.43439,
+          -4.767885
+        ]
+      },
+      "properties": {
+        "file_id": "VA0766002",
+        "frame_type": "VIS",
+        "lon_deg": 137.43439,
+        "lat_deg": -4.767885,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.77736,
+          -5.247987
+        ]
+      },
+      "properties": {
+        "file_id": "VA1053002",
+        "frame_type": "VIS",
+        "lon_deg": 137.77736,
+        "lat_deg": -5.247987,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.17683,
+          -5.367092
+        ]
+      },
+      "properties": {
+        "file_id": "VA1340002",
+        "frame_type": "VIS",
+        "lon_deg": 138.17683,
+        "lat_deg": -5.367092,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.2388,
+          -5.261636
+        ]
+      },
+      "properties": {
+        "file_id": "VA1652002",
+        "frame_type": "VIS",
+        "lon_deg": 137.2388,
+        "lat_deg": -5.261636,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.45639,
+          -5.070773
+        ]
+      },
+      "properties": {
+        "file_id": "VA1939002",
+        "frame_type": "VIS",
+        "lon_deg": 137.45639,
+        "lat_deg": -5.070773,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.24297,
+          -4.601699
+        ]
+      },
+      "properties": {
+        "file_id": "VA4765003",
+        "frame_type": "VIS",
+        "lon_deg": 137.24297,
+        "lat_deg": -4.601699,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          138.07089,
+          -5.413251
+        ]
+      },
+      "properties": {
+        "file_id": "VA5339003",
+        "frame_type": "VIS",
+        "lon_deg": 138.07089,
+        "lat_deg": -5.413251,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": null,
+        "bands": "(1, 2, 3, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          137.75542,
+          -4.917837
+        ]
+      },
+      "properties": {
+        "file_id": "VA7111006",
+        "frame_type": "VIS",
+        "lon_deg": 137.75542,
+        "lat_deg": -4.917837,
+        "surf_temp_k": null,
+        "surf_temp_c": null,
+        "alb_avg": 0.502,
+        "bands": "(1, 4)",
+        "description": "No Description Given",
+        "has_description": false,
+        "temp_status": "UNKNOWN"
+      }
+    }
+  ]
+}

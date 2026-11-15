@@ -1,0 +1,74 @@
+
+# Local climate model files
+backend/artifacts/
+backend/data/
+backend/.venv-climate/
+
+# Python environments and caches
+.venv/
+.venv-climate/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local model artifacts and datasets
+backend/artifacts/
+backend/data/
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+# Local climate model inspection and conversion utilities
+backend/Containerfile.climate-convert
+backend/Containerfile.climate-inspect
+backend/convert_climate_model.py
+backend/inspect_climate_model.py
+backend/verify_climate_model.py
+
+# ARES backend local files
+.venv*/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.env.*
+!.env.example
+artifacts/
+*.pkl
+*.skops
+*.joblib
+*.csv
+*.npy
+*.tif
+*.tiff
+eva_preview.png
+eva_enhanced.png
+eva_route_demo.png
+temp.zip
+vm - 4 th location.zip
+
+# ARES local development files
+.venv*/
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.env.*
+!.env.example
+artifacts/
+*.pkl
+*.skops
+*.joblib
+*.csv
+*.npy
+*.tif
+*.tiff
+eva_preview.png
+eva_enhanced.png
+eva_route_demo.png
+temp.zip
+vm - 4 th location.zip
