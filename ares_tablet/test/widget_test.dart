@@ -18,7 +18,7 @@ Future<void> _loadAresFonts() async {
 }
 
 void main() {
-  testWidgets('ARES boots to mission control on a 1280x800 tablet', (
+  testWidgets('ARES MAP boots to full-bleed Mars EVA Tactical Map on a 1280x800 tablet', (
     tester,
   ) async {
     tester.view.physicalSize = const Size(1280, 800);
@@ -38,31 +38,61 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('MISSION CONTROL'), findsOneWidget);
-    expect(find.text('GALE CRATER · AEOLIS PALUS'), findsOneWidget);
+    expect(find.text('ARES MAP'), findsOneWidget);
+    expect(find.text('MARS EVA TACTICAL MAP'), findsOneWidget);
+    expect(find.text('Controls & Layers'), findsOneWidget);
+    expect(find.text('Telemetry & Inspector'), findsOneWidget);
     expect(state.stamps.length, 730);
     expect(state.meda.length, 63);
     expect(state.route, isNotNull);
 
-    await tester.tap(find.text('MAP'));
+    // 1. Open Left Drawer (MAP CONTROLS & LAYERS)
+    await tester.tap(find.text('Controls & Layers'));
     await tester.pump();
-    expect(find.text('SURFACE MAP'), findsOneWidget);
+    expect(find.text('MAP CONTROLS & LAYERS'), findsOneWidget);
+    expect(find.text('Whole Mars'), findsOneWidget);
+    expect(find.text('3D Mars Globe'), findsOneWidget);
+    expect(find.text('Launch Mars Street View'), findsOneWidget);
 
-    await tester.tap(find.text('SCIENCE'));
+    // 2. Open Right Drawer (TELEMETRY & INSPECTOR) & test Bit-Flip EDAC
+    await tester.tap(find.text('Telemetry & Inspector'));
     await tester.pump();
-    expect(find.text('SCIENCE / SAMPLE LOG'), findsOneWidget);
-
-    await tester.tap(find.text('SURFACE'));
+    expect(find.text('TELEMETRY & INSPECTOR'), findsOneWidget);
+    expect(find.text('FEATURE & SITE INSPECTOR'), findsOneWidget);
+    expect(find.text('CRC32 OK'), findsOneWidget);
+    await tester.tap(find.text('Test Bit-Flip EDAC'));
     await tester.pump();
-    expect(find.text('SURFACE IMAGERY'), findsOneWidget);
-    final surfaceException = tester.takeException();
+    expect(find.text('EDAC FIXED (1)'), findsOneWidget);
 
-    await tester.tap(find.text('MISSION'));
+    // 3. Launch 3D Mars Globe Modal & close it
+    await tester.tap(find.text('3D Mars Globe'));
     await tester.pump();
-    expect(find.text('MISSION CONTROL'), findsOneWidget);
+    expect(find.text('3D Mars Planet & Terrain'), findsOneWidget);
+    await tester.tap(find.text('Close 3D'));
+    await tester.pump();
+    expect(find.text('3D Mars Planet & Terrain'), findsNothing);
 
+    // 4. Launch 360° Mars Street View Modal & close it
+    await tester.tap(find.text('Launch Mars Street View'));
+    await tester.pump();
+    expect(find.text('Mars 360° Street View'), findsOneWidget);
+    expect(find.text('Astronaut'), findsOneWidget);
+    await tester.tap(find.text('Astronaut'));
+    await tester.pump();
+    await tester.tap(find.text('Close'));
+    await tester.pump();
+    expect(find.text('Mars 360° Street View'), findsNothing);
+
+    // 5. Launch Interactive Guide Tour & skip
+    await tester.tap(find.text('? Guide'));
+    await tester.pump();
+    expect(find.textContaining('Welcome to ARES MAP'), findsOneWidget);
+    await tester.tap(find.text('Skip Tour'));
+    await tester.pump();
+
+    final exception = tester.takeException();
     await tester.pumpWidget(const SizedBox.shrink());
     state.dispose();
-    expect(surfaceException, isNull);
+    expect(exception, isNull);
   });
 }

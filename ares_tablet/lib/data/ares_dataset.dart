@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../models/ares_models.dart';
+import 'exploration_data.dart';
 
 class AresDataset {
   AresDataset({
@@ -14,6 +15,7 @@ class AresDataset {
     required this.meda,
     required this.photos,
     this.curiosityTrail = const [],
+    this.catalogFeatures = const [],
   });
 
   final String region;
@@ -24,6 +26,7 @@ class AresDataset {
   final List<MedaRecord> meda;
   final List<SurfacePhoto> photos;
   final List<GeoPoint> curiosityTrail;
+  final List<SurveyFeature> catalogFeatures;
 
   MarsReference get landingSite => references.firstWhere(
     (r) => r.id == 'bradbury_landing',
@@ -108,17 +111,16 @@ class AresDataset {
     final exploration = jsonDecode(
       await rootBundle.loadString('assets/data/exploration.json'),
     ) as List;
-    final curiosity = exploration
-        .where((f) => f['kind'] == 'Curiosity')
-        .map(
-          (f) => GeoPoint(
-            (f['lon'] as num).toDouble(),
-            (f['lat'] as num).toDouble(),
-          ),
-        )
+    final catalogFeatures = exploration
+        .map((f) => SurveyFeature.fromJson(f as Map<String, dynamic>))
+        .toList(growable: false);
+    final curiosity = catalogFeatures
+        .where((f) => f.kind == 'Curiosity')
+        .map((f) => f.point)
         .toList();
     return AresDataset(
       curiosityTrail: curiosity,
+      catalogFeatures: catalogFeatures,
       region: '${gale['region']}',
       crs: '${gale['crs']}',
       bounds: bounds,

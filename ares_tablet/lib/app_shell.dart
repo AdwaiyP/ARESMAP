@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'data/ares_dataset.dart';
 import 'data/backend_api.dart';
-import 'screens/map_screen.dart';
-import 'screens/mission_screen.dart';
-import 'screens/science_screen.dart';
-import 'screens/surface_screen.dart';
-import 'screens/terrain_screen.dart';
+import 'screens/ares_map_workspace.dart';
 import 'state/ares_scope.dart';
 import 'state/ares_state.dart';
 import 'theme/ares_theme.dart';
 import 'widgets/hud.dart';
-import 'widgets/shell_chrome.dart';
 
 class AresBootstrap extends StatefulWidget {
   const AresBootstrap({super.key});
@@ -85,61 +80,13 @@ class _AresBootstrapState extends State<AresBootstrap> {
 class AresAppShell extends StatelessWidget {
   const AresAppShell({super.key});
 
-  static const _screens = [
-    MissionScreen(),
-    MapScreen(),
-    TerrainScreen(),
-    SurfaceScreen(),
-    ScienceScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ARES · Mars Surface Operations',
+      title: 'ARES MAP — Mars EVA Tactical GIS & 3D Surface Simulation',
       debugShowCheckedModeBanner: false,
       theme: buildAresTheme(),
-      home: const _ShellScaffold(),
-    );
-  }
-}
-
-class _ShellScaffold extends StatelessWidget {
-  const _ShellScaffold();
-
-  @override
-  Widget build(BuildContext context) {
-    final state = AresScope.of(context);
-    return PopScope(
-      canPop: state.screenIndex == 0,
-      onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) state.setScreen(0);
-      },
-      child: Scaffold(
-        body: StarfieldBackground(
-          child: SafeArea(
-            child: Column(
-              children: [
-                const AresTopBar(),
-                Expanded(
-                  child: Row(
-                    children: [
-                      const AresNavRail(),
-                      Expanded(
-                        child: IndexedStack(
-                          index: state.screenIndex,
-                          children: AresAppShell._screens,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const AresBottomBar(),
-              ],
-            ),
-          ),
-        ),
-      ),
+      home: const AresMapWorkspace(),
     );
   }
 }
@@ -154,103 +101,102 @@ class _BootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StarfieldBackground(
-        child: Center(
-          child: SizedBox(
-            width: 460,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 72,
-                  height: 72,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AresColors.cyan.withValues(alpha: 0.45),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AresColors.cyan.withValues(alpha: 0.12),
-                        blurRadius: 32,
-                      ),
-                    ],
+      backgroundColor: const Color(0xFF09090B),
+      body: Center(
+        child: SizedBox(
+          width: 460,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 72,
+                height: 72,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AresColors.cyan.withValues(alpha: 0.45),
                   ),
-                  child: const Icon(
-                    Icons.public,
-                    size: 34,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AresColors.cyan.withValues(alpha: 0.12),
+                      blurRadius: 32,
+                    ),
+                  ],
+                ),
+                child: const Icon(
+                  Icons.public,
+                  size: 34,
+                  color: AresColors.cyan,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'ARES MAP',
+                style: AresType.displayStyle(
+                  size: 40,
+                  spacing: 6,
+                  color: AresColors.text,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'MARS EVA TACTICAL MAP · GALE & JEZERO',
+                style: AresType.label(
+                  size: 9,
+                  color: AresColors.muted,
+                  spacing: 2.2,
+                ),
+              ),
+              const SizedBox(height: 30),
+              if (error == null) ...[
+                const SizedBox(
+                  height: 2,
+                  child: LinearProgressIndicator(
+                    minHeight: 2,
                     color: AresColors.cyan,
+                    backgroundColor: AresColors.line,
                   ),
                 ),
-                const SizedBox(height: 18),
+                const SizedBox(height: 12),
                 Text(
-                  'ARES',
-                  style: AresType.displayStyle(
-                    size: 44,
-                    spacing: 10,
-                    color: AresColors.text,
-                  ),
+                  'LOADING ARCHIVE · 730 THEMIS STAMPS · 63 MEDA BUCKETS',
+                  textAlign: TextAlign.center,
+                  style: AresType.monoStyle(size: 8.5, color: AresColors.dim),
                 ),
-                const SizedBox(height: 4),
+              ] else ...[
                 Text(
-                  'MARS SURFACE OPERATIONS · GALE CRATER',
+                  'ARCHIVE LOAD FAILED',
                   style: AresType.label(
-                    size: 9,
-                    color: AresColors.muted,
-                    spacing: 2.2,
+                    size: 11,
+                    color: AresColors.red,
+                    spacing: 1.4,
                   ),
                 ),
-                const SizedBox(height: 30),
-                if (error == null) ...[
-                  SizedBox(
-                    height: 2,
-                    child: LinearProgressIndicator(
-                      minHeight: 2,
-                      color: AresColors.cyan,
-                      backgroundColor: AresColors.line,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'LOADING ARCHIVE · 730 THEMIS STAMPS · 63 MEDA BUCKETS',
-                    textAlign: TextAlign.center,
-                    style: AresType.monoStyle(size: 8.5, color: AresColors.dim),
-                  ),
-                ] else ...[
-                  Text(
-                    'ARCHIVE LOAD FAILED',
-                    style: AresType.label(
-                      size: 11,
-                      color: AresColors.red,
-                      spacing: 1.4,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    error!,
-                    maxLines: 5,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: AresType.monoStyle(size: 9, color: AresColors.muted),
-                  ),
-                  const SizedBox(height: 16),
-                  AresButton(
-                    label: loading ? 'Retrying' : 'Retry archive load',
-                    icon: Icons.refresh,
-                    onTap: onRetry,
-                  ),
-                ],
-                const SizedBox(height: 26),
+                const SizedBox(height: 8),
                 Text(
-                  'NASA SPACE APPS CHALLENGE 2026 · TEAM ARES',
-                  style: AresType.label(
-                    size: 7.5,
-                    color: AresColors.dim,
-                    spacing: 1.6,
-                  ),
+                  error!,
+                  maxLines: 5,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: AresType.monoStyle(size: 9, color: AresColors.muted),
+                ),
+                const SizedBox(height: 16),
+                AresButton(
+                  label: loading ? 'Retrying' : 'Retry archive load',
+                  icon: Icons.refresh,
+                  onTap: onRetry,
                 ),
               ],
-            ),
+              const SizedBox(height: 26),
+              Text(
+                'NASA SPACE APPS CHALLENGE 2026 · TEAM ARES',
+                style: AresType.label(
+                  size: 7.5,
+                  color: AresColors.dim,
+                  spacing: 1.6,
+                ),
+              ),
+            ],
           ),
         ),
       ),
